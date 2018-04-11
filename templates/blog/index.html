@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+
+{%block main %}
+
+  {% if error_msg %}
+  <h1> {{error_msg}}</h1>
+  {% else %}
+
+<div>
+  <form role="search" method="get"  action="{% url 'blog:highsearch' %}">
+    <table width="95%"  cellpadding="2" cellspacing="1" >
+        <tr class="row1">
+            <th><a>search</a></th>
+            <th><a>low</a></th>
+            <th><a>high</a></th>
+        </tr>
+        <tr><th><a>mzrange</a></th>
+            <td><a><input type="search" name="lowmz" placeholder="搜索" ></a></td>
+            <td><a><input type="search" name="highmz" placeholder="搜索" ></a></td>
+        </tr>
+        <tr>
+            <th><a>rtrange</a></th>
+            <td><a><input type="search" name="lowrt" placeholder="搜索" ></a></td>
+            <td><a><input type="search" name="highrt" placeholder="搜索" ></a></td>       
+        </tr>
+        <tr>
+            <th colspan="3">
+                <button type="submit"><span class="ion-ios-search-strong"></span></button>
+            </th>
+        </tr>
+    </table>
+  </form>
+</div>
+
+<div class="results">
+    <table id="result_list" width="95%"  cellpadding="2" cellspacing="1">
+    <thead>
+    <tr>
+    <th scope="col"  class="sortable column-metabolomics">   
+       <div class="text"><a href="?sort=1">Metabolomics</a></div>
+       </form>
+    </th>
+    <th scope="col"  class="sortable column-mz">
+       <div class="text"><a href="{% url 'blog:sortindexmz' %}" >Mz</a></div>
+    </th>
+    <th scope="col"  class="sortable column-rt">
+       <div class="text"><a href="{% url 'blog:sortindexrt' %}">Rt</a></div>
+       <div class="clear"></div>
+    </th>
+    <th scope="col"  class="sortable column-provider">
+       <div class="text"><a href="?sort=provider">Provider</a></div>
+       <div class="clear"></div>
+    </th>
+    <th scope="col"  class="sortable column-updatetime">
+       <div class="text"><a href="?sort = time">Updatetime</a></div>
+       <div class="clear"></div>
+    </th>
+    </tr>
+    </thead>
+    <tbody>
+
+    
+
+
+    {% for meta in meta_list %}
+    <tr class="row1">
+      <th class="field-metabolomics"><a href="/admin/blog/meta/2/change/">{{meta.metabolomics}}</a></th>
+      <td class="field-mz">{{meta.mz}}</td>
+      <td class="field-rt">{{meta.rt}}</td>
+      <td class="field-provider nowrap">{{meta.provider}}</td>
+      <td class="field-updatetime nowrap"><time class="entry-date" datetime="{{ meta.updatetime}}">{{ meta.updatetime}}</time></td>
+    </tr> 
+    {% empty %}
+      <div class="row1">null</div>
+    {% endfor %}
+
+
+   
+    
+    </tbody>
+    </table>
+    </div>
+    {% endif %}
+{% endblock main %}

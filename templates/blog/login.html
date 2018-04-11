@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block main %}
+
+<h1>{{ state }}</h1>
+
+
+<form action="" method="post" >
+    <table width="95%"  cellpadding="2" cellspacing="1" >
+
+    {% csrf_token %}
+
+    <tr><th><a>username:</a></th>
+    <th><input type="text" name="username" value="{{ username }}" /></th></tr>
+    <tr><th><a>password:</a></th>
+    <th><input type="password" name="password" value="{{password}}" /></th></tr>
+    
+
+    <input type="submit" value="Log In"/>
+
+
+    </table>
+</form>
+
+
+
+{% endblock main %}

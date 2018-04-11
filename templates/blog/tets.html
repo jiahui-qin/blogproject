@@ -1,0 +1,267 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">    
+    <!-- meta -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- css -->
+    <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="{% static 'blog/css/bootstrap.min.css' %}">
+	<link rel="stylesheet" href="{% static 'blog/css/pace.css' %}">
+	<link rel="stylesheet" href="{% static 'blog/css/bootstrap.css' %}">
+	<link rel="stylesheet" href="{% static 'blog/css/bootstrap-theme.css' %}">
+	<link rel="stylesheet" href="{% static 'blog/css/bootstrap-theme.min.css' %}">
+    <link rel="stylesheet" href="{% static 'blog/css/custom.css' %}">
+    <link rel="stylesheet" href="{% static 'blog/css/highlights/github.css' %}">
+
+    <!-- js -->
+    <script src="{% static 'blog/js/jquery-2.1.3.min.js' %}"></script>
+	<script src="{% static 'blog/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'blog/js/pace.min.js' %}"></script>
+	<script src="{% static 'blog/js/modernizr.custom.js' %}"></script>
+	<script src="{% static 'blog/js/npm.js' %}"></script>
+	<script src="{% static 'blog/js/script.js' %}"></script>
+</head>
+<body>
+        <div class="container">
+                <header id="site-header">
+                    <div class="row">
+                        <div class="col-md-3 col-sm-5 col-xs-8">
+                            <div class="logo">
+                                <h1><a href="#"><b>metabolomics</b> database</a></h1>
+                            </div>
+                        </div><!-- col-md-4 -->
+                        <div class="col-md-9 col-sm-7 col-xs-4">
+                            <nav class="main-nav" role="navigation">
+                                <div class="navbar-header">
+                                    <button type="button" id="trigger-overlay" class="navbar-toggle">
+                                        <span class="ion-navicon"></span>
+                                    </button>
+                                </div>
+                                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                                    <ul class="nav navbar-nav navbar-right">
+                                        <li class="cl-effect-11"><a href="#" data-hover="送测记录">送测记录</a></li>
+                                        <li class="cl-effect-11"><a href="#" data-hover="化合物数据库">化合物数据库</a></li>
+                                        <li class="cl-effect-11"><a href="#" data-hover="菌株数据库">菌株数据库</a></li>
+                                        <li class="cl-effect-11"><a href="#" data-hover="粗提物数据库">粗提物数据库</a></li>
+                                        <li class="cl-effect-11"><a href="#" data-hover="登出">登出</a></li>
+                                    </ul>
+                                </div><!-- /.navbar-collapse -->
+                            </nav>
+                        </div><!-- col-md-8 -->
+                    </div>
+                </header>
+            </div>
+            
+            <div class="alert alert-warning">
+                <a href="#" class="close" data-dismiss="alert">
+                    &times;
+                </a>
+                <strong>警告！</strong>您的网络连接有问题。
+            </div>
+            
+
+
+            <div class="row">
+                <div class="col-md-4 col-sm-5 col-xs-8">
+                    <center>
+                   <!--  <button type="button" class="btn btn-info  btn-lg">上传</button>-->
+
+                        <button class="btn btn-info btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+                            上传
+                        </button>
+                        <!-- 模态框（Modal） -->
+                        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×
+                                        </button>
+                                        <h4 class="modal-title" id="myModalLabel">
+                                            上传新记录
+                                        </h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <!-- 输入新记录表单 -->
+                                            <form class="form-horizontal" role="form" method="get" action="{% url 'blog:upload' %}">
+                                                    {% csrf_token %}
+                                                <!--
+                                                <div class="form-group">
+                                                    <label for="firstname" class="col-sm-2 control-label">序号</label>
+                                                    <div class="col-sm-10">
+                                                    <input type="input" name="number" class="form-control" id="firstname" placeholder="请输入">
+                                                    </div>
+                                                </div>
+                                            -->
+                                                <div class="form-group">
+                                                    <label for="lastname" class="col-sm-2 control-label">类别</label>
+                                                    <div class="col-sm-10">
+                                                    <input type="input" name="testtype" class="form-control" id="lastname" placeholder="请输入">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="lastname" class="col-sm-2 control-label">盒序号</label>
+                                                    <div class="col-sm-10">
+                                                    <input type="input" name="boxnumber" class="form-control" id="lastname" placeholder="请输入">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="lastname" class="col-sm-2 control-label">样品起序号</label>
+                                                    <div class="col-sm-10">
+                                                    <input type="input" name="samplestart" class="form-control" id="lastname" placeholder="请输入">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="lastname" class="col-sm-2 control-label">样品终序号</label>
+                                                    <div class="col-sm-10">
+                                                    <input type="input" name="sampleend" class="form-control" id="lastname" placeholder="请输入">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="lastname" class="col-sm-2 control-label">样品名</label>
+                                                    <div class="col-sm-10">
+                                                    <input type="input" name="samplename" class="form-control" id="lastname" placeholder="请输入">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="lastname" class="col-sm-2 control-label">溶剂</label>
+                                                    <div class="col-sm-10">
+                                                    <input type="input" name="solvent" class="form-control" id="lastname" placeholder="请输入">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="lastname" class="col-sm-2 control-label">重量(μg)</label>
+                                                    <div class="col-sm-10">
+                                                    <input type="input" name="mass" class="form-control" id="lastname" placeholder="请输入">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="lastname" class="col-sm-2 control-label">体积(μL)</label>
+                                                    <div class="col-sm-10">
+                                                    <input type="input" name="volume" class="form-control" id="lastname" placeholder="请输入">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="lastname" class="col-sm-2 control-label">样品浓度(mg/mL)</label>
+                                                    <div class="col-sm-10">
+                                                    <input type="input" name="concentration" class="form-control" id="lastname" placeholder="请输入">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="lastname" class="col-sm-2 control-label">测试浓度(μg/mL)</label>
+                                                    <div class="col-sm-10">
+                                                    <input type="input" name="testconcentration" class="form-control" id="lastname" placeholder="请输入">
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="lastname" class="col-sm-2 control-label">测样单位</label>
+                                                    <div class="col-sm-10">
+                                                    <input type="input" name="department" class="form-control" id="lastname" placeholder="请输入">
+                                                    </div>
+                                                </div>
+
+                                                
+                                                <div class="form-group">
+                                                    <label for="lastname" class="col-sm-2 control-label">备注</label>
+                                                    <div class="col-sm-10">
+                                                    <input type="input" name="comment" class="form-control" id="lastname" placeholder="请输入">
+                                                    </div>
+                                                </div>
+                                                    <div class="col-sm-offset-2 col-sm-10">
+                                                      <button type="submit" class="btn btn-default">提交新纪录</button>
+                                                    </div>
+                                                </form>
+                                                <!-- 
+                                                <div class="form-group">
+                                                  <div class="col-sm-offset-2 col-sm-10">
+                                                        <div class="checkbox">
+                                                          <label>
+                                                            <input type="checkbox">请记住我
+                                                          </label>
+                                                        </div>
+                                                      </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                      <div class="col-sm-offset-2 col-sm-10">
+                                                        <button type="submit" class="btn btn-default">登录</button>
+                                                      </div>
+                                                    </div>
+                                                  </form>
+                                                -->
+
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">
+                                            关闭
+                                        </button>
+                                    </div>
+                                </div><!-- /.modal-content -->
+                            </div><!-- /.modal-dialog -->
+                        </div><!-- /.modal -->
+                    </center>
+                </div><!-- col-md-4 -->
+                <div class="col-md-8 col-sm-7 col-xs-4">
+                    <nav class="main-nav" role="navigation">
+                        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                                <ul class="list-unstyled text-center" >
+                                    <li>当前数据库有xx条记录</li>
+                                    <li>本日上传记录xx条</li>
+                                    <li>本周上传记录xx条</li>
+                                  </ul>
+                        </div><!-- /.navbar-collapse -->
+                    </nav>
+                </div><!-- col-md-8 -->
+            </div>
+
+            <div class="col-md-12 col-sm-7 col-xs-4">
+            <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>类别</th>
+                            <th>盒序号</th>
+                            <th>样品起序号</th>
+                            <th>样品终序号</th>
+                            <th>样品数量</th>
+                            <th>样品名</th>
+                            <th>溶剂</th>
+                            <th>重量（μg）</th>
+                            <th>体积(μl)</th>
+                            <th>样品浓度(mg/mL)</th>
+                            <th>测试浓度(μg/ml)</th>
+                            <th>提供人(送样人)</th>
+                            <th>测样单位</th>
+                            <th>送测时间</th>
+                            <th>备注</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                            {% for test in tests %}
+                            <tr class="row1">
+                                    <td class="field-testtype"> {{test.testtype}}</td>
+                                    <th class = "field-boxnumber">{{test.boxnumber}}</th>
+                                    <th class = "field-samplestart">{{test.samplestart}}</th>
+                                    <th class = "field-sampleend">{{test.sampleend}}</th>
+                                    <th class = "field-samplenum">{{test.samplenum}}</th>
+                                    <th class = "field-samplename">{{test.samplename}}</th>
+                                    <th class = "field-solvent">{{test.solvent}}</th>
+                                    <th class = "field-mass">{{test.mass}}</th>
+                                    <th class = "field-volume">{{test.volume}}</th>
+                                    <th class = "field-concentration">{{test.concentration}}</th>
+                                    <th class = "field-testconcentration">{{test.testconcentration}}</th>
+                                    <th class = "field-provider">{{test.provider}}</th>
+                                    <th class = "field-department">{{test.department}}</th>
+                                    <th class = "field-sentime">{{test.sendtime}}</th>
+                                    <th class = "field-comment">{{test.comment}}</th>
+                            </tr> 
+                            {% empty %}
+                              <div class="row1">null</div>
+                            {% endfor %}
+                    </tbody>
+                </table>
+                </div>
+</body>
+</html>

@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block main %}
+
+<h1>{{ state }}</h1>
+
+
+<form action="" method="get" action="{% url 'blog:managedata' %}">
+    <table width="95%"  cellpadding="2" cellspacing="1" >
+        <tr class="row1">
+            <th><a>metabolomics</a></th>
+            <th><a>mz</a></th>
+            <th><a>rt</a></th>
+        </tr>
+        <tr><th><a><input type="input" name="metabolomics"></a></th>
+            <td><a><input type="input" name="mz"></a></td>
+            <td><a><input type="input" name="rt"></a></td>
+        </tr>
+        <tr>
+            <th colspan="3">
+                <button type="submit"><span class="ion-ios-search-strong"></span></button>
+            </th>
+        </tr>
+    </table>
+</form>
+
+
+
+{% endblock main %}
