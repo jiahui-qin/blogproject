@@ -77,9 +77,3 @@ class bact(models.Model):
     storetimr = models.DateTimeField() #收藏时间
     def __str__(self):
         return self.bactnumber + '|' + self.chinesename
-
-
-
-
-
-

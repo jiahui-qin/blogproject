@@ -9,10 +9,22 @@ from django.db.models import Q
 from django.utils import timezone
 
 @login_required
-def index(request, msg = -1):
-    tests = testrecord.objects.all()
+def index(request, lists, msg = -1):
 #    #return HttpResponseRedirect(reverse(NAME_OF_PROFILE_VIEW, args=[request.user.username]))
-    return render(request, 'blog/tets.html', context = {'tests' : tests, 'msg' : msg} )
+    return render(request, 'blog/tets.html', context = {'tests' : lists, 'msg' : msg} )
+
+
+def recordindex(request, msg = -1):
+    lists = testrecord.objects.all()
+    return index(request, lists, msg)
+
+def crudeexindex(request, msg = -1):
+    lists = crudeex.objects.all()
+    return index(request, lists, msg)
+
+def bactindex(request, msg = -1):
+    lists = bact.objects.all()
+    return index(request, lists, msg)
 
 def upload(request):
     if request.method == "GET":
@@ -48,10 +60,11 @@ def upload(request):
                 'provider': request.user
             }        
             testrecord.objects.create(**info)
-            return index(request, msg = 0) #msg = 0代表正常插入
+            return recordindex(request, msg = 0) #msg = 0代表正常插入
         except:
             print(222)
-            return index(request, msg = 1) #msg = 1 代表插入失败
+            return recordindex(request, msg = 1) #msg = 1 代表插入失败
+
 
 @login_required
 def altermanage(request):
@@ -139,10 +152,10 @@ def login_user(request):
             state = "Your username and/or password were incorrect."
     return render(request, 'blog/login.html', context = {'title':'my database', 'state':state} )
 
-#def logout_user(request):
-#  logout(request)
-#  # Redirect to a success page.
-#  return HttpResponseRedirect("/accounts/login/")
+def logout_user(request):
+    logout(request)
+    # Redirect to a success page.
+    return HttpResponseRedirect("/accounts/login/")
 #
 #
 #def managedata(request):
