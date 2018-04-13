@@ -11,7 +11,7 @@ from django.utils import timezone
 @login_required
 def index(request, lists, msg = -1):
 #    #return HttpResponseRedirect(reverse(NAME_OF_PROFILE_VIEW, args=[request.user.username]))
-    return render(request, 'blog/tets.html', context = {'tests' : lists, 'msg' : msg} )
+    return render(request, 'blog/record.html', context = {'tests' : lists, 'msg' : msg} )
 
 
 def recordindex(request, msg = -1):
@@ -20,7 +20,8 @@ def recordindex(request, msg = -1):
 
 def crudeexindex(request, msg = -1):
     lists = crudeex.objects.all()
-    return index(request, lists, msg)
+    return render(request, 'blog/crudeex.html', context = {'tests' : lists, 'msg' : msg} )
+
 
 def bactindex(request, msg = -1):
     lists = bact.objects.all()
@@ -78,6 +79,56 @@ def altermanage(request):
 
 def alter(request):
     return render
+
+def curdeexupload(request):
+    if request.method == 'GET':
+        mcccnumber = request.GET.get('mcccnumber')
+        genus = request.GET.get('genus')
+        species = request.GET.get('species')
+        chinesename = request.GET.get('chinesename')
+        media = request.GET.get('media')
+        medianumber = request.GET.get('medianumber')
+        mass = request.GET.get('mass')
+        stockmass = request.GET.get('stockmass')
+        cointermass = request.GET.get('cointermass')
+        entertime = request.GET.get('entertime')
+        entervol = request.GET.get('entervol')
+        entercol = request.GET.get('entercol')
+        tetscol = request.GET.get('tetscol')
+        testvol = request.GET.get('testvol')
+        activecol = request.GET.get('activecol')
+        solvent = request.GET.get('solvent')
+        culture = request.GET.get('culture')
+        exrmethod = request.GET.get('exrmethod')
+        department = request.GET.get('department')
+        activeresult = request.GET.get('activeresult')
+        comment = request.GET.get('comment')
+        info = {
+                'mcccnumber' : mcccnumber, 
+                'genus' : genus, 
+                'species' : species, 
+                'chinesename' : chinesename, 
+                'media' : media, 
+                'medianumber' : medianumber, 
+                'mass' : mass, 
+                'stockmass' : stockmass, 
+                'cointermass' : cointermass, 
+                'entertime' : entertime, 
+                'entervol' : entervol, 
+                'entercol' : entercol, 
+                'tetscol' : tetscol, 
+                'testvol' : testvol, 
+                'activecol' : activecol, 
+                'solvent' : solvent, 
+                'culture' : culture, 
+                'exrmethod' : exrmethod,
+                'department' : department, 
+                'activeresult' : activeresult, 
+                'comment' : comment, 
+                'provider': request.user,
+        }
+        crudeex.objects.create(**info)
+        return crudeexindex(request, msg = 0) 
 
 
 #@login_required(login_url='/accounts/login/')

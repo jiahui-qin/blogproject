@@ -2,25 +2,46 @@
 
 {% block main %}
 
-<h1>{{ state }}</h1>
+
+<div class="col-md-4 column">
+</div>
+<div class="col-md-4 column">
 
 
-<form action="" method="post" >
-    <table width="95%"  cellpadding="2" cellspacing="1" >
+<div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">{{ state }}</h3>
+	</div>
 
-    {% csrf_token %}
+    <div class="panel-body">
+    <form class="form-horizontal" role="form"  action=""  method="post">
+            {% csrf_token %}
+        <div class="form-group">
+          <label for="firstname" class="col-sm-2 control-label">账号</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" name="username" value="{{ username }}"placeholder="请输入账号">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="lastname" class="col-sm-2 control-label">密码</label>
+          <div class="col-sm-10">
+            <input type="password" name="password" value="{{password}}" class="form-control" placeholder="请输入密码">
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-default"  value="Log In">登录</button>
+          </div>
+        </div>
+      </form>
+    </div>
+</div>
 
-    <tr><th><a>username:</a></th>
-    <th><input type="text" name="username" value="{{ username }}" /></th></tr>
-    <tr><th><a>password:</a></th>
-    <th><input type="password" name="password" value="{{password}}" /></th></tr>
-    
 
-    <input type="submit" value="Log In"/>
+</div>
+<div class="col-md-4 column">
+</div>
 
-
-    </table>
-</form>
 
 
 
