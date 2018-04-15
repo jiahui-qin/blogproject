@@ -107,9 +107,9 @@ class cpd(models.Model):
     ms = models.CharField(max_length = 100)#ms数据
     rot = models.CharField(max_length = 100)#旋光数据
     red = models.CharField(max_length = 100)#红外数据
-    blue = models.CharField(max_length = 100)#紫外数据2
+    blue = models.CharField(max_length = 100)#紫外数据
     media = models.CharField(max_length = 50)#培养基编号
-    depa = models.CharField(max_length = 100)#活性送测范围
+    depa = models.CharField(max_length = 100)#活性送测单位
     spc = models.CharField(max_length = 100)#活性种类
     time = models.DateTimeField()#活性送测时间
     resu = models.CharField(max_length = 100)#活性结果

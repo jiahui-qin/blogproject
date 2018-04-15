@@ -13,6 +13,7 @@ urlpatterns = [
     url(r'^bactindex/$', views.bactindex, name='bactindex'),
     url(r'^recordindex/$', views.recordindex, name = 'recordindex'),
     url(r'^crudeexindex/$', views.crudeexindex, name='crudeexindex'),
+    url(r'^cpdindex/$', views.cpdindex, name='cpdindex'),
     #url(r'^search/$', views.search, name='search'),
     #url(r'^sortindexmz/$', views.sortindexmz, name='sortindexmz'),
     #url(r'^sortindexrt/$', views.sortindexrt, name='sortindexrt'),

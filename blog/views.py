@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect  
 from django.http import HttpResponse
 from django.shortcuts import render
-from .models import testrecord, crudeex, bact
+from .models import testrecord, crudeex, bact,cpd
 from django.db.models import Q
 from django.utils import timezone
 
@@ -26,6 +26,10 @@ def crudeexindex(request, msg = -1):
 def bactindex(request, msg = -1):
     lists = bact.objects.all()
     return index(request, lists, msg)
+
+def cpdindex(request, msg = -1):
+    lists = cpd.objects.all()
+    return render(request, 'blog/cpd.html', context = {'tests' : lists, 'msg' : msg} )
 
 def upload(request):
     if request.method == "GET":
