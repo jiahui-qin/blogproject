@@ -48,7 +48,7 @@ class crudeex(models.Model):
     mass = models.FloatField() #重量，单位mg
     stockmass = models.FloatField() #库存量，单位mg
     cointermass = models.FloatField() #样品瓶重量，单位miug
-    entertime = models.DateTimeField() #入库时间
+    entertime = models.DateTimeField(auto_now_add=True, editable = True) #入库时间
     entervol = models.FloatField() #入库体积
     entercol =  models.FloatField() #入库浓度
     testcol = models.FloatField() #测试浓度
@@ -74,7 +74,7 @@ class bact(models.Model):
     chinesename = models.CharField(max_length = 200, blank = True) #中文名
     othersourcenum = models.CharField(max_length = 100, blank = True) #其它平台资源编号
     history = models.CharField(max_length = 100, blank = True) #来源历史
-    storetimr = models.DateTimeField() #收藏时间
+    storetime = models.DateTimeField(auto_now_add=True,editable = True) #收藏时间
     orinumber = models.CharField(max_length = 20, blank = True)#原始资源编号
     mainuse = models.CharField(max_length = 200, blank = True)#主要用途
     danger = models.CharField(max_length = 50, blank = True)#生物危害程度

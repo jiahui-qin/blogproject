@@ -7,6 +7,10 @@ from django.shortcuts import render
 from .models import testrecord, crudeex, bact,cpd
 from django.db.models import Q
 from django.utils import timezone
+from .bact import bactindex, bactload
+from .testrecord import recordindex, upload
+from .crudeex import crudeexindex, curdeexupload
+from .cpd import cpdindex, cpdload
 
 @login_required
 def index(request, lists, msg = -1):
@@ -14,61 +18,67 @@ def index(request, lists, msg = -1):
     return render(request, 'blog/record.html', context = {'tests' : lists, 'msg' : msg} )
 
 
-def recordindex(request, msg = -1):
-    lists = testrecord.objects.all()
-    return index(request, lists, msg)
-
-def crudeexindex(request, msg = -1):
-    lists = crudeex.objects.all()
-    return render(request, 'blog/crudeex.html', context = {'tests' : lists, 'msg' : msg} )
 
 
-def bactindex(request, msg = -1):
-    lists = bact.objects.all()
-    return index(request, lists, msg)
+#def cruupload(request):
+#    if request.method == "GET":
+#        try:
+#            crudenumber = request.GET.get('crudenumber') 
+#            mcccnumber = request.GET.get('mcccnumber') 
+#            genus = request.GET.get('genus') 
+#            species = request.GET.get('species')
+#            chinesename = request.GET.get('chinesename') 
+#            media =  request.GET.get('media')
+#            medianumber = request.GET.get('medianumber') 
+#            mass = request.GET.get('mass')
+#            stockmass = request.GET.get('stockmass') 
+#            cointermass = request.GET.get('cointermass')
+#            entertime = request.GET.get('entertime')
+#            entervol = request.GET.get('entervol') 
+#            entercol = request.GET.get('entercol') 
+#            testcol =request.GET.get('testcol')
+#            testvol =request.GET.get('testvol')
+#            solvent =request.GET.get('solvent')
+#            activecol =request.GET.get('activecol')
+#            culture =request.GET.get('culture')
+#            exrmethod =request.GET.get('exrmethod')
+#            department =request.GET.get('department')
+#            activeresult =request.GET.get('activeresult')
+#            comment =request.GET.get('comment')
+#            info = {
+#                'crudenumber' :crudenumber,
+#                'mcccnumber' :mcccnumber,
+#                'genus' :genus,
+#                'species' :species,
+#                'chinesename' :chinesename,
+#                'media'  :media,
+#                'medianumber' :medianumber,
+#                'mass' :mass,
+#                'stockmass' :stockmass,
+#                'cointermass' :cointermass,
+#                'entertime' :entertime,
+#                'entervol' :entervol,
+#                'entercol' :entercol,
+#                'testcol' :testcol,
+#                'testvol' :testvol,
+#                'solvent' :solvent,
+#                'activecol' :activecol,
+#                'culture' :culture,
+#                'exrmethod' :exrmethod,
+#                'department' :department,
+#                'activeresult' :activeresult,
+#                'comment' :comment,
+#            }        
+#            crudeex.objects.create(**info)
+#            return crudeexindex(request, msg = 0) #msg = 0代表正常插入
+#        except:
+#            return crudeexindex(request, msg = 1) #msg = 1 代表插入失败
 
-def cpdindex(request, msg = -1):
-    lists = cpd.objects.all()
-    return render(request, 'blog/cpd.html', context = {'tests' : lists, 'msg' : msg} )
 
-def upload(request):
-    if request.method == "GET":
-        try:
-            testtype = request.GET.get('testtype') #或者改成两个可选项？粗提物或者化合物
-            boxnumber = request.GET.get('boxnumber') #盒序号
-            samplestart = request.GET.get('samplestart') #样品起序号
-            sampleend = request.GET.get('sampleend') #样品终序号
-            samplename = request.GET.get('samplename') #样品名
-            samplenum = int(sampleend) - int(samplestart) + 1 #样品数量
-            solvent = request.GET.get('solvent') #溶剂
-            mass = request.GET.get('mass')#重量，单位miug
-            volume = request.GET.get('volume') #体积单位niuL
-            concentration = request.GET.get('concentration') #浓度 单位(mg/mL)
-            testconcentration = request.GET.get('testconcentration') #测试浓度 单位(miug/mL)
-            department = request.GET.get('department') #测样单位
-            #sendtime = request.GET.get('sendtime') #送样时间
-            comment =request.GET.get('comment')
-            info = {
-                'testtype' : testtype, 
-                'boxnumber' : boxnumber, 
-                'samplestart' : samplestart, 
-                'sampleend' : sampleend, 
-                'samplenum' : samplenum,
-                'samplename' : samplename, 
-                'solvent' : solvent, 
-                'mass' : mass, 
-                'volume' : volume, 
-                'concentration' : concentration, 
-                'testconcentration' : testconcentration, 
-                'department' : department,  
-                'comment' : comment,
-                'provider': request.user
-            }        
-            testrecord.objects.create(**info)
-            return recordindex(request, msg = 0) #msg = 0代表正常插入
-        except:
-            print(222)
-            return recordindex(request, msg = 1) #msg = 1 代表插入失败
+
+
+
+
 
 
 @login_required
@@ -83,57 +93,6 @@ def altermanage(request):
 
 def alter(request):
     return render
-
-def curdeexupload(request):
-    if request.method == 'GET':
-        mcccnumber = request.GET.get('mcccnumber')
-        genus = request.GET.get('genus')
-        species = request.GET.get('species')
-        chinesename = request.GET.get('chinesename')
-        media = request.GET.get('media')
-        medianumber = request.GET.get('medianumber')
-        mass = request.GET.get('mass')
-        stockmass = request.GET.get('stockmass')
-        cointermass = request.GET.get('cointermass')
-        entertime = request.GET.get('entertime')
-        entervol = request.GET.get('entervol')
-        entercol = request.GET.get('entercol')
-        tetscol = request.GET.get('tetscol')
-        testvol = request.GET.get('testvol')
-        activecol = request.GET.get('activecol')
-        solvent = request.GET.get('solvent')
-        culture = request.GET.get('culture')
-        exrmethod = request.GET.get('exrmethod')
-        department = request.GET.get('department')
-        activeresult = request.GET.get('activeresult')
-        comment = request.GET.get('comment')
-        info = {
-                'mcccnumber' : mcccnumber, 
-                'genus' : genus, 
-                'species' : species, 
-                'chinesename' : chinesename, 
-                'media' : media, 
-                'medianumber' : medianumber, 
-                'mass' : mass, 
-                'stockmass' : stockmass, 
-                'cointermass' : cointermass, 
-                'entertime' : entertime, 
-                'entervol' : entervol, 
-                'entercol' : entercol, 
-                'tetscol' : tetscol, 
-                'testvol' : testvol, 
-                'activecol' : activecol, 
-                'solvent' : solvent, 
-                'culture' : culture, 
-                'exrmethod' : exrmethod,
-                'department' : department, 
-                'activeresult' : activeresult, 
-                'comment' : comment, 
-                'provider': request.user,
-        }
-        crudeex.objects.create(**info)
-        return crudeexindex(request, msg = 0) 
-
 
 #@login_required(login_url='/accounts/login/')
 #def index(request):

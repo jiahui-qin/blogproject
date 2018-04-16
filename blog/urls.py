@@ -7,18 +7,17 @@ from django.contrib.auth import views as auth_views
 app_name = 'blog'
 urlpatterns = [
     url(r'^index/$', views.recordindex, name='index'),
-    url(r'^upload/$', views.upload, name='upload'),
-    url(r'^accounts/login/$', views.login_user, name = 'login_user'),
-    url(r'^crudeexindex/$', views.crudeexindex, name='crudeexindex'),
     url(r'^bactindex/$', views.bactindex, name='bactindex'),
     url(r'^recordindex/$', views.recordindex, name = 'recordindex'),
     url(r'^crudeexindex/$', views.crudeexindex, name='crudeexindex'),
     url(r'^cpdindex/$', views.cpdindex, name='cpdindex'),
-    #url(r'^search/$', views.search, name='search'),
-    #url(r'^sortindexmz/$', views.sortindexmz, name='sortindexmz'),
-    #url(r'^sortindexrt/$', views.sortindexrt, name='sortindexrt'),
-    #url(r'^index/$', views.index, name='index'),
-    #url(r'^highsearch/$', views.highsearch, name='highsearch'),
+
+    url(r'^upload/$', views.upload, name='upload'),
+    url(r'^bactload/$', views.bactload, name='bactload'),
+    url(r'^cpdload/$', views.cpdload, name='cpdload'),
+    url(r'^curdeexupload/$', views.curdeexupload, name='curdeexupload'),
+
+    url(r'^accounts/login/$', views.login_user, name = 'login_user'),
     url(r'^accounts/logout/$', views.logout_user, name = 'logout_user'),
     #url(r'^managedata/$', views.managedata, name = 'managedata'),
 ]

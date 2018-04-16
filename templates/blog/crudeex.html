@@ -24,7 +24,7 @@
                                     </div>
                                     <div class="modal-body">
                                         <!-- 输入新记录表单 -->
-                                            <form class="form-horizontal" role="form" method="get" action="{% url 'blog:upload' %}">
+                                            <form class="form-horizontal" role="form" method="get" action="{% url 'blog:curdeexupload' %}">
                                                     {% csrf_token %}
                                                 <div class="form-group">
                                                     <label for="firstname" class="col-sm-2 control-label">粗提物编号</label>
@@ -87,7 +87,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="lastname" class="col-sm-2 control-label">入库时间(μg/mL)</label>
+                                                    <label for="lastname" class="col-sm-2 control-label">入库时间</label>
                                                     <div class="col-sm-10">
                                                     <input type="input" name="entertime" class="form-control" id="lastname" placeholder="请输入">
                                                     </div>
@@ -110,7 +110,7 @@
                                                 <div class="form-group">
                                                     <label for="lastname" class="col-sm-2 control-label">测试浓度</label>
                                                     <div class="col-sm-10">
-                                                    <input type="input" name="tetscol" class="form-control" id="lastname" placeholder="请输入">
+                                                    <input type="input" name="testcol" class="form-control" id="lastname" placeholder="请输入">
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
@@ -260,7 +260,7 @@
                                     <th class = "field-media">{{crudeex.media}}/{{crudeex.medianumber}}</th>
                                     <th class = "field-entertime">{{crudeex.entertime}}</th>
                                     <th class = "field-entervol">{{crudeex.entervol}} mL {{crudeex.entercol}}ug/ml</th>
-                                    <th class = "field-testvol">{{crudeex.testvol }} mL {{crudeex.tetscol}} ug/ml</th>
+                                    <th class = "field-testvol">{{crudeex.testvol }} mL {{crudeex.testcol}} ug/ml</th>
                                     <th class = "field-solvent">{{crudeex.solvent}}</th>
                                     <th class = "field-culture">{{crudeex.culture}}</th>
                                     <th class = "field-exrmethod">{{crudeex.exrmethod}}</th>
