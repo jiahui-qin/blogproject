@@ -199,22 +199,26 @@
                     </thead>
                     <tbody>
                             {% for test in tests %}
+                            {% if request.user == test.provider %}
+                            <tr class="row1 success">
+                            {% else %}
                             <tr class="row1">
-                                    <td class="field-testtype"> {{test.testtype}}</td>
-                                    <th class = "field-boxnumber">{{test.boxnumber}}</th>
-                                    <th class = "field-samplestart">{{test.samplestart}}</th>
-                                    <th class = "field-sampleend">{{test.sampleend}}</th>
-                                    <th class = "field-samplenum">{{test.samplenum}}</th>
-                                    <th class = "field-samplename">{{test.samplename}}</th>
-                                    <th class = "field-solvent">{{test.solvent}}</th>
-                                    <th class = "field-mass">{{test.mass}}</th>
-                                    <th class = "field-volume">{{test.volume}}</th>
-                                    <th class = "field-concentration">{{test.concentration}}</th>
-                                    <th class = "field-testconcentration">{{test.testconcentration}}</th>
-                                    <th class = "field-provider">{{test.provider}}</th>
-                                    <th class = "field-department">{{test.department}}</th>
-                                    <th class = "field-sentime">{{test.sendtime}}</th>
-                                    <th class = "field-comment">{{test.comment}}</th>
+                            {% endif %}
+                                <td class="field-testtype"> {{test.testtype}}</td>
+                                <th class = "field-boxnumber">{{test.boxnumber}}</th>
+                                <th class = "field-samplestart">{{test.samplestart}}</th>
+                                <th class = "field-sampleend">{{test.sampleend}}</th>
+                                <th class = "field-samplenum">{{test.samplenum}}</th>
+                                <th class = "field-samplename">{{test.samplename}}</th>
+                                <th class = "field-solvent">{{test.solvent}}</th>
+                                <th class = "field-mass">{{test.mass}}</th>
+                                <th class = "field-volume">{{test.volume}}</th>
+                                <th class = "field-concentration">{{test.concentration}}</th>
+                                <th class = "field-testconcentration">{{test.testconcentration}}</th>
+                                <th class = "field-provider">{{test.provider}}</th>
+                                <th class = "field-department">{{test.department}}</th>
+                                <th class = "field-sentime">{{test.sendtime}}</th>
+                                <th class = "field-comment">{{test.comment}}</th>
                             </tr> 
                             {% empty %}
                               <div class="row1">null</div>
