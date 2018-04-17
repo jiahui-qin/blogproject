@@ -52,8 +52,48 @@ def upload(request):
             return recordindex(request, msg = 1) #msg = 1 代表插入失败
 
 def recdel(request):
-    print(request.GET.get())
     if request.method == "GET":
         id = request.GET.get('id')
         testrecord.objects.get(id = id).delete()
+        return recordindex(request, msg = 0)
+
+def recalter(request):
+    if request.method == 'POST':
+        #try:
+        id = request.POST['id']
+        testtype = request.POST['testtype'] #或者改成两个可选项？粗提物或者化合物
+        boxnumber = request.POST['boxnumber'] #盒序号
+        samplestart = request.POST['samplestart'] #样品起序号
+        sampleend = request.POST['sampleend'] #样品终序号
+        samplename = request.POST['samplename'] #样品名
+        samplenum = int(sampleend) - int(samplestart) + 1 #样品数量
+        solvent = request.POST['solvent'] #溶剂
+        mass = request.POST['mass']#重量，单位miug
+        volume = request.POST['volume'] #体积单位niuL
+        concentration = request.POST['concentration'] #浓度 单位(mg/mL)
+        testconcentration = request.POST['testconcentration'] #测试浓度 单位(miug/mL)
+        department = request.POST['department'] #测样单位
+        #sendtime = request.POST['sendtime') #送样时间
+        comment =request.POST['comment']
+        infos = {
+            'testtype' : testtype, 
+            'boxnumber' : boxnumber, 
+            'samplestart' : samplestart, 
+            'sampleend' : sampleend, 
+            'samplenum' : samplenum,
+            'samplename' : samplename, 
+            'solvent' : solvent, 
+            'mass' : mass, 
+            'volume' : volume, 
+            'concentration' : concentration, 
+            'testconcentration' : testconcentration, 
+            'department' : department,  
+            'comment' : comment,
+            'provider': request.user
+        }        
+        obj = testrecord.objects.get(id = id)
+        for info in infos:
+            if infos[info] != obj[info]:
+                obj.info = infos[info]
+        obj.save()
         return recordindex(request, msg = 0)

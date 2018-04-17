@@ -26,14 +26,6 @@
                                         <!-- 输入新记录表单 -->
                                             <form class="form-horizontal" role="form" method="get" action="{% url 'blog:upload' %}">
                                                     {% csrf_token %}
-                                                <!--
-                                                <div class="form-group">
-                                                    <label for="firstname" class="col-sm-2 control-label">序号</label>
-                                                    <div class="col-sm-10">
-                                                    <input type="input" name="number" class="form-control" id="firstname" placeholder="请输入">
-                                                    </div>
-                                                </div>
-                                            -->
                                                 <div class="form-group">
                                                     <label for="lastname" class="col-sm-2 control-label">类别</label>
                                                     <div class="col-sm-10">
@@ -113,23 +105,6 @@
                                                       <button type="submit" class="btn btn-default">提交新纪录</button>
                                                     </div>
                                                 </form>
-                                                <!-- 
-                                                <div class="form-group">
-                                                  <div class="col-sm-offset-2 col-sm-10">
-                                                        <div class="checkbox">
-                                                          <label>
-                                                            <input type="checkbox">请记住我
-                                                          </label>
-                                                        </div>
-                                                      </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                      <div class="col-sm-offset-2 col-sm-10">
-                                                        <button type="submit" class="btn btn-default">登录</button>
-                                                      </div>
-                                                    </div>
-                                                  </form>
-                                                -->
 
                                     </div>
                                     <div class="modal-footer">
@@ -206,23 +181,19 @@
                                             <div class="modal-content">
                                                 <div class="modal-header">
                                                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                                    <h4 class="modal-title" id="myModalLabel">模态框（Modal）标题</h4>
+                                                    <h4 class="modal-title" id="myModalLabel">删除</h4>
                                                 </div>
-                                                <form class="form-horizontal" role="form" method="get" action="">
-                                                    {% csrf_token %}
-                                                <div class="modal-body">在这里添加一些文本</div>
-                                                </form>
+                                                <div class="modal-body">确认要删除此项记录吗？</div>
+                                                <div class="modal-footer">
                                                 <form class="form-horizontal" role="form" method="get" action="{% url 'blog:recdel' %}">
                                                 {% csrf_token %}
-                                                <div class="modal-footer">
-                                                    <button type="submit" class="btn btn-default"  name="{{test.testtype}}">删除</button>
-                                                    <button type="button" class="btn btn-primary" data-dismiss="modal" >提交更改</button>
-                                                </div>
+                                                    <button type="submit" class="btn btn-default"   name="id" value="{{test.id}}">删除</button>
+                                                    <button type="button" class="btn btn-primary" data-dismiss="modal" >不删除</button>
                                                 </form>
+                                                </div>
                                             </div><!-- /.modal-content -->
-                                        </div><!-- /.modal -->
-                                        
-                                    </div>
+                                    </div><!-- /.modal-dialog -->
+                                </div>
                             {% else %}
                             <tr class="row1">
                             {% endif %}
