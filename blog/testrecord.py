@@ -50,3 +50,10 @@ def upload(request):
             return recordindex(request, msg = 0) #msg = 0代表正常插入
         except:
             return recordindex(request, msg = 1) #msg = 1 代表插入失败
+
+def recdel(request):
+    print(request.GET.get())
+    if request.method == "GET":
+        id = request.GET.get('id')
+        testrecord.objects.get(id = id).delete()
+        return recordindex(request, msg = 0)
