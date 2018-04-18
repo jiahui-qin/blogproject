@@ -176,19 +176,52 @@
                             {% for test in tests %}
                             {% if request.user == test.provider %}
                             <tr class="row1 success" data-toggle="modal" data-target="#alter">
-                                    <div class="modal fade" id="alter" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                    <div class="modal fade" id="alter" tabindex="-1" role="dialog" aria-labelledby="alterLabel" aria-hidden="true">
                                         <div class="modal-dialog" >
                                             <div class="modal-content">
                                                 <div class="modal-header">
                                                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                                    <h4 class="modal-title" id="myModalLabel">删除</h4>
+                                                    <h4 class="modal-title" id="alterLabel">删除</h4>
                                                 </div>
-                                                <div class="modal-body">确认要删除此项记录吗？</div>
+                                                <div class="modal-body">
+                                                    <form>
+                                                        
+                                                       
+                                                        
+                                                        <div class="form-group">
+                                                            <label for="lastname" class="col-sm-2 control-label">溶剂</label>
+                                                            <div class="col-sm-10">
+                                                            <input type="input" name="solvent" class="form-control"  placeholder="请输入">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="lastname" class="col-sm-2 control-label">重量(μg)</label>
+                                                            <div class="col-sm-10">
+                                                            <input type="input" name="mass" class="form-control"  placeholder="请输入">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="lastname" class="col-sm-2 control-label">体积(μL)</label>
+                                                            <div class="col-sm-10">
+                                                            <input type="input" name="volume" class="form-control"  placeholder="请输入">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="lastname" class="col-sm-2 control-label">样品浓度(mg/mL)</label>
+                                                            <div class="col-sm-10">
+                                                            <input type="input" name="concentration" class="form-control"  placeholder="请输入">
+                                                            </div>
+                                                        </div>
+                                                     
+                                                    </form>
+                                                </div>
                                                 <div class="modal-footer">
                                                 <form class="form-horizontal" role="form" method="get" action="{% url 'blog:recdel' %}">
                                                 {% csrf_token %}
+                                                <div class="col-sm-offset-2 col-sm-10">
                                                     <button type="submit" class="btn btn-default"   name="id" value="{{test.id}}">删除</button>
                                                     <button type="button" class="btn btn-primary" data-dismiss="modal" >不删除</button>
+                                                </div>
                                                 </form>
                                                 </div>
                                             </div><!-- /.modal-content -->
