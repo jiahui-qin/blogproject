@@ -11,6 +11,7 @@ from django.utils import timezone
 
 def recordindex(request, msg = -1):
     lists = testrecord.objects.all()
+    print(type(lists))
     return render(request, 'blog/record.html', context = {'tests' : lists, 'msg' : msg} )
 
 def upload(request):

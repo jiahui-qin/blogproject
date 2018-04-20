@@ -68,7 +68,8 @@
                     <tbody>
                             {% for test in tests %}
                             {% if request.user == test.provider %}
-                            <tr class="row1 success" data-toggle="modal" data-target="#alter">
+                            <tr class="row1 success" data-toggle="modal" data-target="#alter" data-whatever="{{test}}">
+                                   
                             {% else %}
                             <tr class="row1">
                             {% endif %}
@@ -204,7 +205,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="alterLabel">删除 {{test.id}}</h4>
+                <h4 class="modal-title" id="alterLabel"></h4>
             </div>
             <div class="modal-body">
                 <form class="form-horizontal" role="form" method="get" action="">
@@ -299,5 +300,16 @@
         </div>
     </div> 
 </div>
+
+<script> 
+        $('#alter').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget) // Button that triggered the modal
+            var recipient = button.data('{{test.id}}') // Extract info from data-* attributes
+            // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+            // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+            var modal = $(this)
+            modal.find('.modal-title').text('New message to ' + recipient)
+          })
+        </script> 
 </body>
 {% endblock main %}
