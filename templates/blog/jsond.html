@@ -1,33 +1,73 @@
-<script>
-        $(document).ready(function(){
-          // 求和 a + b
-          $("#sum").click(function(){
-            var a = $("#a").val();
-            var b = $("#b").val();
-     
-            $.get("{% url 'add' %}",{'a':a,'b':b}, function(ret){
-                $('#result').html(ret);
-            })
-          });
-     
-          // 列表 list
-          $('#list').click(function(){
-              $.getJSON("{% url 'ajax-list' %}",function(ret){
-                //返回值 ret 在这里是一个列表
-                for (var i = ret.length - 1; i >= 0; i--) {
-                  // 把 ret 的每一项显示在网页上
-                  $('#list_result').append(' ' + ret[i])
-                };
-              })
+<tbody>
+    {% for test in tests %}
+    {% if request.user == test.provider %}
+    <tr class="row1 success" id = "useajax" data-toggle="modal" data-target="#alter" data-whatever="{{test.id}}"
+    data-testtype = "{{test.testtype}}" data-samplestart = "{{test.samplestart}}" data-samplestart = "{{test.samplestart}}" 
+    data-sampleend = "{{test.sampleend}}" data-samplenum = "{{test.samplenum}}" data-samplename = "{{test.samplename}}" 
+    data-solvent = "{{test.solvent}}" data-mass = "{{test.mass}}" data-volume = "{{test.volume}}"
+    data-concentration = "{{test.concentration}}" data-testconcentration = "{{test.testconcentration}}" 
+    data-department = "{{test.department}}" data-comment = "{{test.comment}}">
+    {% else %}
+    <tr class="row1">
+    {% endif %}
+        <td class="field-testtype"> {{test.testtype}}</td>
+        <th class = "field-boxnumber">{{test.boxnumber}}</th>
+        <th class = "field-samplestart">{{test.samplestart}}</th>
+        <th class = "field-sampleend">{{test.sampleend}}</th>
+        <th class = "field-samplenum">{{test.samplenum}}</th>
+        <th class = "field-samplename">{{test.samplename}}</th>
+        <th class = "field-solvent">{{test.solvent}}</th>
+        <th class = "field-mass">{{test.mass}}</th>
+        <th class = "field-volume">{{test.volume}}</th>
+        <th class = "field-concentration">{{test.concentration}}</th>
+        <th class = "field-testconcentration">{{test.testconcentration}}</th>
+        <th class = "field-provider">{{test.provider}}</th>
+        <th class = "field-department">{{test.department}}</th>
+        <th class = "field-sentime">{{test.sendtime}}</th>
+        <th class = "field-comment">{{test.comment}}</th>
+    </tr> 
+    {% empty %}
+      <div class="row1">null</div>
+    {% endfor %}
+</tbody>
+
+
+
+<script> 
+        $('#alter').on('show.bs.modal', function (event) {
+            var tr = $(event.relatedTarget) // Button that triggered the modal
+            var recipient = tr.data('whatever') 
+            //var recipient = tr.data('whatever') // Extract info from data-* attributes
+            // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).  
+            $.ajax( {
+                type: 'GET',
+                url : '/index/ajax_dict/',
+                data : {"id" : recipient},
+                tradition : true,
+
+                success:function(result){
+                    console.log(result)
+                    row.find("field-testtype").text(this.testtype)
+                    row.find("field-boxnumber").text(this.boxnumber)
+                    row.find("field-samplestart").text(this.samplestart)
+                    row.find("field-sampleend").text(this.sampleend)
+                    row.find("field-samplenum").text(this.samplenum)
+                    row.find("field-samplename").text(this.samplename)
+                    row.find("field-solvent").text(this.solvent)
+                    row.find("field-mass").text(this.mass)
+                    row.find("field-volume").text(this.volume)
+                    row.find("field-concentration").text(this.concentration)
+                    row.find("field-testconcentration").text(this.testconcentration)
+                    row.find("field-provider").text(this.provider)
+                    row.find("field-department").text(this.department)
+                    row.find("field-sentime").text(this.sendtime)
+                    row.find("field-comment").text(this.comment)              
+
+                }
+                })
+            // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+            var modal = $(this)
+            modal.find('.modal-title').text('New message to ' + recipient)
+            modal.find('.modal-body testtype').val(recipient)
           })
-     
-          // 字典 dict
-          $('#dict').click(function(){
-              $.getJSON("{% url 'ajax-dict' %}",function(ret){
-                  //返回值 ret 在这里是一个字典
-                  $('#dict_result').append(ret.twz + '<br>');
-                  // 也可以用 ret['twz']
-              })
-          })
-        });
-    </script>
+</script> 

@@ -8,12 +8,13 @@ from .models import testrecord, crudeex, bact,cpd
 from django.db.models import Q
 from django.utils import timezone
 from django.http import JsonResponse
+import json
+from django.core import serializers
 
 
 def recordindex(request, msg = -1):
     lists = testrecord.objects.all()
-    print(type(lists))
-    return render(request, 'blog/record.html', context = {'tests' : lists, 'msg' : msg} )
+    return render(request, 'blog/record.html', {'tests' : lists, 'msg' : msg} )
 
 def upload(request):
     if request.method == "GET":
@@ -61,7 +62,8 @@ def recdel(request):
 
 def ajax_dict(request):
     idict = request.GET.get('id')
-    return JsonResponse(idict)
+    ipp = testrecord.objects.get(id = id)
+    return JsonResponse(ipp)
 
 
 
