@@ -8,7 +8,7 @@ from .models import testrecord, crudeex, bact,cpd
 from django.db.models import Q
 from django.utils import timezone
 from .bact import bactindex, bactload
-from .testrecord import recordindex, upload,recdel,ajax_dict
+from .testrecord import recordindex, upload,recdel,recalter
 from .crudeex import crudeexindex, curdeexupload
 from .cpd import cpdindex, cpdload
 
@@ -16,70 +16,6 @@ from .cpd import cpdindex, cpdload
 def index(request, lists, msg = -1):
 #    #return HttpResponseRedirect(reverse(NAME_OF_PROFILE_VIEW, args=[request.user.username]))
     return render(request, 'blog/record.html', context = {'tests' : lists, 'msg' : msg} )
-
-
-
-
-#def cruupload(request):
-#    if request.method == "GET":
-#        try:
-#            crudenumber = request.GET.get('crudenumber') 
-#            mcccnumber = request.GET.get('mcccnumber') 
-#            genus = request.GET.get('genus') 
-#            species = request.GET.get('species')
-#            chinesename = request.GET.get('chinesename') 
-#            media =  request.GET.get('media')
-#            medianumber = request.GET.get('medianumber') 
-#            mass = request.GET.get('mass')
-#            stockmass = request.GET.get('stockmass') 
-#            cointermass = request.GET.get('cointermass')
-#            entertime = request.GET.get('entertime')
-#            entervol = request.GET.get('entervol') 
-#            entercol = request.GET.get('entercol') 
-#            testcol =request.GET.get('testcol')
-#            testvol =request.GET.get('testvol')
-#            solvent =request.GET.get('solvent')
-#            activecol =request.GET.get('activecol')
-#            culture =request.GET.get('culture')
-#            exrmethod =request.GET.get('exrmethod')
-#            department =request.GET.get('department')
-#            activeresult =request.GET.get('activeresult')
-#            comment =request.GET.get('comment')
-#            info = {
-#                'crudenumber' :crudenumber,
-#                'mcccnumber' :mcccnumber,
-#                'genus' :genus,
-#                'species' :species,
-#                'chinesename' :chinesename,
-#                'media'  :media,
-#                'medianumber' :medianumber,
-#                'mass' :mass,
-#                'stockmass' :stockmass,
-#                'cointermass' :cointermass,
-#                'entertime' :entertime,
-#                'entervol' :entervol,
-#                'entercol' :entercol,
-#                'testcol' :testcol,
-#                'testvol' :testvol,
-#                'solvent' :solvent,
-#                'activecol' :activecol,
-#                'culture' :culture,
-#                'exrmethod' :exrmethod,
-#                'department' :department,
-#                'activeresult' :activeresult,
-#                'comment' :comment,
-#            }        
-#            crudeex.objects.create(**info)
-#            return crudeexindex(request, msg = 0) #msg = 0代表正常插入
-#        except:
-#            return crudeexindex(request, msg = 1) #msg = 1 代表插入失败
-
-
-
-
-
-
-
 
 @login_required
 def altermanage(request):
