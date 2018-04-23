@@ -7,6 +7,7 @@ from django.shortcuts import render
 from .models import testrecord, crudeex, bact,cpd
 from django.db.models import Q
 from django.utils import timezone
+from django.http import JsonResponse
 
 
 def recordindex(request, msg = -1):
@@ -57,6 +58,12 @@ def recdel(request):
         id = request.GET.get('id')
         testrecord.objects.get(id = id).delete()
         return recordindex(request, msg = 0)
+
+def ajax_dict(request):
+    idict = request.GET.get('id')
+    return JsonResponse(idict)
+
+
 
 def recalter(request):
     if request.method == 'POST':

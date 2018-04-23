@@ -8,7 +8,7 @@ from .models import testrecord, crudeex, bact,cpd
 from django.db.models import Q
 from django.utils import timezone
 from .bact import bactindex, bactload
-from .testrecord import recordindex, upload,recdel
+from .testrecord import recordindex, upload,recdel,ajax_dict
 from .crudeex import crudeexindex, curdeexupload
 from .cpd import cpdindex, cpdload
 

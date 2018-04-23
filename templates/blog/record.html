@@ -69,7 +69,6 @@
                             {% for test in tests %}
                             {% if request.user == test.provider %}
                             <tr class="row1 success" data-toggle="modal" data-target="#alter" data-whatever="{{test}}">
-                                   
                             {% else %}
                             <tr class="row1">
                             {% endif %}
@@ -302,14 +301,35 @@
 </div>
 
 <script> 
-        $('#alter').on('show.bs.modal', function (event) {
+        $('#alter').on('show.bs.modal', function () {
             var button = $(event.relatedTarget) // Button that triggered the modal
             var recipient = button.data('{{test.id}}') // Extract info from data-* attributes
             // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+            $.ajax( {
+                type: 'GET',
+                'url': '/ajax_dict/?id='+ recipient,
+                success:function(result){
+                    row.find("#number").text(data[i].number)
+
+                }
+                }).done(function (data); 
             // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
             var modal = $(this)
             modal.find('.modal-title').text('New message to ' + recipient)
           })
-        </script> 
+          var softtype=$("#soft_id").find("option:selected").text();
+    element.append( '<option value="' + key + '">' + value + '</option>' );
+   } );
+  }
+ }
+ var build_div = function( data, element){
+   if( data ){
+   element.empty();
+   $.each( data, function( key, value ){
+     element.append(' <li class="clearfix"> <div class="todo-check pull-left"><input name="chk" type="checkbox" value="'+value+'" /></div> <div class="todo-title">'+value+' </div><div class="todo-actions pull-right clearfix"><a href="#" class="todo-complete"><i class="fa fa-check"></i></a><a href="#" class="todo-edit"><i class="fa fa-edit"></i></a><a href="#" class="todo-remove"><i class="fa fa-trash-o"></i></a></div> </li>');
+   } );
+  }
+}
+</script> 
 </body>
 {% endblock main %}

@@ -21,5 +21,7 @@ urlpatterns = [
 
     url(r'^accounts/login/$', views.login_user, name = 'login_user'),
     url(r'^accounts/logout/$', views.logout_user, name = 'logout_user'),
+
+    url(r'^ajax_dict/$', views.ajax_dict, name='ajax_dict'),
     #url(r'^managedata/$', views.managedata, name = 'managedata'),
 ]
