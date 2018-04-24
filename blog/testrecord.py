@@ -97,7 +97,7 @@ def recalter(request):
                 'comment' : comment,
                 'provider': request.user
             }
-            obj = testrecord.objects.select_for_update().filter(id = id).update(**infos)
+            testrecord.objects.select_for_update().filter(id = id).update(**infos)
             return recordindex(request, msg = 0)
         except:
             return recordindex(request, msg = 1)
