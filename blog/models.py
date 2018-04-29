@@ -111,9 +111,9 @@ class cpd(models.Model):
     media = models.CharField(max_length = 50)#培养基编号
     depa = models.CharField(max_length = 100)#活性送测单位
     spc = models.CharField(max_length = 100)#活性种类
-    time = models.DateTimeField()#活性送测时间
+    time = models.DateTimeField(auto_now_add=True, editable = True)#活性送测时间!!!!
     resu = models.CharField(max_length = 100)#活性结果
-    prov = models.CharField(max_length = 100)#提供人
+    prov = models.ForeignKey(User)#提供人
     dtime = models.DateTimeField()#入库时间
     
     def __str__(self):

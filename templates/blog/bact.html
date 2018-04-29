@@ -8,206 +8,10 @@
                     <center>
                    <!--  <button type="button" class="btn btn-info  btn-lg">上传</button>-->
 
-                        <button class="btn btn-info btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+                        <button class="btn btn-info btn-primary btn-lg" data-toggle="modal" data-target="#bactinput">
                             上传
                         </button>
-                        <!-- 模态框（Modal） -->
-                        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×
-                                        </button>
-                                        <h4 class="modal-title" id="myModalLabel">
-                                            上传新记录
-                                        </h4>
-                                    </div>
-                                    <div class="modal-body">
-                                        <!-- 输入新记录表单 -->
-                                            <form class="form-horizontal" role="form" method="get" action="{% url 'blog:bactload' %}">
-                                                    {% csrf_token %}
-                                                <div class="form-group">
-                                                    <label for="firstname" class="col-sm-2 control-label">菌株保藏编号</label>
-                                                    <div class="col-sm-10">
-                                                    <input type="input" name="bactnumber" class="form-control" id="firstname" placeholder="请输入">
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="lastname" class="col-sm-2 control-label">平台资源编号</label>
-                                                    <div class="col-sm-10">
-                                                    <input type="input" name="sourcenum" class="form-control" id="lastname" placeholder="请输入">
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="lastname" class="col-sm-2 control-label">属名</label>
-                                                    <div class="col-sm-10">
-                                                    <input type="input" name="genus" class="form-control" id="lastname" placeholder="请输入">
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="lastname" class="col-sm-2 control-label">种名</label>
-                                                    <div class="col-sm-10">
-                                                    <input type="input" name="species" class="form-control" id="lastname" placeholder="请输入">
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="lastname" class="col-sm-2 control-label">中文名</label>
-                                                    <div class="col-sm-10">
-                                                    <input type="input" name="chinesename" class="form-control" id="lastname" placeholder="请输入">
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="lastname" class="col-sm-2 control-label">其它平台资源编号</label>
-                                                    <div class="col-sm-10">
-                                                    <input type="input" name="othersourcenum" class="form-control" id="lastname" placeholder="请输入">
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="lastname" class="col-sm-2 control-label">来源历史</label>
-                                                    <div class="col-sm-10">
-                                                    <input type="input" name="history" class="form-control" id="lastname" placeholder="请输入">
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="lastname" class="col-sm-2 control-label">原始资源编号</label>
-                                                    <div class="col-sm-10">
-                                                    <input type="input" name="orinumber" class="form-control" id="lastname" placeholder="请输入">
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="lastname" class="col-sm-2 control-label">主要用途</label>
-                                                    <div class="col-sm-10">
-                                                    <input type="input" name="mainuse" class="form-control" id="lastname" placeholder="请输入">
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="lastname" class="col-sm-2 control-label">生物危害程度</label>
-                                                    <div class="col-sm-10">
-                                                    <input type="input" name="danger" class="form-control" id="lastname" placeholder="请输入">
-                                                    </div>
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <label for="lastname" class="col-sm-2 control-label">寄主名称</label>
-                                                    <div class="col-sm-10">
-                                                    <input type="input" name="hostname" class="form-control" id="lastname" placeholder="请输入">
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="lastname" class="col-sm-2 control-label">致病名称</label>
-                                                    <div class="col-sm-10">
-                                                    <input type="input" name="ill" class="form-control" id="lastname" placeholder="请输入">
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="lastname" class="col-sm-2 control-label">传播途径</label>
-                                                    <div class="col-sm-10">
-                                                    <input type="input" name="tranroute" class="form-control" id="lastname" placeholder="请输入">
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="lastname" class="col-sm-2 control-label">培养基编号</label>
-                                                    <div class="col-sm-10">
-                                                    <input type="input" name="media" class="form-control" id="lastname" placeholder="请输入">
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="lastname" class="col-sm-2 control-label">培养基温度</label>
-                                                    <div class="col-sm-10">
-                                                    <input type="input" name="mediatem" class="form-control" id="lastname" placeholder="请输入">
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="lastname" class="col-sm-2 control-label">基因元器件</label>
-                                                    <div class="col-sm-10">
-                                                    <input type="input" name="gene" class="form-control" id="lastname" placeholder="请输入">
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="lastname" class="col-sm-2 control-label">记录地址</label>
-                                                    <div class="col-sm-10">
-                                                    <input type="input" name="recadd" class="form-control" id="lastname" placeholder="请输入">
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="lastname" class="col-sm-2 control-label">共享方式</label>
-                                                    <div class="col-sm-10">
-                                                    <input type="input" name="shareme" class="form-control" id="lastname" placeholder="请输入">
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="lastname" class="col-sm-2 control-label">获取途径</label>
-                                                    <div class="col-sm-10">
-                                                    <input type="input" name="getmet" class="form-control" id="lastname" placeholder="请输入">
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="lastname" class="col-sm-2 control-label">联系方式</label>
-                                                    <div class="col-sm-10">
-                                                    <input type="input" name="callme" class="form-control" id="lastname" placeholder="请输入">
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="lastname" class="col-sm-2 control-label">源数据主键</label>
-                                                    <div class="col-sm-10">
-                                                    <input type="input" name="mainkey" class="form-control" id="lastname" placeholder="请输入">
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="lastname" class="col-sm-2 control-label">提供人</label>
-                                                    <div class="col-sm-10">
-                                                    <input type="input" name="prod" class="form-control" id="lastname" placeholder="请输入">
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="lastname" class="col-sm-2 control-label">分离人</label>
-                                                    <div class="col-sm-10">
-                                                    <input type="input" name="didv" class="form-control" id="lastname" placeholder="请输入">
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="lastname" class="col-sm-2 control-label">鉴定人</label>
-                                                    <div class="col-sm-10">
-                                                    <input type="input" name="judge" class="form-control" id="lastname" placeholder="请输入">
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="lastname" class="col-sm-2 control-label">基因序列注册号</label>
-                                                    <div class="col-sm-10">
-                                                    <input type="input" name="genenumber" class="form-control" id="lastname" placeholder="请输入">
-                                                    </div>
-                                                </div>
-                                                    <div class="col-sm-offset-2 col-sm-10">
-                                                      <button type="submit" class="btn btn-default">提交新纪录</button>
-                                                    </div>
-                                                </form>
-                                                <!-- 
-                                                <div class="form-group">
-                                                  <div class="col-sm-offset-2 col-sm-10">
-                                                        <div class="checkbox">
-                                                          <label>
-                                                            <input type="checkbox">请记住我
-                                                          </label>
-                                                        </div>
-                                                      </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                      <div class="col-sm-offset-2 col-sm-10">
-                                                        <button type="submit" class="btn btn-default">登录</button>
-                                                      </div>
-                                                    </div>
-                                                  </form>
-                                                -->
-
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-default" data-dismiss="modal">
-                                            关闭
-                                        </button>
-                                    </div>
-                                </div><!-- /.modal-content -->
-                            </div><!-- /.modal-dialog -->
-                        </div><!-- /.modal -->
+                        
                     </center>
                 </div><!-- col-md-4 -->
                 <div class="col-md-8 col-sm-7 col-xs-4">
@@ -267,8 +71,21 @@
                     </thead>
                     <tbody>
                             {% for test in tests %}
+                            {% if request.user == test.provider %}
+                            <tr class="row1 success" id = "useajax" data-toggle="modal" data-target="#alter" data-whatever="{{test.id}}"
+                            data-bactnumber = "{{test.bactnumber}}" data-sourcenum = "{{test.sourcenum}}" data-genus = "{{test.genus}}" 
+                            data-species = "{{test.species}}" data-chinesename = "{{test.chinesename}}" data-othersourcenum = "{{test.othersourcenum}}" 
+                            data-history = "{{test.history}}" data-storetime = "{{test.storetime}}" data-orinumber = "{{test.orinumber}}"
+                            data-mainuse = "{{test.mainuse}}" data-danger = "{{test.danger}}"  data-hostname = "{{test.hostname}}" 
+                            data-ill = "{{test.ill}}"  data-tranroute = "{{test.tranroute}}"   data-media = "{{test.media}}" 
+                            data-mediatem = "{{test.mediatem}}" data-gene = "{{test.gene}}"  data-recadd = "{{test.recadd}}"
+                            data-shareme = "{{test.shareme}}"  data-getmet = "{{test.getmet}}"  data-callme = "{{test.callme}}"
+                            data-mainkey = "{{test.mainkey}}"  data-prod = "{{test.prod}}"  data-didv = "{{test.didv}}"
+                            data-judge = "{{test.judge}}" data-genenumber = "{{test.genenumber}}">
+                            {% else %}
                             <tr class="row1">
-                                    <td class="field-bactnumber"> {{test.bactnumber}}</td>
+                            {% endif %}
+                                    <td class = "field-bactnumber"> {{test.bactnumber}}</td>
                                     <th class = "field-sourcenum">{{test.sourcenum}}</th>
                                     <th class = "field-genus">{{test.genus}}</th>
                                     <th class = "field-species">{{test.species}}</th>
@@ -290,5 +107,414 @@
                     </tbody>
                 </table>
                 </div>
+
+<!-- 模态框（Modal） -->
+<div class="modal fade" id="bactinput" tabindex="-1" role="dialog" aria-labelledby="bactinputLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×
+                </button>
+                <h4 class="modal-title" id="bactinputLabel">
+                    上传新记录
+                </h4>
+            </div>
+            <div class="modal-body">
+                <!-- 输入新记录表单 -->
+                    <form class="form-horizontal" role="form" method="get" action="{% url 'blog:bactload' %}">
+                            {% csrf_token %}
+                        <div class="form-group">
+                            <label for="firstname" class="col-sm-2 control-label">菌株保藏编号</label>
+                            <div class="col-sm-10">
+                            <input type="input" name="bactnumber" class="form-control" id="firstname" placeholder="请输入">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastname" class="col-sm-2 control-label">平台资源编号</label>
+                            <div class="col-sm-10">
+                            <input type="input" name="sourcenum" class="form-control" id="lastname" placeholder="请输入">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastname" class="col-sm-2 control-label">属名</label>
+                            <div class="col-sm-10">
+                            <input type="input" name="genus" class="form-control" id="lastname" placeholder="请输入">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastname" class="col-sm-2 control-label">种名</label>
+                            <div class="col-sm-10">
+                            <input type="input" name="species" class="form-control" id="lastname" placeholder="请输入">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastname" class="col-sm-2 control-label">中文名</label>
+                            <div class="col-sm-10">
+                            <input type="input" name="chinesename" class="form-control" id="lastname" placeholder="请输入">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastname" class="col-sm-2 control-label">其它平台资源编号</label>
+                            <div class="col-sm-10">
+                            <input type="input" name="othersourcenum" class="form-control" id="lastname" placeholder="请输入">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastname" class="col-sm-2 control-label">来源历史</label>
+                            <div class="col-sm-10">
+                            <input type="input" name="history" class="form-control" id="lastname" placeholder="请输入">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastname" class="col-sm-2 control-label">原始资源编号</label>
+                            <div class="col-sm-10">
+                            <input type="input" name="orinumber" class="form-control" id="lastname" placeholder="请输入">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastname" class="col-sm-2 control-label">主要用途</label>
+                            <div class="col-sm-10">
+                            <input type="input" name="mainuse" class="form-control" id="lastname" placeholder="请输入">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastname" class="col-sm-2 control-label">生物危害程度</label>
+                            <div class="col-sm-10">
+                            <input type="input" name="danger" class="form-control" id="lastname" placeholder="请输入">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="lastname" class="col-sm-2 control-label">寄主名称</label>
+                            <div class="col-sm-10">
+                            <input type="input" name="hostname" class="form-control" id="lastname" placeholder="请输入">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastname" class="col-sm-2 control-label">致病名称</label>
+                            <div class="col-sm-10">
+                            <input type="input" name="ill" class="form-control" id="lastname" placeholder="请输入">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastname" class="col-sm-2 control-label">传播途径</label>
+                            <div class="col-sm-10">
+                            <input type="input" name="tranroute" class="form-control" id="lastname" placeholder="请输入">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastname" class="col-sm-2 control-label">培养基编号</label>
+                            <div class="col-sm-10">
+                            <input type="input" name="media" class="form-control" id="lastname" placeholder="请输入">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastname" class="col-sm-2 control-label">培养基温度</label>
+                            <div class="col-sm-10">
+                            <input type="input" name="mediatem" class="form-control" id="lastname" placeholder="请输入">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastname" class="col-sm-2 control-label">基因元器件</label>
+                            <div class="col-sm-10">
+                            <input type="input" name="gene" class="form-control" id="lastname" placeholder="请输入">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastname" class="col-sm-2 control-label">记录地址</label>
+                            <div class="col-sm-10">
+                            <input type="input" name="recadd" class="form-control" id="lastname" placeholder="请输入">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastname" class="col-sm-2 control-label">共享方式</label>
+                            <div class="col-sm-10">
+                            <input type="input" name="shareme" class="form-control" id="lastname" placeholder="请输入">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastname" class="col-sm-2 control-label">获取途径</label>
+                            <div class="col-sm-10">
+                            <input type="input" name="getmet" class="form-control" id="lastname" placeholder="请输入">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastname" class="col-sm-2 control-label">联系方式</label>
+                            <div class="col-sm-10">
+                            <input type="input" name="callme" class="form-control" id="lastname" placeholder="请输入">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastname" class="col-sm-2 control-label">源数据主键</label>
+                            <div class="col-sm-10">
+                            <input type="input" name="mainkey" class="form-control" id="lastname" placeholder="请输入">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastname" class="col-sm-2 control-label">提供人</label>
+                            <div class="col-sm-10">
+                            <input type="input" name="prod" class="form-control" id="lastname" placeholder="请输入">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastname" class="col-sm-2 control-label">分离人</label>
+                            <div class="col-sm-10">
+                            <input type="input" name="didv" class="form-control" id="lastname" placeholder="请输入">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastname" class="col-sm-2 control-label">鉴定人</label>
+                            <div class="col-sm-10">
+                            <input type="input" name="judge" class="form-control" id="lastname" placeholder="请输入">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastname" class="col-sm-2 control-label">基因序列注册号</label>
+                            <div class="col-sm-10">
+                            <input type="input" name="genenumber" class="form-control" id="lastname" placeholder="请输入">
+                            </div>
+                        </div>
+                            <div class="col-sm-offset-2 col-sm-10">
+                              <button type="submit" class="btn btn-default">提交新纪录</button>
+                            </div>
+                        </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">
+                    关闭
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<!-- modal alter -->
+<div class="modal fade" id="alter" tabindex="-1" role="dialog" aria-labelledby="alterLabel" aria-hidden="true">
+        <div class="modal-dialog" >
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="alterLabel">???</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" role="form" method="get" action="{% url 'blog:bactalter' %}">
+                        <!-- 写的时候action后边的{}url后边加了两个引号，就一直跳转到/testrecord界面，去掉之后才变 -->
+                            {% csrf_token %}
+                        <input type="hidden" id="alterid"  name="id" value="{{test.id}}" />
+                        <div class="form-group">
+                                <label for="firstname" class="col-sm-2 control-label">菌株保藏编号</label>
+                                <div class="col-sm-10">
+                                <input type="input" name="bactnumber" class="form-control" id="bactnumber" placeholder="请输入">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="lastname" class="col-sm-2 control-label">平台资源编号</label>
+                                <div class="col-sm-10">
+                                <input type="input" name="sourcenum" class="form-control" id="sourcenum" placeholder="请输入">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="lastname" class="col-sm-2 control-label">属名</label>
+                                <div class="col-sm-10">
+                                <input type="input" name="genus" class="form-control" id="genus" placeholder="请输入">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="lastname" class="col-sm-2 control-label">种名</label>
+                                <div class="col-sm-10">
+                                <input type="input" name="species" class="form-control" id="species" placeholder="请输入">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="lastname" class="col-sm-2 control-label">中文名</label>
+                                <div class="col-sm-10">
+                                <input type="input" name="chinesename" class="form-control" id="chinesename" placeholder="请输入">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="lastname" class="col-sm-2 control-label">其它平台资源编号</label>
+                                <div class="col-sm-10">
+                                <input type="input" name="othersourcenum" class="form-control" id="othersourcenum" placeholder="请输入">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="lastname" class="col-sm-2 control-label">来源历史</label>
+                                <div class="col-sm-10">
+                                <input type="input" name="history" class="form-control" id="history" placeholder="请输入">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="lastname" class="col-sm-2 control-label">收藏时间</label>
+                                <div class="col-sm-10">
+                                <input type="input" name="storetime" class="form-control" id="storetime" placeholder="请输入">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="lastname" class="col-sm-2 control-label">原始资源编号</label>
+                                <div class="col-sm-10">
+                                <input type="input" name="orinumber" class="form-control" id="orinumber" placeholder="请输入">
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="lastname" class="col-sm-2 control-label">主要用途</label>
+                                <div class="col-sm-10">
+                                <input type="input" name="mainuse" class="form-control" id="mainuse" placeholder="请输入">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="lastname" class="col-sm-2 control-label">生物危害程度</label>
+                                <div class="col-sm-10">
+                                <input type="input" name="danger" class="form-control" id="danger" placeholder="请输入">
+                                </div>
+                            </div>
+    
+                            <div class="form-group">
+                                <label for="lastname" class="col-sm-2 control-label">寄主名称</label>
+                                <div class="col-sm-10">
+                                <input type="input" name="hostname" class="form-control" id="hostname" placeholder="请输入">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="lastname" class="col-sm-2 control-label">致病名称</label>
+                                <div class="col-sm-10">
+                                <input type="input" name="ill" class="form-control" id="ill" placeholder="请输入">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="lastname" class="col-sm-2 control-label">传播途径</label>
+                                <div class="col-sm-10">
+                                <input type="input" name="tranroute" class="form-control" id="tranroute" placeholder="请输入">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="lastname" class="col-sm-2 control-label">培养基编号</label>
+                                <div class="col-sm-10">
+                                <input type="input" name="media" class="form-control" id="media" placeholder="请输入">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="lastname" class="col-sm-2 control-label">培养温度</label>
+                                <div class="col-sm-10">
+                                <input type="input" name="mediatem" class="form-control" id="mediatem" placeholder="请输入">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="lastname" class="col-sm-2 control-label">基因元器件</label>
+                                <div class="col-sm-10">
+                                <input type="input" name="gene" class="form-control" id="gene" placeholder="请输入">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="lastname" class="col-sm-2 control-label">记录地址</label>
+                                <div class="col-sm-10">
+                                <input type="input" name="recadd" class="form-control" id="recadd" placeholder="请输入">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="lastname" class="col-sm-2 control-label">共享方式</label>
+                                <div class="col-sm-10">
+                                <input type="input" name="shareme" class="form-control" id="shareme" placeholder="请输入">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="lastname" class="col-sm-2 control-label">获取途径</label>
+                                <div class="col-sm-10">
+                                <input type="input" name="getmet" class="form-control" id="getmet" placeholder="请输入">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="lastname" class="col-sm-2 control-label">联系方式</label>
+                                <div class="col-sm-10">
+                                <input type="input" name="callme" class="form-control" id="callme" placeholder="请输入">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="lastname" class="col-sm-2 control-label">源数据主键</label>
+                                <div class="col-sm-10">
+                                <input type="input" name="mainkey" class="form-control" id="mainkey" placeholder="请输入">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="lastname" class="col-sm-2 control-label">提供人</label>
+                                <div class="col-sm-10">
+                                <input type="input" name="prod" class="form-control" id="prod" placeholder="请输入">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="lastname" class="col-sm-2 control-label">分离人</label>
+                                <div class="col-sm-10">
+                                <input type="input" name="didv" class="form-control" id="didv" placeholder="请输入">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="lastname" class="col-sm-2 control-label">鉴定人</label>
+                                <div class="col-sm-10">
+                                <input type="input" name="judge" class="form-control" id="judge" placeholder="请输入">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="lastname" class="col-sm-2 control-label">基因序列注册号</label>
+                                <div class="col-sm-10">
+                                <input type="input" name="genenumber" class="form-control" id="genenumber" placeholder="请输入">
+                                </div>
+                            </div>
+                        <div class = "col-sm-8"></div>
+                        <div class = "col-sm-4">
+                        <button type="submit" class="btn btn-default">提交新纪录</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                        </div>
+                    </form>
+                    <form class="form-horizontal" role="form" method="get" action="{% url 'blog:bactdel' %}">
+                    {% csrf_token %}
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <input type="hidden" id="delid"  name="id" value="{{test.id}}">
+                        <button type="submit" class="btn btn-default">删除</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" >不删除</button>
+                    </div>
+                    </form>
+                    </div>
+                <div class="modal-footer">  
+                </div>
+            </div>
+        </div> 
+    </div>
+    
+    <script> 
+        $('#alter').on('show.bs.modal', function (event) {
+            var tr = document.querySelector('#useajax');
+            console.log(tr)
+            console.log(tr.dataset.testtype)
+            var modal = $(this)
+            modal.find('#alterid').val(tr.dataset.whatever)
+            modal.find('#delid').val(tr.dataset.whatever)
+            modal.find('#bactnumber').val(tr.dataset.bactnumber)
+            modal.find('#sourcenum').val(tr.dataset.sourcenum)
+            modal.find('#genus').val(tr.dataset.genus)
+            modal.find('#species').val(tr.dataset.species)
+            modal.find('#chinesename').val(tr.dataset.chinesename)
+            modal.find('#othersourcenum').val(tr.dataset.othersourcenum)
+            modal.find('#history').val(tr.dataset.history)
+            modal.find('#storetime').val(tr.dataset.storetime)
+            modal.find('#orinumber').val(tr.dataset.orinumber)
+            modal.find('#mainuse').val(tr.dataset.mainuse)
+            modal.find('#danger').val(tr.dataset.danger)
+            modal.find('#hostname').val(tr.dataset.hostname)
+            modal.find('#ill').val(tr.dataset.ill)
+            modal.find('#media').val(tr.dataset.media)
+            modal.find('#mediatem').val(tr.dataset.mediatem)
+            modal.find('#tranroute').val(tr.dataset.tranroute)
+            modal.find('#gene').val(tr.dataset.gene)
+            modal.find('#recadd').val(tr.dataset.recadd)
+            modal.find('#shareme').val(tr.dataset.shareme)
+            modal.find('#getmet').val(tr.dataset.getmet)
+            modal.find('#callme').val(tr.dataset.callme)
+            modal.find('#mainkey').val(tr.dataset.mainkey)
+            modal.find('#prod').val(tr.dataset.prod)
+            modal.find('#didv').val(tr.dataset.didv)
+            modal.find('#judge').val(tr.dataset.judge)
+            modal.find('#genenumber').val(tr.dataset.genenumber)
+        })
+    </script> 
 </body>
 {% endblock main %}

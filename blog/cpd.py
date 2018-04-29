@@ -26,9 +26,7 @@ def cpdload(request):
         media = request.GET.get('media')
         depa = request.GET.get('depa')
         spc = request.GET.get('spc')
-        time = request.GET.get('time')
         resu = request.GET.get('resu')
-        prov = request.GET.get('prov')
         dtime = request.GET.get('dtime')
         info = {
                 'cpdnumber' : cpdnumber,
@@ -43,10 +41,9 @@ def cpdload(request):
                 'media' : media,
                 'depa' : depa,
                 'spc' : spc,
-                'time' : time,
                 'resu' : resu,
-                'prov' : prov,
                 'dtime' : dtime,
+                'prov': request.user
         }
         cpd.objects.create(**info)
         return cpdindex(request, msg = 0) #msg = 0代表正常插入
