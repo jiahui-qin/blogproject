@@ -124,85 +124,85 @@
                         <div class="form-group">
                             <label for="lastname" class="col-sm-2 control-label">化合物编号</label>
                             <div class="col-sm-10">
-                            <input type="input" name="cpdnumber" class="form-control" id="lastname" placeholder="请输入">
+                            <input type="input" name="cpdnumber" class="form-control" id="lastname" >
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="lastname" class="col-sm-2 control-label">来源菌株</label>
                             <div class="col-sm-10">
-                            <input type="input" name="frombact" class="form-control" id="lastname" placeholder="请输入">
+                            <input type="input" name="frombact" class="form-control" id="lastname" >
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="lastname" class="col-sm-2 control-label">精确质量数</label>
                             <div class="col-sm-10">
-                            <input type="input" name="mass" class="form-control" id="lastname" placeholder="请输入">
+                            <input type="input" name="mass" class="form-control" id="lastname" >
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="lastname" class="col-sm-2 control-label">分子式</label>
                             <div class="col-sm-10">
-                            <input type="input" name="stru" class="form-control" id="lastname" placeholder="请输入">
+                            <input type="input" name="stru" class="form-control" id="lastname" >
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="lastname" class="col-sm-2 control-label">nmr数据</label>
                             <div class="col-sm-10">
-                            <input type="input" name="nmr" class="form-control" id="lastname" placeholder="请输入">
+                            <input type="input" name="nmr" class="form-control" id="lastname" >
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="lastname" class="col-sm-2 control-label">ms数据</label>
                             <div class="col-sm-10">
-                            <input type="input" name="ms" class="form-control" id="lastname" placeholder="请输入">
+                            <input type="input" name="ms" class="form-control" id="lastname" >
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="lastname" class="col-sm-2 control-label">旋光数据</label>
                             <div class="col-sm-10">
-                            <input type="input" name="rot" class="form-control" id="lastname" placeholder="请输入">
+                            <input type="input" name="rot" class="form-control" id="lastname" >
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="lastname" class="col-sm-2 control-label">红外数据</label>
                             <div class="col-sm-10">
-                            <input type="input" name="red" class="form-control" id="lastname" placeholder="请输入">
+                            <input type="input" name="red" class="form-control" id="lastname" >
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="lastname" class="col-sm-2 control-label">紫外数据</label>
                             <div class="col-sm-10">
-                            <input type="input" name="blue" class="form-control" id="lastname" placeholder="请输入">
+                            <input type="input" name="blue" class="form-control" id="lastname" >
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="lastname" class="col-sm-2 control-label">培养基编号</label>
                             <div class="col-sm-10">
-                            <input type="input" name="media" class="form-control" id="lastname" placeholder="请输入">
+                            <input type="input" name="media" class="form-control" id="lastname" >
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="lastname" class="col-sm-2 control-label">活性送测单位</label>
                             <div class="col-sm-10">
-                            <input type="input" name="depa" class="form-control" id="lastname" placeholder="请输入">
+                            <input type="input" name="depa" class="form-control" id="lastname" >
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="lastname" class="col-sm-2 control-label">活性种类</label>
                             <div class="col-sm-10">
-                            <input type="input" name="spc" class="form-control" id="lastname" placeholder="请输入">
+                            <input type="input" name="spc" class="form-control" id="lastname" >
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="lastname" class="col-sm-2 control-label">活性结果</label>
                             <div class="col-sm-10">
-                            <input type="input" name="resu" class="form-control" id="lastname" placeholder="请输入">
+                            <input type="input" name="resu" class="form-control" id="lastname" >
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="lastname" class="col-sm-2 control-label">入库时间</label>
                             <div class="col-sm-10">
-                            <input type="datetime-local" name="dtime" class="form-control" id="lastname" placeholder="请输入">
+                            <input type="datetime-local" name="dtime" class="form-control" id="lastname" >
                             </div>
                         </div>
                             <div class="col-sm-offset-2 col-sm-10">
@@ -218,7 +218,7 @@
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
-</body>
+
 
 <div class="modal fade" id="alter" tabindex="-1" role="dialog" aria-labelledby="alterLabel" aria-hidden="true">
         <div class="modal-dialog" >
@@ -228,14 +228,138 @@
                     <h4 class="modal-title" id="alterLabel">???</h4>
                 </div>
                 <div class="modal-body">
-                    <form class="form-horizontal" role="form" method="get" action="{% url 'blog:bactalter' %}">
+                    <form class="form-horizontal" role="form" method="get" action="{% url 'blog:cpdalter' %}">
                         <!-- 写的时候action后边的{}url后边加了两个引号，就一直跳转到/testrecord界面，去掉之后才变 -->
                             {% csrf_token %}
                         <input type="hidden" id="alterid"  name="id" value="{{test.id}}" />
                         <div class="form-group">
-                            <label for="firstname" class="col-sm-2 control-label">菌株保藏编号</label>
+                            <label for="lastname" class="col-sm-2 control-label">化合物编号</label>
                             <div class="col-sm-10">
-                            <input type="input" name="bactnumber" class="form-control" id="bactnumber" placeholder="请输入">
+                            <input type="input" name="cpdnumber" class="form-control" id="cpdnumber" >
                             </div>
                         </div>
+                        <div class="form-group">
+                            <label for="lastname" class="col-sm-2 control-label">来源菌株</label>
+                            <div class="col-sm-10">
+                            <input type="input" name="frombact" class="form-control" id="frombact" >
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastname" class="col-sm-2 control-label">精确质量数</label>
+                            <div class="col-sm-10">
+                            <input type="input" name="mass" class="form-control" id="mass" >
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastname" class="col-sm-2 control-label">分子式</label>
+                            <div class="col-sm-10">
+                            <input type="input" name="stru" class="form-control" id="stru" >
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastname" class="col-sm-2 control-label">nmr数据</label>
+                            <div class="col-sm-10">
+                            <input type="input" name="nmr" class="form-control" id="nmr" >
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastname" class="col-sm-2 control-label">ms数据</label>
+                            <div class="col-sm-10">
+                            <input type="input" name="ms" class="form-control" id="ms" >
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastname" class="col-sm-2 control-label">旋光数据</label>
+                            <div class="col-sm-10">
+                            <input type="input" name="rot" class="form-control" id="rot" >
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastname" class="col-sm-2 control-label">红外数据</label>
+                            <div class="col-sm-10">
+                            <input type="input" name="red" class="form-control" id="red" >
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastname" class="col-sm-2 control-label">紫外数据</label>
+                            <div class="col-sm-10">
+                            <input type="input" name="blue" class="form-control" id="blue" >
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastname" class="col-sm-2 control-label">培养基编号</label>
+                            <div class="col-sm-10">
+                            <input type="input" name="media" class="form-control" id="media" >
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastname" class="col-sm-2 control-label">活性送测单位</label>
+                            <div class="col-sm-10">
+                            <input type="input" name="depa" class="form-control" id="depa" >
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastname" class="col-sm-2 control-label">活性种类</label>
+                            <div class="col-sm-10">
+                            <input type="input" name="spc" class="form-control" id="spc" >
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastname" class="col-sm-2 control-label">活性结果</label>
+                            <div class="col-sm-10">
+                            <input type="input" name="resu" class="form-control" id="resu" >
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastname" class="col-sm-2 control-label">入库时间</label>
+                            <div class="col-sm-10">
+                            <input type="datetime-local" name="dtime" class="form-control" id="dtime" >
+                            </div>
+                        </div>
+                        <div class = "col-sm-8"></div>
+                    <div class = "col-sm-4">
+                    <button type="submit" class="btn btn-default">提交新纪录</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    </div>
+                </form>
+                <form class="form-horizontal" role="form" method="get" action="{% url 'blog:cpddel' %}">
+                {% csrf_token %}
+                <div class="col-sm-offset-2 col-sm-10">
+                    <input type="hidden" id="delid"  name="id" value="{{test.id}}">
+                    <button type="submit" class="btn btn-default">删除</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" >不删除</button>
+                </div>
+                </form>
+                </div>
+            <div class="modal-footer">  
+            </div>
+        </div>
+    </div> 
+</div>
+
+<script> 
+    $('#alter').on('show.bs.modal', function (event) {
+        var tr = document.querySelector('#useajax');
+        console.log(tr)
+        console.log(tr.dataset.testtype)
+        var modal = $(this)
+        modal.find('#alterid').val(tr.dataset.whatever)
+        modal.find('#delid').val(tr.dataset.whatever)
+        modal.find('#cpdnumber').val(tr.dataset.cpdnumber)
+        modal.find('#frombact').val(tr.dataset.frombact)
+        modal.find('#mass').val(tr.dataset.mass)
+        modal.find('#stru').val(tr.dataset.stru)
+        modal.find('#nmr').val(tr.dataset.nmr)
+        modal.find('#ms').val(tr.dataset.ms)
+        modal.find('#rot').val(tr.dataset.rot)
+        modal.find('#red').val(tr.dataset.red)
+        modal.find('#blue').val(tr.dataset.blue)
+        modal.find('#media').val(tr.dataset.media)
+        modal.find('#depa').val(tr.dataset.depa)
+        modal.find('#spc').val(tr.dataset.spc)
+        modal.find('#resu').val(tr.dataset.resu)
+        modal.find('#dtime').val(tr.dataset.dtime)
+    })
+</script>
+</body>
 {% endblock main %}

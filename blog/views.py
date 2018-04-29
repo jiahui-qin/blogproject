@@ -10,7 +10,7 @@ from django.utils import timezone
 from .bact import bactindex, bactload, bactdel,bactalter
 from .testrecord import recordindex, upload,recdel,recalter
 from .crudeex import crudeexindex, curdeexupload
-from .cpd import cpdindex, cpdload
+from .cpd import cpdindex, cpdload, cpdalter, cpddel
 
 @login_required
 def index(request, lists, msg = -1):
