@@ -9,6 +9,7 @@ urlpatterns = [
     url(r'^recalter/$', views.recalter, name='recalter'),
     url(r'^bactalter/$', views.bactalter, name='bactalter'),
     url(r'^cpdalter/$', views.cpdalter, name='cpdalter'),
+    url(r'^crualter/$', views.crualter, name='crualter'),
 
     url(r'^index/$', views.recordindex, name='index'),
     url(r'^bactindex/$', views.bactindex, name='bactindex'),
@@ -24,6 +25,7 @@ urlpatterns = [
     url(r'^recdel/$', views.recdel, name='recdel'),
     url(r'^bactdel/$', views.bactdel, name='bactdel'),
     url(r'^cpddel/$', views.cpddel, name='cpddel'),
+    url(r'^crudel/$', views.crudel, name='crudel'),
 
 
     url(r'^accounts/login/$', views.login_user, name = 'login_user'),

@@ -38,7 +38,6 @@ class testrecord(models.Model):
         return self.samplename
 
 class crudeex(models.Model):
-    crudenumber = models.CharField(max_length = 50) #粗提物编号
     mcccnumber = models.CharField(max_length = 50) #mccc编号
     genus = models.CharField(max_length = 200) #属名
     species = models.CharField(max_length = 200) #种名

@@ -8,7 +8,7 @@ from .models import testrecord, crudeex, bact,cpd
 from django.db.models import Q
 from django.utils import timezone
 
-def cpdindex(request, msg = -1):
+def cpdindex(request, msg = -1):   ##化合物
     lists = cpd.objects.all()
     return render(request, 'blog/cpd.html', context = {'tests' : lists, 'msg' : msg} )
 
