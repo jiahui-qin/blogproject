@@ -14,7 +14,8 @@ from django.core import serializers
 
 def recordindex(request, msg = -1):
     lists = testrecord.objects.all()
-    return render(request, 'blog/record.html', {'tests' : lists, 'msg' : msg} )
+    num = len(lists) 
+    return render(request, 'blog/record.html', {'tests' : lists, 'msg' : msg, 'num' : num} )
 
 def upload(request):
     if request.method == "GET":
