@@ -14,6 +14,7 @@ def crudeexindex(request, msg = -1):  ##粗提物
 
 def curdeexupload(request):
     if request.method == 'GET':
+        bactid = request.GET.get('frombact')
         mcccnumber = request.GET.get('mcccnumber')
         genus = request.GET.get('genus')
         species = request.GET.get('species')
@@ -35,7 +36,9 @@ def curdeexupload(request):
         department = request.GET.get('department')
         activeresult = request.GET.get('activeresult')
         comment = request.GET.get('comment')
+        frombact = bact.objects.get(id=bactid)
         info = {
+                'frombact' : frombact,
                 'mcccnumber' : mcccnumber, 
                 'genus' : genus, 
                 'species' : species, 
@@ -76,6 +79,7 @@ def crualter(request):
     if request.method == 'GET':
         #try:
         id = request.GET.get('id')
+        frombact = request.GET.get('frombact')
         mcccnumber = request.GET.get('mcccnumber')
         genus = request.GET.get('genus')
         species = request.GET.get('species')
@@ -98,6 +102,7 @@ def crualter(request):
         activeresult = request.GET.get('activeresult')
         comment = request.GET.get('comment')
         infos = {
+            'frombact' : frombact,
             'mcccnumber' : mcccnumber, 
             'genus' : genus, 
             'species' : species, 

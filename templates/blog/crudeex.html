@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load blog_tags %}
 {%block main %}
 
 <body>
@@ -67,7 +67,7 @@
             <tbody>
                     {% for crudeex in tests %}
                     {% if request.user == crudeex.provider %}
-                    <tr class="row1 success" id = "useajax" data-toggle="modal" data-target="#alter"  
+                    <tr class="row1 success" id = "useajax" data-toggle="modal" data-target="#alter"  data-frombact = "{{crudeex.frombact}}"
                     data-whatever = "{{crudeex.id}}" data-mcccnumber = "{{crudeex.mcccnumber}}" data-genus = "{{crudeex.genus}}"
                     data-species = "{{crudeex.species}}" data-chinesename = "{{crudeex.chinesename}}"  data-media = "{{crudeex.media}}"
                     data-medianumber = "{{crudeex.medianumber}}" data-mass = "{{crudeex.mass}}" data-stockmass = "{{crudeex.stockmass}}"
@@ -92,7 +92,7 @@
                             <th class = "field-exrmethod">{{crudeex.exrmethod}}</th>
                             <th class = "field-provider">{{crudeex.provider}}</th>
                             <th class = "field-department">{{crudeex.department}}</th>
-                            <th class = "field-sendtime">{{crudeex.sendtime}}</th>
+                            <th class = "field-entertime">{{crudeex.entertime}}</th>
                             <th class = "field-activeresult">{{crudeex.activeresult}}</th>
                             <th class = "field-comment">{{crudeex.comment}}</th>
                     </tr> 
@@ -118,6 +118,21 @@
                 <!-- 输入新记录表单 -->
                     <form class="form-horizontal" role="form" method="get" action="{% url 'blog:curdeexupload' %}">
                             {% csrf_token %}
+                        <div class="form-group">
+                            <label  class="col-sm-2 control-label">来源菌株</label>
+                            <div class="col-sm-10">
+                            <select type="input" name="frombact" class="form-control">
+                            {% get_all_bact as bact_list %}
+                            <ul>
+                                {% for bact in bact_list %}
+                                <option value = '{{bact.id}}'>{{bact.bactnumber}}</option>
+                                {% empty %}
+                                <a>null</a>
+                                {% endfor %}
+                            </ul>
+                            </select>
+                            </div>
+                        </div>
                         <div class="form-group">
                             <label for="lastname" class="col-sm-2 control-label">mccc编号</label>
                             <div class="col-sm-10">
@@ -273,6 +288,12 @@
                         {% csrf_token %}
                     <input type="hidden" id="alterid"  name="id"  />
                     <div class="form-group">
+                        <label  class="col-sm-2 control-label">来源菌株</label>
+                        <div class="col-sm-10">
+                        <select type="input" name="mcccnumber" class="form-control" id="mcccnumber" ></select>
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <label for="lastname" class="col-sm-2 control-label">mccc编号</label>
                         <div class="col-sm-10">
                         <input type="input" name="mcccnumber" class="form-control" id="mcccnumber" >
@@ -427,6 +448,7 @@
         var modal = $(this)
         modal.find('#alterid').val(tr.dataset.whatever)
         modal.find('#delid').val(tr.dataset.whatever)
+        modal.find('#frombact').val(tr.dataset.frombact)
         modal.find('#crudenumber').val(tr.dataset.crudenumber)
         modal.find('#mcccnumber').val(tr.dataset.mcccnumber)
         modal.find('#genus').val(tr.dataset.genus)

@@ -80,18 +80,18 @@ class crudeex(models.Model): ##粗提物
     mass = models.FloatField() #重量，单位mg
     stockmass = models.FloatField() #库存量，单位mg
     cointermass = models.FloatField() #样品瓶重量，单位miug
-    entertime = models.DateTimeField(auto_now_add=True, editable = True) #入库时间
-    entervol = models.FloatField() #入库体积
-    entercol =  models.FloatField() #入库浓度
-    testcol = models.FloatField() #测试浓度
-    testvol = models.FloatField() #测试体积
-    activecol = models.FloatField() #活性浓度
+    entertime = models.DateTimeField(blank = True) #入库时间
+    entervol = models.FloatField(blank = True) #入库体积
+    entercol =  models.FloatField(blank = True) #入库浓度
+    testcol = models.FloatField(blank = True) #测试浓度
+    testvol = models.FloatField(blank = True) #测试体积
+    activecol = models.FloatField(blank = True) #活性浓度
     solvent = models.CharField(max_length = 100) #溶剂
     culture = models.CharField(max_length = 500, blank = True) #培养条件
     exrmethod = models.CharField(max_length = 500, blank = True) #提取方法
     provider = models.ForeignKey(User) #提供人
     department = models.CharField(max_length=100) #测样单位
-    sendtime = models.DateTimeField() #送样时间
+    sendtime = models.DateTimeField(auto_now_add=True, editable = True) #送样时间
     activeresult = models.CharField(max_length = 500, blank = True) #活性检测结果
     comment = models.CharField(max_length = 500, blank = True)
     
