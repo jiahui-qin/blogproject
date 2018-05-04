@@ -31,5 +31,7 @@ urlpatterns = [
     url(r'^accounts/login/$', views.login_user, name = 'login_user'),
     url(r'^accounts/logout/$', views.logout_user, name = 'logout_user'),
 
+    url(r'^bact/bact2cru/$', views.bact2cru, name='bact2cru'),
+
     #url(r'^managedata/$', views.managedata, name = 'managedata'),
 ]

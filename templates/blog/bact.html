@@ -85,7 +85,7 @@
                             {% else %}
                             <tr class="row1">
                             {% endif %}
-                                    <td class = "field-bactnumber"> {{test.bactnumber}}</td>
+                                    <td class = "field-bactnumber"><a href="{% url 'blog:bact2cru' test.id %}">{{test.bactnumber}}</a> </td>
                                     <th class = "field-sourcenum">{{test.sourcenum}}</th>
                                     <th class = "field-genus">{{test.genus}}</th>
                                     <th class = "field-species">{{test.species}}</th>

@@ -9,7 +9,7 @@ from django.db.models import Q
 from django.utils import timezone
 from .bact import bactindex, bactload, bactdel,bactalter
 from .testrecord import recordindex, upload,recdel,recalter
-from .crudeex import crudeexindex, curdeexupload, crudel, crualter
+from .crudeex import crudeexindex, curdeexupload, crudel, crualter, bact2cru
 from .cpd import cpdindex, cpdload, cpdalter, cpddel
 
 @login_required
@@ -29,6 +29,49 @@ def altermanage(request):
 
 def alter(request):
     return render
+
+
+def login_user(request):
+    state = "Please log in below..."
+    username = password = ''
+    if request.POST:
+        username = request.POST['username']
+        password = request.POST['password']
+
+        user = authenticate(username=username, password=password)
+        if user is not None:
+            if user.is_active:
+                login(request, user)
+                state = "You're successfully logged in!"
+                return HttpResponseRedirect('/index/')
+            else:
+                state = "Your account is not active, please contact the site admin."
+        else:
+            state = "Your username and/or password were incorrect."
+    return render(request, 'blog/login.html', context = {'title':'my database', 'state':state} )
+
+def logout_user(request):
+    logout(request)
+    # Redirect to a success page.
+    return HttpResponseRedirect("/accounts/login/")
+
+
+#
+#
+#def managedata(request):
+#    render(request, 'blog/managedata.html', context =  {'title':'my database','welcome':'metabolomics database', 'state':'插入成功'})
+#
+#def ppp(request):
+#    state = '插入错误'
+#    metabolomics = request.GET.get('metabolomics')
+#    rt = request.GET.get('rt')
+#    mz = request.GET.get('mz')
+#    try:
+#        cur = meta(metabolomics = 'metabolomics', rt = 'rt', mz = 'mz',  updatetime = timezone.now())
+#        cur.save
+#        return render(request,'blog/managedata.html', context =  {'title':'my database','welcome':'metabolomics database', 'state':'插入成功'})
+#    except:
+#        return render(request,'blog/managedata.html', context =  {'title':'my database','welcome':'metabolomics database', 'state':state})
 
 #@login_required(login_url='/accounts/login/')
 #def index(request):
@@ -83,42 +126,3 @@ def alter(request):
 #    meta_list = meta.objects.all().order_by('rt')
 #    return render(request, 'blog/index.html', context = {'title':'my database','welcome':'metabolomics database', 'meta_list' : meta_list} )
 #
-def login_user(request):
-    state = "Please log in below..."
-    username = password = ''
-    if request.POST:
-        username = request.POST['username']
-        password = request.POST['password']
-
-        user = authenticate(username=username, password=password)
-        if user is not None:
-            if user.is_active:
-                login(request, user)
-                state = "You're successfully logged in!"
-                return HttpResponseRedirect('/index/')
-            else:
-                state = "Your account is not active, please contact the site admin."
-        else:
-            state = "Your username and/or password were incorrect."
-    return render(request, 'blog/login.html', context = {'title':'my database', 'state':state} )
-
-def logout_user(request):
-    logout(request)
-    # Redirect to a success page.
-    return HttpResponseRedirect("/accounts/login/")
-#
-#
-#def managedata(request):
-#    render(request, 'blog/managedata.html', context =  {'title':'my database','welcome':'metabolomics database', 'state':'插入成功'})
-#
-#def ppp(request):
-#    state = '插入错误'
-#    metabolomics = request.GET.get('metabolomics')
-#    rt = request.GET.get('rt')
-#    mz = request.GET.get('mz')
-#    try:
-#        cur = meta(metabolomics = 'metabolomics', rt = 'rt', mz = 'mz',  updatetime = timezone.now())
-#        cur.save
-#        return render(request,'blog/managedata.html', context =  {'title':'my database','welcome':'metabolomics database', 'state':'插入成功'})
-#    except:
-#        return render(request,'blog/managedata.html', context =  {'title':'my database','welcome':'metabolomics database', 'state':state})
