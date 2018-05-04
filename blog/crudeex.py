@@ -24,7 +24,7 @@ def curdeexupload(request):
         mass = request.GET.get('mass')
         stockmass = request.GET.get('stockmass')
         cointermass = request.GET.get('cointermass')
-        entertime = request.GET.get('entertime')
+        #entertime = request.GET.get('entertime')
         entervol = request.GET.get('entervol')
         entercol = request.GET.get('entercol')
         testcol = request.GET.get('testcol')
@@ -48,7 +48,7 @@ def curdeexupload(request):
                 'mass' : mass, 
                 'stockmass' : stockmass, 
                 'cointermass' : cointermass, 
-                'entertime' : entertime, 
+                #'entertime' : entertime, 
                 'entervol' : entervol, 
                 'entercol' : entercol, 
                 'testcol' : testcol, 
@@ -89,7 +89,7 @@ def crualter(request):
         mass = request.GET.get('mass')
         stockmass = request.GET.get('stockmass')
         cointermass = request.GET.get('cointermass')
-        entertime = request.GET.get('entertime')
+        #entertime = request.GET.get('entertime')
         entervol = request.GET.get('entervol')
         entercol = request.GET.get('entercol')
         testcol = request.GET.get('testcol')
@@ -112,7 +112,7 @@ def crualter(request):
             'mass' : mass, 
             'stockmass' : stockmass, 
             'cointermass' : cointermass, 
-            'entertime' : entertime, 
+            #'entertime' : entertime, 
             'entervol' : entervol, 
             'entercol' : entercol, 
             'testcol' : testcol, 
