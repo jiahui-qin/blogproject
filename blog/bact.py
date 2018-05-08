@@ -22,7 +22,7 @@ def bactload(request):
         chinesename = request.GET.get('chinesename') 
         othersourcenum =  request.GET.get('othersourcenum')
         history = request.GET.get('history')
-        storetime = request.GET.get('storetime')  
+        ##storetime = request.GET.get('storetime')  
         orinumber = request.GET.get('orinumber')
         mainuse = request.GET.get('mainuse')
         danger = request.GET.get('danger') 
@@ -49,7 +49,7 @@ def bactload(request):
             'chinesename' : chinesename, 
             'othersourcenum' : othersourcenum,
             'history' : history, 
-            'storetime' : storetime,
+            ##'storetime' : storetime,
             'orinumber' : orinumber,
             'mainuse' : mainuse,
             'danger' : danger, 
@@ -68,6 +68,7 @@ def bactload(request):
             'didv' : didv,
             'judge' : judge,
             'genenumber' : genenumber,
+            'upload' : request.user
         }        
         bact.objects.create(**info)
         return bactindex(request, msg = 0) #msg = 0代表正常插入
@@ -95,7 +96,7 @@ def bactalter(request):
             chinesename = request.GET.get('chinesename') 
             othersourcenum =  request.GET.get('othersourcenum')
             history = request.GET.get('history')
-            storetime = request.GET.get('storetime')  
+            ##storetime = request.GET.get('storetime')  
             orinumber = request.GET.get('orinumber')
             mainuse = request.GET.get('mainuse')
             danger = request.GET.get('danger') 
@@ -122,7 +123,7 @@ def bactalter(request):
                 'chinesename' : chinesename, 
                 'othersourcenum' : othersourcenum,
                 'history' : history, 
-                'storetime' : storetime,
+                ##'storetime' : storetime,
                 'orinumber' : orinumber,
                 'mainuse' : mainuse,
                 'danger' : danger, 

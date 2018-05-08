@@ -118,7 +118,7 @@
                 <!-- 输入新记录表单 -->
                     <form class="form-horizontal" role="form" method="get" action="{% url 'blog:curdeexupload' %}">
                             {% csrf_token %}
-                        <div class="form-group">
+                        <div class="form-group has-success">
                             <label  class="col-sm-2 control-label">来源菌株</label>
                             <div class="col-sm-10">
                             <select type="input" name="frombact" class="form-control">
@@ -133,55 +133,55 @@
                             </select>
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group has-success">
                             <label for="lastname" class="col-sm-2 control-label">mccc编号</label>
                             <div class="col-sm-10">
                             <input type="input" name="mcccnumber" class="form-control" id="lastname" >
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group has-success">
                             <label for="lastname" class="col-sm-2 control-label">属名</label>
                             <div class="col-sm-10">
                             <input type="input" name="genus" class="form-control" id="lastname" >
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group has-success">
                             <label for="lastname" class="col-sm-2 control-label">种名</label>
                             <div class="col-sm-10">
                             <input type="input" name="species" class="form-control" id="lastname" >
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group has-success">
                             <label for="lastname" class="col-sm-2 control-label">中文名</label>
                             <div class="col-sm-10">
                             <input type="input" name="chinesename" class="form-control" id="lastname" >
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group has-success">
                             <label for="lastname" class="col-sm-2 control-label">培养基</label>
                             <div class="col-sm-10">
                             <input type="input" name="media" class="form-control" id="lastname" >
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group has-success">
                             <label for="lastname" class="col-sm-2 control-label">培养基编号</label>
                             <div class="col-sm-10">
                             <input type="input" name="medianumber" class="form-control" id="lastname" >
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group has-success">
                             <label for="lastname" class="col-sm-2 control-label">重量(μg)</label>
                             <div class="col-sm-10">
                             <input type="input" name="mass" class="form-control" id="lastname" >
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group has-success">
                             <label for="lastname" class="col-sm-2 control-label">库存量</label>
                             <div class="col-sm-10">
                             <input type="input" name="stockmass" class="form-control" id="lastname" >
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group has-success">
                             <label for="lastname" class="col-sm-2 control-label">样品瓶重量</label>
                             <div class="col-sm-10">
                             <input type="input" name="cointermass" class="form-control" id="lastname" >
@@ -223,7 +223,7 @@
                             <input type="input" name="activecol" class="form-control" id="lastname" >
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group has-success">
                             <label for="lastname" class="col-sm-2 control-label">溶剂</label>
                             <div class="col-sm-10">
                             <input type="input" name="solvent" class="form-control" id="lastname" >
@@ -241,7 +241,7 @@
                             <input type="input" name="exrmethod" class="form-control" id="lastname" >
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group has-success">
                             <label for="lastname" class="col-sm-2 control-label">测样单位</label>
                             <div class="col-sm-10">
                             <input type="input" name="department" class="form-control" id="lastname" >
@@ -280,14 +280,14 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="alterLabel"></h4>
+                <h4 class="modal-title" id="alterLabel">修改</h4>
             </div>
             <div class="modal-body">
                 <form class="form-horizontal" role="form" method="get" action="{% url 'blog:crualter' %}">
                     <!-- 写的时候action后边的{}url后边加了两个引号，就一直跳转到/testrecord界面，去掉之后才变 -->
                         {% csrf_token %}
                     <input type="hidden" id="alterid"  name="id"  />
-                    <div class="form-group">
+                    <div class="form-group has-success">
                         <label  class="col-sm-2 control-label">来源菌株</label>
                         <div class="col-sm-10">
                             <select type="input" name="frombact" class="form-control">
@@ -302,55 +302,55 @@
                             </select>
                         </div>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group has-success">
                         <label for="lastname" class="col-sm-2 control-label">mccc编号</label>
                         <div class="col-sm-10">
                         <input type="input" name="mcccnumber" class="form-control" id="mcccnumber" >
                         </div>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group has-success">
                         <label for="lastname" class="col-sm-2 control-label">属名</label>
                         <div class="col-sm-10">
                         <input type="input" name="genus" class="form-control" id="genus" >
                         </div>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group has-success">
                         <label for="lastname" class="col-sm-2 control-label">种名</label>
                         <div class="col-sm-10">
                         <input type="input" name="species" class="form-control" id="species" >
                         </div>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group has-success">
                         <label for="lastname" class="col-sm-2 control-label">中文名</label>
                         <div class="col-sm-10">
                         <input type="input" name="chinesename" class="form-control" id="chinesename" >
                         </div>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group has-success">
                         <label for="lastname" class="col-sm-2 control-label">培养基</label>
                         <div class="col-sm-10">
                         <input type="input" name="media" class="form-control" id="media" >
                         </div>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group has-success">
                         <label for="lastname" class="col-sm-2 control-label">培养基编号</label>
                         <div class="col-sm-10">
                         <input type="input" name="medianumber" class="form-control" id="medianumber" >
                         </div>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group has-success">
                         <label for="lastname" class="col-sm-2 control-label">重量(μg)</label>
                         <div class="col-sm-10">
                         <input type="input" name="mass" class="form-control" id="mass" >
                         </div>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group has-success">
                         <label for="lastname" class="col-sm-2 control-label">库存量</label>
                         <div class="col-sm-10">
                         <input type="input" name="stockmass" class="form-control" id="stockmass" >
                         </div>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group has-success">
                         <label for="lastname" class="col-sm-2 control-label">样品瓶重量</label>
                         <div class="col-sm-10">
                         <input type="input" name="cointermass" class="form-control" id="cointermass" >
@@ -410,7 +410,7 @@
                         <input type="input" name="exrmethod" class="form-control" id="exrmethod" >
                         </div>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group has-success">
                         <label for="lastname" class="col-sm-2 control-label">测样单位</label>
                         <div class="col-sm-10">
                         <input type="input" name="department" class="form-control" id="department" >

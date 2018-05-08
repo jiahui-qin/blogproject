@@ -7,14 +7,6 @@ from django.utils.html import strip_tags
 # Create your models here.
 
 @python_2_unicode_compatible
-#class meta(models.Model):
-#    metabolomics = models.CharField(max_length = 200)
-#    mz = models.FloatField()
-#    rt = models.FloatField()
-#    provider = models.ForeignKey(User)
-#    updatetime = models.DateTimeField()
-#    def __str__(self):
-#        return self.metabolomics
 
 class testrecord(models.Model):
     testtype = models.CharField(max_length = 20) #或者改成两个可选项？粗提物或者化合物
@@ -65,7 +57,7 @@ class bact(models.Model):  #菌株
     didv = models.CharField(max_length = 30, blank = True)#分离人
     judge = models.CharField(max_length = 30, blank = True)#鉴定人
     genenumber = models.CharField(max_length = 50, blank = True)#基因序列注册号
-
+    upload = models.ForeignKey(User, null = True)
     def __str__(self):
         return self.bactnumber + '|' + self.chinesename
 
