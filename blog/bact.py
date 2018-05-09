@@ -11,7 +11,8 @@ from django.utils import timezone
 
 def bactindex(request, msg = -1):
     lists = bact.objects.all()
-    return render(request, 'blog/bact.html', context = {'tests' : lists, 'msg' : msg} )
+    num = len(lists)
+    return render(request, 'blog/bact.html', context = {'tests' : lists, 'msg' : msg, 'num': num} )
 
 def bactload(request):
     if request.method == "GET":

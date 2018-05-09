@@ -10,7 +10,8 @@ from django.utils import timezone
 
 def crudeexindex(request, msg = -1):  ##粗提物
     lists = crudeex.objects.all()
-    return render(request, 'blog/crudeex.html', context = {'tests' : lists, 'msg' : msg} )
+    num = len(lists)
+    return render(request, 'blog/crudeex.html', context = {'tests' : lists, 'msg' : msg, 'num' : num} )
 
 def curdeexupload(request):
     if request.method == 'GET':

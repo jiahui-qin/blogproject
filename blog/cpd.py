@@ -10,7 +10,8 @@ from django.utils import timezone
 
 def cpdindex(request, msg = -1):   ##化合物
     lists = cpd.objects.all()
-    return render(request, 'blog/cpd.html', context = {'tests' : lists, 'msg' : msg} )
+    num = len(lists)
+    return render(request, 'blog/cpd.html', context = {'tests' : lists, 'msg' : msg, 'num' : num} )
 
 def cpdload(request):
     if request.method == 'GET':

@@ -16,10 +16,10 @@
             <nav class="main-nav" role="navigation">
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul class="list-unstyled text-center" >
-                            <li>当前数据库有xx条记录</li>
-                            <li>本日上传记录xx条</li>
+                            <li>当前登录用户： {{request.user}}</li>
+                            <li>当前数据库上传记录 {{num}}</li>
                             <li>本周上传记录xx条</li>
-                          </ul>
+                        </ul>
                 </div><!-- /.navbar-collapse -->
             </nav>
         </div><!-- col-md-8 -->
@@ -43,7 +43,7 @@
             </div>
             {% else %}
             {% endif %}  
-    <table class="table table-hover">
+    <table class="table table-hover table-condensed">
             <thead>
                 <tr>
                     <th>mccc编号</th>
@@ -95,6 +95,7 @@
                             <th class = "field-sendtime">{{crudeex.sendtime}}</th>
                             <th class = "field-activeresult">{{crudeex.activeresult}}</th>
                             <th class = "field-comment">{{crudeex.comment}}</th>
+                            <th class = "field-upload"><button type="button" class="btn btn-info btn-xs" data-toggle="modal" data-target="#upload">添加送测记录</button></th>
                     </tr> 
                     {% empty %}
                       <div class="row1">null</div>

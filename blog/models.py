@@ -8,28 +8,6 @@ from django.utils.html import strip_tags
 
 @python_2_unicode_compatible
 
-class testrecord(models.Model):
-    testtype = models.CharField(max_length = 20) #或者改成两个可选项？粗提物或者化合物
-    boxnumber = models.IntegerField(blank = True) #盒序号
-    samplestart = models.IntegerField(blank = True) #样品起序号
-    sampleend = models.IntegerField(blank = True) #样品终序号
-    samplenum = models.IntegerField(blank = True) #样品数量
-    samplename = models.CharField(max_length = 100) #样品名
-    solvent = models.CharField(max_length = 100) #溶剂
-    mass = models.FloatField() #重量，单位miug
-    volume = models.FloatField() #体积单位niuL
-    concentration = models.FloatField() #浓度 单位(mg/mL)
-    testconcentration = models.FloatField(blank= True) #测试浓度 单位(miug/mL)
-    provider = models.ForeignKey(User) #提供人
-    department = models.CharField(max_length=100) #测样单位
-    sendtime = models.DateTimeField(auto_now_add=True, editable = True)
-    sendtime.editable = 'True'     #送样时间
-    comment = models.CharField(max_length = 500, blank = True)
-
-    def __str__(self):
-        return self.samplename
-
-
 class bact(models.Model):  #菌株
     bactnumber = models.CharField(max_length = 50) #菌株保藏编号
     sourcenum = models.CharField(max_length = 50) #平台资源编号
@@ -115,3 +93,24 @@ class cpd(models.Model): ##化合物
     
     def __str__(self):
         return self.cpdnumber + '|' + self.stru
+
+class testrecord(models.Model):
+    fromcru = models.ForeignKey(crudeex, null = True) ##链接至粗提物,可以在粗提物的每一行后边加一个按钮，增加送测记录。
+    testtype = models.CharField(max_length = 20) #或者改成两个可选项？粗提物或者化合物
+    boxnumber = models.IntegerField(blank = True) #盒序号
+    samplestart = models.IntegerField(blank = True) #样品起序号
+    sampleend = models.IntegerField(blank = True) #样品终序号
+    samplenum = models.IntegerField(blank = True) #样品数量
+    samplename = models.CharField(max_length = 100) #样品名
+    solvent = models.CharField(max_length = 100) #溶剂
+    mass = models.FloatField() #重量，单位miug
+    volume = models.FloatField() #体积单位niuL
+    concentration = models.FloatField() #浓度 单位(mg/mL)
+    testconcentration = models.FloatField(blank= True) #测试浓度 单位(miug/mL)
+    provider = models.ForeignKey(User) #提供人
+    department = models.CharField(max_length=100) #测样单位
+    sendtime = models.DateTimeField(auto_now_add=True, editable = True)
+    comment = models.CharField(max_length = 500, blank = True)
+
+    def __str__(self):
+        return self.samplename
