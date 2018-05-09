@@ -95,7 +95,7 @@
                             <th class = "field-sendtime">{{crudeex.sendtime}}</th>
                             <th class = "field-activeresult">{{crudeex.activeresult}}</th>
                             <th class = "field-comment">{{crudeex.comment}}</th>
-                            <th class = "field-upload"><button type="button" class="btn btn-info btn-xs" data-toggle="modal" data-target="#upload">添加送测记录</button></th>
+                            <th class = "field-upload"><button type="button" class="btn btn-info btn-xs" data-toggle="modal" data-target="#upload" data-cruid = "{{crudeex.id}}">添加送测记录</button></th>
                     </tr> 
                     {% empty %}
                       <div class="row1">null</div>
@@ -453,8 +453,6 @@
 <script> 
     $('#alter').on('show.bs.modal', function (event) {
         var tr = document.querySelector('#useajax');
-        console.log(tr)
-        console.log(tr.dataset.testtype)
         var modal = $(this)
         modal.find('#alterid').val(tr.dataset.whatever)
         modal.find('#delid').val(tr.dataset.whatever)
@@ -483,7 +481,113 @@
         modal.find('#comment').val(tr.dataset.comment)
     })
 </script> 
-
+<!-- modal upload -->
+<div class="modal fade" id="upload" tabindex="-1" role="dialog" aria-labelledby="uploadLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content" >
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×
+                </button>
+                <h4 class="modal-title" id="uploadLabel">
+                    上传送测记录
+                </h4>
+            </div>
+            <div class="modal-body">
+                <!-- 输入新记录表单 -->
+                <form class="form-horizontal" role="form" method="get" action="{% url 'blog:cru2rec' %}">
+                        {% csrf_token %}
+                    <input type="hidden" id="cruid"  name="cruid"  />
+                    <div class="form-group">
+                        <label for="lastname" class="col-sm-2 control-label">类别</label>
+                        <div class="col-sm-10">
+                        <input type="input" name="testtype" class="form-control" id="lastname" placeholder="请输入">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="lastname" class="col-sm-2 control-label">盒序号</label>
+                        <div class="col-sm-10">
+                        <input type="input" name="boxnumber" class="form-control" id="lastname" placeholder="请输入">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="lastname" class="col-sm-2 control-label">样品起序号</label>
+                        <div class="col-sm-10">
+                        <input type="input" name="samplestart" class="form-control" id="lastname" placeholder="请输入">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="lastname" class="col-sm-2 control-label">样品终序号</label>
+                        <div class="col-sm-10">
+                        <input type="input" name="sampleend" class="form-control" id="lastname" placeholder="请输入">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="lastname" class="col-sm-2 control-label">样品名</label>
+                        <div class="col-sm-10">
+                        <input type="input" name="samplename" class="form-control" id="lastname" placeholder="请输入">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="lastname" class="col-sm-2 control-label">溶剂</label>
+                        <div class="col-sm-10">
+                        <input type="input" name="solvent" class="form-control" id="lastname" placeholder="请输入">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="lastname" class="col-sm-2 control-label">重量(μg)</label>
+                        <div class="col-sm-10">
+                        <input type="input" name="mass" class="form-control" id="lastname" placeholder="请输入">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="lastname" class="col-sm-2 control-label">体积(μL)</label>
+                        <div class="col-sm-10">
+                        <input type="input" name="volume" class="form-control" id="lastname" placeholder="请输入">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="lastname" class="col-sm-2 control-label">样品浓度(mg/mL)</label>
+                        <div class="col-sm-10">
+                        <input type="input" name="concentration" class="form-control" id="lastname" placeholder="请输入">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="lastname" class="col-sm-2 control-label">测试浓度(μg/mL)</label>
+                        <div class="col-sm-10">
+                        <input type="input" name="testconcentration" class="form-control" id="lastname" placeholder="请输入">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="lastname" class="col-sm-2 control-label">测样单位</label>
+                        <div class="col-sm-10">
+                        <input type="input" name="department" class="form-control" id="lastname" placeholder="请输入">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="lastname" class="col-sm-2 control-label">备注</label>
+                        <div class="col-sm-10">
+                        <input type="input" name="comment" class="form-control" id="lastname" placeholder="请输入">
+                        </div>
+                    </div>
+                    <div class = "col-sm-8"></div>
+                    <div class = "col-sm-4">
+                    <button type="submit" class="btn btn-default">提交新纪录</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<script> 
+    $('#upload').on('show.bs.modal', function (event) {
+        var tr = document.querySelector('#useajax');
+        var modal = $(this)
+        modal.find('#cruid').val(tr.dataset.cruid)
+    })
+</script> 
 
 </body>
 {% endblock main %}

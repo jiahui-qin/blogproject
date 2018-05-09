@@ -9,7 +9,7 @@ from django.db.models import Q
 from django.utils import timezone
 from .bact import bactindex, bactload, bactdel,bactalter
 from .testrecord import recordindex, upload,recdel,recalter
-from .crudeex import crudeexindex, curdeexupload, crudel, crualter, bact2cru
+from .crudeex import crudeexindex, curdeexupload, crudel, crualter, bact2cru,cru2rec
 from .cpd import cpdindex, cpdload, cpdalter, cpddel
 
 @login_required

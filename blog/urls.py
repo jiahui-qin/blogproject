@@ -32,6 +32,7 @@ urlpatterns = [
     url(r'^accounts/logout/$', views.logout_user, name = 'logout_user'),
 
     url(r'^bact/bact2cru/(\d+)$', views.bact2cru, name='bact2cru'),
+    url(r'^cru2rec/$', views.cru2rec, name='cru2rec'),
 
     #url(r'^managedata/$', views.managedata, name = 'managedata'),
 ]
