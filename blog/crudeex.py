@@ -136,3 +136,41 @@ def bact2cru(request, bactid):
     bacts = bact.objects.get(id = bactid)
     lists = crudeex.objects.filter(frombact = bacts)
     return render(request, 'blog/crudeex.html', context = {'tests' : lists, 'msg' : -1} )
+
+def cru2rec(request, cruid):
+    cru = crudeex.objects.get(id = cruid)
+    if request.method == "GET":
+        try:
+            testtype = request.GET.get('testtype') #或者改成两个可选项？粗提物或者化合物
+            boxnumber = request.GET.get('boxnumber') #盒序号
+            samplestart = request.GET.get('samplestart') #样品起序号
+            sampleend = request.GET.get('sampleend') #样品终序号
+            samplename = request.GET.get('samplename') #样品名
+            samplenum = int(sampleend) - int(samplestart) + 1 #样品数量
+            solvent = request.GET.get('solvent') #溶剂
+            mass = request.GET.get('mass')#重量，单位miug
+            volume = request.GET.get('volume') #体积单位niuL
+            concentration = request.GET.get('concentration') #浓度 单位(mg/mL)
+            testconcentration = request.GET.get('testconcentration') #测试浓度 单位(miug/mL)
+            department = request.GET.get('department') #测样单位
+            #sendtime = request.GET.get('sendtime') #送样时间
+            comment =request.GET.get('comment')
+            info = {
+                'fromcru' : cru
+                'testtype' : testtype, 
+                'boxnumber' : boxnumber, 
+                'samplestart' : samplestart, 
+                'sampleend' : sampleend, 
+                'samplenum' : samplenum,
+                'samplename' : samplename, 
+                'solvent' : solvent, 
+                'mass' : mass, 
+                'volume' : volume, 
+                'concentration' : concentration, 
+                'testconcentration' : testconcentration, 
+                'department' : department,  
+                'comment' : comment,
+                'provider': request.user
+            }        
+            testrecord.objects.create(**info)
+            return render(request, 'blog/crudeex.html', context = {'tests' : lists, 'msg' : -1} )
