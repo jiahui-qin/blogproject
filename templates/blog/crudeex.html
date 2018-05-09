@@ -95,7 +95,7 @@
                             <th class = "field-sendtime">{{crudeex.sendtime}}</th>
                             <th class = "field-activeresult">{{crudeex.activeresult}}</th>
                             <th class = "field-comment">{{crudeex.comment}}</th>
-                            <th class = "field-upload"><button type="button" class="btn btn-info btn-xs" data-toggle="modal" data-target="#upload" data-cruid = "{{crudeex.id}}">添加送测记录</button></th>
+                            <th class = "field-upload"><button type="button" class="btn btn-info btn-xs" data-toggle="modal" data-target="#upload">添加送测记录</button></th>
                     </tr> 
                     {% empty %}
                       <div class="row1">null</div>
@@ -276,7 +276,7 @@
 
 
 <!-- modal alter -->
-<div class="modal fade" id="alter" tabindex="-1" role="dialog" aria-labelledby="alterLabel" aria-hidden="true">
+<div class="modal fade" id="alter" tabindex="-1" role="dialog" aria-labelledby="alterLabel" aria-hidden="true" style="display: none;">
     <div class="modal-dialog" >
         <div class="modal-content">
             <div class="modal-header">
@@ -585,7 +585,7 @@
     $('#upload').on('show.bs.modal', function (event) {
         var tr = document.querySelector('#useajax');
         var modal = $(this)
-        modal.find('#cruid').val(tr.dataset.cruid)
+        modal.find('#cruid').val(tr.dataset.whatever)
     })
 </script> 
 

@@ -48,6 +48,7 @@
             <thead>
                 <tr>
                     <th>类别</th>
+                    <th>来源菌株</th>
                     <th>盒序号</th>
                     <th>样品起序号</th>
                     <th>样品终序号</th>
@@ -65,6 +66,7 @@
                 </tr>
             </thead>
             <tbody>
+                <!--
                     {% for test in tests %}
                     {% if request.user == test.provider %}
                     <tr class="row1 success" id = "useajax" data-toggle="modal" data-target="#alter" data-whatever="{{test.id}}"
@@ -77,6 +79,7 @@
                     <tr class="row1">
                     {% endif %}
                         <td class = "field-testtype"> {{test.testtype}}</td>
+                        <th class = "field-fromcru">{{test.fromcru}}</th>
                         <th class = "field-boxnumber">{{test.boxnumber}}</th>
                         <th class = "field-samplestart">{{test.samplestart}}</th>
                         <th class = "field-sampleend">{{test.sampleend}}</th>
@@ -95,6 +98,34 @@
                     {% empty %}
                       <div class="row1">null</div>
                     {% endfor %}
+                    -->
+                {% for test in tests %}
+                <tr class="row1" onclick="decid(this)" data-toggle="modal" data-target="#alter" data-whatever="{{test.id}}"
+                data-testtype = "{{test.testtype}}" data-boxnumber = "{{test.boxnumber}}" data-samplestart = "{{test.samplestart}}" 
+                data-sampleend = "{{test.sampleend}}" data-samplenum = "{{test.samplenum}}" data-samplename = "{{test.samplename}}" 
+                data-solvent = "{{test.solvent}}" data-mass = "{{test.mass}}" data-volume = "{{test.volume}}"
+                data-concentration = "{{test.concentration}}" data-testconcentration = "{{test.testconcentration}}" 
+                data-department = "{{test.department}}" data-comment = "{{test.comment}}">
+                    <td class = "field-testtype"> {{test.testtype}}</td>
+                    <th class = "field-fromcru">{{test.fromcru}}</th>
+                    <th class = "field-boxnumber">{{test.boxnumber}}</th>
+                    <th class = "field-samplestart">{{test.samplestart}}</th>
+                    <th class = "field-sampleend">{{test.sampleend}}</th>
+                    <th class = "field-samplenum">{{test.samplenum}}</th>
+                    <th class = "field-samplename">{{test.samplename}}</th>
+                    <th class = "field-solvent">{{test.solvent}}</th>
+                    <th class = "field-mass">{{test.mass}}</th>
+                    <th class = "field-volume">{{test.volume}}</th>
+                    <th class = "field-concentration">{{test.concentration}}</th>
+                    <th class = "field-testconcentration">{{test.testconcentration}}</th>
+                    <th class = "field-provider">{{test.provider}}</th>
+                    <th class = "field-department">{{test.department}}</th>
+                    <th class = "field-sentime">{{test.sendtime}}</th>
+                    <th class = "field-comment">{{test.comment}}</th>
+                </tr>
+                {% empty %}
+                <div class="row1">null</div>
+                {% endfor %}
             </tbody>
         </table>
     </div>
@@ -307,11 +338,10 @@
         </div>
     </div> 
 </div>
+<!--
 <script> 
     $('#alter').on('show.bs.modal', function (event) {
-        var tr = document.querySelector('#useajax');
-        console.log(tr)
-        console.log(tr.dataset.testtype)
+        var tr = document.querySelector(pppid);
         var modal = $(this)
         modal.find('#alterid').val(tr.dataset.whatever)
         modal.find('#delid').val(tr.dataset.whatever)
@@ -334,5 +364,47 @@
         modal.find('#comment').val(tr.dataset.comment)
     })
 </script> 
+<script>
+$(document).ready(function(){
+    var i = 1
+    $("tr").each(function(){
+        $(this).attr("id","id"+i)
+        console.log(this.id)
+        i = i + 1
+    })
+})
+</script>
+-->
+<script>
+    function decid(this)
+    var tr = $(this)  
+    console.log(tr.dataset.whatever)
+    //获取表格中的一行数据  
+    $('#alter').modal('show'); 
+    $('#alterid').val(tr.dataset.whatever)
+    $('#delid').val(tr.dataset.whatever)
+    $('#testtype').val(tr.dataset.testtype)
+    $('#testtype').val(tr.dataset.testtype)
+    $('#boxnumber').val(tr.dataset.boxnumber)
+    $('#samplestart').val(tr.dataset.samplestart)
+    $('#samplestart').val(tr.dataset.samplestart)
+    $('#sampleend').val(tr.dataset.sampleend)
+    $('#samplenum').val(tr.dataset.samplenum)
+    $('#samplename').val(tr.dataset.samplename)
+    $('#solvent').val(tr.dataset.solvent)
+    $('#mass').val(tr.dataset.mass)
+    $('#volume').val(tr.dataset.volume)
+    $('#concentration').val(tr.dataset.concentration)
+    $('#testconcentration').val(tr.dataset.testconcentration)
+    $('#provider').val(tr.dataset.provider)
+    $('#department').val(tr.dataset.department)
+    $('#sentime').val(tr.dataset.sentime)
+    $('#comment').val(tr.dataset.comment)
+     
+</script>
 </body>
 {% endblock main %}
+
+
+
+

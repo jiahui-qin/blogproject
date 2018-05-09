@@ -64,11 +64,8 @@ class crudeex(models.Model): ##粗提物
     entervol = models.FloatField(blank = True) #入库体积
     entercol =  models.FloatField(blank = True) #入库浓度
     comment = models.CharField(max_length = 500, blank = True)
-
-    
-    
-    #def __str__(self):
-    #    return self.crudenumber + '|' + self.chinesename
+    def __str__(self):
+        return self.mcccnumber + '|' + self.chinesename
 
 
 
