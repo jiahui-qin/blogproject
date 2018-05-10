@@ -67,7 +67,7 @@
             <tbody>
                     {% for crudeex in tests %}
                     {% if request.user == crudeex.provider %}
-                    <tr class="row1 success" id = "useajax" data-toggle="modal" data-target="#alter"  data-frombact = "{{crudeex.frombact}}"
+                    <tr class="row1 success" data-toggle="modal" data-target="#alter"  data-frombact = "{{crudeex.frombact.id}}"
                     data-whatever = "{{crudeex.id}}" data-mcccnumber = "{{crudeex.mcccnumber}}" data-genus = "{{crudeex.genus}}"
                     data-species = "{{crudeex.species}}" data-chinesename = "{{crudeex.chinesename}}"  data-media = "{{crudeex.media}}"
                     data-medianumber = "{{crudeex.medianumber}}" data-mass = "{{crudeex.mass}}" data-stockmass = "{{crudeex.stockmass}}"
@@ -77,7 +77,15 @@
                     data-exrmethod = "{{crudeex.exrmethod}}" data-department = "{{crudeex.department}}" data-activeresult = "{{crudeex.activeresult}}"
                     data-comment = "{{crudeex.comment}}" >
                     {% else %}
-                    <tr class="row1">
+                    <tr class="row1" data-frombact = "{{crudeex.frombact.id}}"
+                    data-whatever = "{{crudeex.id}}" data-mcccnumber = "{{crudeex.mcccnumber}}" data-genus = "{{crudeex.genus}}"
+                    data-species = "{{crudeex.species}}" data-chinesename = "{{crudeex.chinesename}}"  data-media = "{{crudeex.media}}"
+                    data-medianumber = "{{crudeex.medianumber}}" data-mass = "{{crudeex.mass}}" data-stockmass = "{{crudeex.stockmass}}"
+                    data-cointermass = "{{crudeex.cointermass}}" data-entertime = "{{crudeex.entertime}}" data-entervol = "{{crudeex.entervol}}"
+                    data-entercol = "{{crudeex.entercol}}" data-testcol = "{{crudeex.testcol}}" data-testvol = "{{crudeex.testvol}}"
+                    data-activecol = "{{crudeex.activecol}}" data-solvent = "{{crudeex.solvent}}" data-culture = "{{crudeex.culture}}"
+                    data-exrmethod = "{{crudeex.exrmethod}}" data-department = "{{crudeex.department}}" data-activeresult = "{{crudeex.activeresult}}"
+                    data-comment = "{{crudeex.comment}}">
                     {% endif %}
                             <td class = "field-mcccnumber"> {{crudeex.mcccnumber}}</td>
                             <th class = "field-genus">{{crudeex.genus}}</th>
@@ -95,7 +103,9 @@
                             <th class = "field-sendtime">{{crudeex.sendtime}}</th>
                             <th class = "field-activeresult">{{crudeex.activeresult}}</th>
                             <th class = "field-comment">{{crudeex.comment}}</th>
-                            <th class = "field-upload"><button type="button" class="btn btn-info btn-xs" data-toggle="modal" data-target="#upload">添加送测记录</button></th>
+                            <!--
+                                <th class = "field-upload"><button type="button" class="btn btn-info btn-xs" data-toggle="modal" data-target="#upload">添加送测记录</button></th>
+                            -->
                     </tr> 
                     {% empty %}
                       <div class="row1">null</div>
@@ -291,7 +301,7 @@
                     <div class="form-group has-success">
                         <label  class="col-sm-2 control-label">来源菌株</label>
                         <div class="col-sm-10">
-                            <select type="input" name="frombact" class="form-control">
+                            <select type="input" name="frombact" class="form-control" id="frombact">
                                 {% get_all_bact as bact_list %}
                                 <ul>
                                     {% for bact in bact_list %}
@@ -452,33 +462,35 @@
 
 <script> 
     $('#alter').on('show.bs.modal', function (event) {
-        var tr = document.querySelector('#useajax');
+        var btn = $(event.relatedTarget)
         var modal = $(this)
-        modal.find('#alterid').val(tr.dataset.whatever)
-        modal.find('#delid').val(tr.dataset.whatever)
-        modal.find('#frombact').val(tr.dataset.frombact)
-        modal.find('#crudenumber').val(tr.dataset.crudenumber)
-        modal.find('#mcccnumber').val(tr.dataset.mcccnumber)
-        modal.find('#genus').val(tr.dataset.genus)
-        modal.find('#species').val(tr.dataset.species)
-        modal.find('#chinesename').val(tr.dataset.chinesename)
-        modal.find('#media').val(tr.dataset.media)
-        modal.find('#medianumber').val(tr.dataset.medianumber)
-        modal.find('#mass').val(tr.dataset.mass)
-        modal.find('#stockmass').val(tr.dataset.stockmass)
-        modal.find('#cointermass').val(tr.dataset.cointermass)
-        modal.find('#entertime').val(tr.dataset.entertime)
-        modal.find('#entervol').val(tr.dataset.entervol)
-        modal.find('#entercol').val(tr.dataset.entercol)
-        modal.find('#testcol').val(tr.dataset.testcol)
-        modal.find('#testvol').val(tr.dataset.testvol)
-        modal.find('#activecol').val(tr.dataset.activecol)
-        modal.find('#solvent').val(tr.dataset.solvent)
-        modal.find('#culture').val(tr.dataset.culture)
-        modal.find('#exrmethod').val(tr.dataset.exrmethod)
-        modal.find('#department').val(tr.dataset.department)
-        modal.find('#activeresult').val(tr.dataset.activeresult)
-        modal.find('#comment').val(tr.dataset.comment)
+        console.log(btn.attr("data-frombact"))
+        modal.find('#frombact').val(btn.attr("data-frombact"))
+        modal.find('#alterid').val(btn.attr("data-whatever"))
+        modal.find('#delid').val(btn.attr("data-whatever"))
+        modal.find('#frombact').val(btn.attr("data-frombact"))
+        modal.find('#crudenumber').val(btn.attr("data-crudenumber"))
+        modal.find('#mcccnumber').val(btn.attr("data-mcccnumber"))
+        modal.find('#genus').val(btn.attr("data-genus"))
+        modal.find('#species').val(btn.attr("data-species"))
+        modal.find('#chinesename').val(btn.attr("data-chinesename"))
+        modal.find('#media').val(btn.attr("data-media"))
+        modal.find('#medianumber').val(btn.attr("data-medianumber"))
+        modal.find('#mass').val(btn.attr("data-mass"))
+        modal.find('#stockmass').val(btn.attr("data-stockmass"))
+        modal.find('#cointermass').val(btn.attr("data-cointermass"))
+        modal.find('#entertime').val(btn.attr("data-entertime"))
+        modal.find('#entervol').val(btn.attr("data-entervol"))
+        modal.find('#entercol').val(btn.attr("data-entercol"))
+        modal.find('#testcol').val(btn.attr("data-testcol"))
+        modal.find('#testvol').val(btn.attr("data-testvol"))
+        modal.find('#activecol').val(btn.attr("data-activecol"))
+        modal.find('#solvent').val(btn.attr("data-solvent"))
+        modal.find('#culture').val(btn.attr("data-culture"))
+        modal.find('#exrmethod').val(btn.attr("data-exrmethod"))
+        modal.find('#department').val(btn.attr("data-department"))
+        modal.find('#activeresult').val(btn.attr("data-activeresult"))
+        modal.find('#comment').val(btn.attr("data-comment"))
     })
 </script> 
 <!-- modal upload -->
@@ -581,13 +593,15 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+<!--
 <script> 
     $('#upload').on('show.bs.modal', function (event) {
-        var tr = document.querySelector('#useajax');
+        var btn = $(event.relatedTarget).parents("tr")
         var modal = $(this)
-        modal.find('#cruid').val(tr.dataset.whatever)
+        $(".selector").val("pxx");
+        modal.find('#cruid').val(btn.attr("data-whatever"))
     })
 </script> 
-
+-->
 </body>
 {% endblock main %}

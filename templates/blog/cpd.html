@@ -70,7 +70,7 @@
                     <tbody>
                             {% for test in tests %}
                             {% if request.user == test.prov %}
-                            <tr class="row1 success" id = "useajax" data-toggle="modal" data-target="#alter" data-whatever="{{test.id}}"
+                            <tr class="row1 success" data-toggle="modal" data-target="#alter" data-whatever="{{test.id}}"
                             data-cpdnumber = "{{test.cpdnumber}}" data-frombact = "{{test.frombact}}"
                             data-mass = "{{test.mass}}" data-stru = "{{test.stru}}"
                             data-nmr = "{{test.nmr}}" data-ms = "{{test.ms}}"
@@ -80,7 +80,14 @@
                             data-resu = "{{test.resu}}" data-dtime = "{{test.dtime}}"
                             >
                             {% else %}
-                            <tr class="row1">
+                            <tr class="row1" data-whatever="{{test.id}}"
+                            data-cpdnumber = "{{test.cpdnumber}}" data-frombact = "{{test.frombact}}"
+                            data-mass = "{{test.mass}}" data-stru = "{{test.stru}}"
+                            data-nmr = "{{test.nmr}}" data-ms = "{{test.ms}}"
+                            data-rot = "{{test.rot}}" data-red = "{{test.red}}"
+                            data-blue = "{{test.blue}}" data-media = "{{test.media}}"
+                            data-depa = "{{test.depa}}" data-spc = "{{test.spc}}"
+                            data-resu = "{{test.resu}}" data-dtime = "{{test.dtime}}">
                             {% endif %}
                                 <td class = "field-cpdnumber"> {{test.cpdnumber}}</td>
                                 <th class = "field-frombact">{{test.frombact}}</th>
@@ -339,26 +346,24 @@
 
 <script> 
     $('#alter').on('show.bs.modal', function (event) {
-        var tr = document.querySelector('#useajax');
-        console.log(tr)
-        console.log(tr.dataset.testtype)
+        var btn = $(event.relatedTarget)
         var modal = $(this)
-        modal.find('#alterid').val(tr.dataset.whatever)
-        modal.find('#delid').val(tr.dataset.whatever)
-        modal.find('#cpdnumber').val(tr.dataset.cpdnumber)
-        modal.find('#frombact').val(tr.dataset.frombact)
-        modal.find('#mass').val(tr.dataset.mass)
-        modal.find('#stru').val(tr.dataset.stru)
-        modal.find('#nmr').val(tr.dataset.nmr)
-        modal.find('#ms').val(tr.dataset.ms)
-        modal.find('#rot').val(tr.dataset.rot)
-        modal.find('#red').val(tr.dataset.red)
-        modal.find('#blue').val(tr.dataset.blue)
-        modal.find('#media').val(tr.dataset.media)
-        modal.find('#depa').val(tr.dataset.depa)
-        modal.find('#spc').val(tr.dataset.spc)
-        modal.find('#resu').val(tr.dataset.resu)
-        modal.find('#dtime').val(tr.dataset.dtime)
+        modal.find('#alterid').val(btn.attr("data-whatever"))
+        modal.find('#delid').val(btn.attr("data-whatever"))
+        modal.find('#cpdnumber').val(btn.attr("data-cpdnumber"))
+        modal.find('#frombact').val(btn.attr("data-frombact"))
+        modal.find('#mass').val(btn.attr("data-mass"))
+        modal.find('#stru').val(btn.attr("data-stru"))
+        modal.find('#nmr').val(btn.attr("data-nmr"))
+        modal.find('#ms').val(btn.attr("data-ms"))
+        modal.find('#rot').val(btn.attr("data-rot"))
+        modal.find('#red').val(btn.attr("data-red"))
+        modal.find('#blue').val(btn.attr("data-blue"))
+        modal.find('#media').val(btn.attr("data-media"))
+        modal.find('#depa').val(btn.attr("data-depa"))
+        modal.find('#spc').val(btn.attr("data-spc"))
+        modal.find('#resu').val(btn.attr("data-resu"))
+        modal.find('#dtime').val(btn.attr("data-dtime"))
 
     })
 </script>
