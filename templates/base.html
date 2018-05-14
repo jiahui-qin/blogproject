@@ -26,6 +26,14 @@
         <script src="{% static 'blog/js/modernizr.custom.js' %}"></script>
         <script src="{% static 'blog/js/npm.js' %}"></script>
         <script src="{% static 'blog/js/script.js' %}"></script>
+        <style>
+                *{ margin:0; padding:0; list-style:none;}
+                body{ font:normal 14px/24px 'MicroSoft YaHei';}
+                .cotrs{ width:960px; height:32px; line-height:32px; background:#999; margin:0 auto;}
+                .cotrs a{ height:32px; line-height:32px; color:#fff; text-decoration:none; padding:0px 10px; display:block; float:left;}
+                .cotrs a:hover{ text-decoration:none; background:#000;}
+                .cotrs a.thisclass{text-decoration:none; background:#000;}
+                </style>
     </head>
 
             <div class="container">
@@ -44,7 +52,7 @@
                                         </button>
                                     </div>
                                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                                        <ul class="nav navbar-nav navbar-right">
+                                        <ul class="nav navbar-nav navbar-right" id = 'hhhh'>
                                             <!--
                                             <li class="cl-effect-11"><a href="{% url 'blog:recordindex' %}" data-hover="送测记录">送测记录</a></li>
                                             -->
@@ -54,6 +62,14 @@
                                             <li class="cl-effect-11"><a href="{% url 'blog:logout_user' %}" data-hover="登出">登出</a></li>
                                         </ul>
                                     </div><!-- /.navbar-collapse -->
+                                <script>
+                                    $(function(){
+                                    var cotrs = $(".hhhh li");
+                                    cotrs.click(function(){
+                                     $(this).addClass("thisclass").siblings().removeClass("thisclass");
+                                    });
+                                    });
+                                </script>
                                 </nav>
                             </div><!-- col-md-8 -->
                         </div>
