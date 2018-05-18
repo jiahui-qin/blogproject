@@ -27,13 +27,8 @@
         <script src="{% static 'blog/js/npm.js' %}"></script>
         <script src="{% static 'blog/js/script.js' %}"></script>
         <style>
-                *{ margin:0; padding:0; list-style:none;}
-                body{ font:normal 14px/24px 'MicroSoft YaHei';}
-                .cotrs{ width:960px; height:32px; line-height:32px; background:#999; margin:0 auto;}
-                .cotrs a{ height:32px; line-height:32px; color:#fff; text-decoration:none; padding:0px 10px; display:block; float:left;}
-                .cotrs a:hover{ text-decoration:none; background:#000;}
-                .cotrs a.thisclass{text-decoration:none; background:#000;}
-                </style>
+            .curument{ background:rgb(77, 43, 10); font-weight:bold;}
+          </style>
     </head>
 
             <div class="container">
@@ -61,15 +56,19 @@
                                             <li class="cl-effect-11"><a href="{% url 'blog:crudeexindex' %}" data-hover="粗提物数据库">粗提物数据库</a></li>
                                             <li class="cl-effect-11"><a href="{% url 'blog:logout_user' %}" data-hover="登出">登出</a></li>
                                         </ul>
-                                    </div><!-- /.navbar-collapse -->
                                 <script>
-                                    $(function(){
-                                    var cotrs = $(".hhhh li");
-                                    cotrs.click(function(){
-                                     $(this).addClass("thisclass").siblings().removeClass("thisclass");
+                                    var urlstr = location.href;
+                                    var urlstatus=false;
+                                    $("#nav a").each(function () {  
+                                      if ((urlstr + '/').indexOf($(this).attr('href')) > -1&&$(this).attr('href')!='') {
+                                        $(this).addClass('curument'); urlstatus = true;
+                                      } else {
+                                        $(this).removeClass('curument');
+                                      }
                                     });
-                                    });
+                                    if (!urlstatus) {$("#nav a").eq(0).addClass('curument'); }
                                 </script>
+                                    </div><!-- /.navbar-collapse -->
                                 </nav>
                             </div><!-- col-md-8 -->
                         </div>
