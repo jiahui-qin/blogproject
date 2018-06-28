@@ -21,55 +21,33 @@ def bactload(request):
         genus = request.GET.get('genus') 
         species = request.GET.get('species')
         chinesename = request.GET.get('chinesename') 
-        othersourcenum =  request.GET.get('othersourcenum')
+        recadd =  request.GET.get('recadd')
+        orinum = request.GET.get('orinum') 
         history = request.GET.get('history')
-        ##storetime = request.GET.get('storetime')  
-        orinumber = request.GET.get('orinumber')
-        mainuse = request.GET.get('mainuse')
-        danger = request.GET.get('danger') 
-        hostname = request.GET.get('hostname') 
-        ill =request.GET.get('ill')
-        media =request.GET.get('media')
-        mediatem =request.GET.get('mediatem')
-        tranroute =request.GET.get('tranroute')
-        gene =request.GET.get('gene')
-        recadd =request.GET.get('recadd')
-        shareme =request.GET.get('shareme')
-        getmet =request.GET.get('getmet')
-        callme =request.GET.get('callme')
-        mainkey =request.GET.get('mainkey')
-        prod =request.GET.get('prod')
-        didv =request.GET.get('didv')
-        judge =request.GET.get('judge')
-        genenumber =request.GET.get('genenumber')
+        storetime = request.GET.get('storetime')
+        media = request.GET.get('media') 
+        getmet = request.GET.get('getmet') 
+        modbact =request.GET.get('modbact')
+        mianuse =request.GET.get('mianuse')
+        danger =request.GET.get('danger')
+        comment =request.GET.get('comment')
         info = {
             'bactnumber' : bactnumber,
             'sourcenum' : sourcenum, 
             'genus' : genus, 
             'species' : species,
             'chinesename' : chinesename, 
-            'othersourcenum' : othersourcenum,
-            'history' : history, 
-            ##'storetime' : storetime,
-            'orinumber' : orinumber,
-            'mainuse' : mainuse,
-            'danger' : danger, 
-            'hostname' : hostname, 
-            'ill' : ill,
-            'tranroute' : tranroute,
-            'media' : media,
-            'mediatem' : mediatem,
-            'gene' : gene,
             'recadd' : recadd,
-            'shareme' : shareme,
-            'getmet' : getmet,
-            'callme' : callme,
-            'mainkey' : mainkey,
-            'prod' : prod,
-            'didv' : didv,
-            'judge' : judge,
-            'genenumber' : genenumber,
-            'upload' : request.user
+            'orinum' : orinum, 
+            'history' : history,
+            'storetime' : storetime,
+            'media' : media, 
+            'getmet' : getmet, 
+            'upload' : request.user,
+            'modbact' : modbact,
+            'mianuse' : mianuse,
+            'danger' : danger,
+            'comment' : comment,
         }        
         bact.objects.create(**info)
         return bactindex(request, msg = 0) #msg = 0代表正常插入
@@ -95,54 +73,33 @@ def bactalter(request):
             genus = request.GET.get('genus') 
             species = request.GET.get('species')
             chinesename = request.GET.get('chinesename') 
-            othersourcenum =  request.GET.get('othersourcenum')
+            recadd =  request.GET.get('recadd')
+            orinum = request.GET.get('orinum') 
             history = request.GET.get('history')
-            ##storetime = request.GET.get('storetime')  
-            orinumber = request.GET.get('orinumber')
-            mainuse = request.GET.get('mainuse')
-            danger = request.GET.get('danger') 
-            hostname = request.GET.get('hostname') 
-            ill =request.GET.get('ill')
-            media =request.GET.get('media')
-            mediatem =request.GET.get('mediatem')
-            tranroute =request.GET.get('tranroute')
-            gene =request.GET.get('gene')
-            recadd =request.GET.get('recadd')
-            shareme =request.GET.get('shareme')
-            getmet =request.GET.get('getmet')
-            callme =request.GET.get('callme')
-            mainkey =request.GET.get('mainkey')
-            prod =request.GET.get('prod')
-            didv =request.GET.get('didv')
-            judge =request.GET.get('judge')
-            genenumber =request.GET.get('genenumber')
+            storetime = request.GET.get('storetime')
+            media = request.GET.get('media') 
+            getmet = request.GET.get('getmet') 
+            modbact =request.GET.get('modbact')
+            mianuse =request.GET.get('mianuse')
+            danger =request.GET.get('danger')
+            comment =request.GET.get('comment')
             infos = {
                 'bactnumber' : bactnumber,
                 'sourcenum' : sourcenum, 
                 'genus' : genus, 
                 'species' : species,
                 'chinesename' : chinesename, 
-                'othersourcenum' : othersourcenum,
-                'history' : history, 
-                ##'storetime' : storetime,
-                'orinumber' : orinumber,
-                'mainuse' : mainuse,
-                'danger' : danger, 
-                'hostname' : hostname, 
-                'ill' : ill,
-                'tranroute' : tranroute,
-                'media' : media,
-                'mediatem' : mediatem,
-                'gene' : gene,
                 'recadd' : recadd,
-                'shareme' : shareme,
-                'getmet' : getmet,
-                'callme' : callme,
-                'mainkey' : mainkey,
-                'prod' : prod,
-                'didv' : didv,
-                'judge' : judge,
-                'genenumber' : genenumber,
+                'orinum' : orinum, 
+                'history' : history,
+                'storetime' : storetime,
+                'media' : media, 
+                'getmet' : getmet, 
+                'upload' : request.user,
+                'modbact' : modbact,
+                'mianuse' : mianuse,
+                'danger' : danger,
+                'comment' : comment,
             }
             bact.objects.select_for_update().filter(id = id).update(**infos)
             return bactindex(request, msg = 0)

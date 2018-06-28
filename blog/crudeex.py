@@ -17,49 +17,25 @@ def curdeexupload(request):
     if request.method == 'GET':
         bactid = request.GET.get('frombact')
         mcccnumber = request.GET.get('mcccnumber')
-        genus = request.GET.get('genus')
-        species = request.GET.get('species')
         chinesename = request.GET.get('chinesename')
         media = request.GET.get('media')
-        medianumber = request.GET.get('medianumber')
-        mass = request.GET.get('mass')
-        stockmass = request.GET.get('stockmass')
-        cointermass = request.GET.get('cointermass')
-        #entertime = request.GET.get('entertime')
+        recadd = request.GET.get('recadd')
         entervol = request.GET.get('entervol')
         entercol = request.GET.get('entercol')
-        testcol = request.GET.get('testcol')
-        testvol = request.GET.get('testvol')
-        activecol = request.GET.get('activecol')
         solvent = request.GET.get('solvent')
-        culture = request.GET.get('culture')
         exrmethod = request.GET.get('exrmethod')
-        department = request.GET.get('department')
-        activeresult = request.GET.get('activeresult')
         comment = request.GET.get('comment')
         frombact = bact.objects.get(id=bactid)
         info = {
                 'frombact' : frombact,
                 'mcccnumber' : mcccnumber, 
-                'genus' : genus, 
-                'species' : species, 
                 'chinesename' : chinesename, 
                 'media' : media, 
-                'medianumber' : medianumber, 
-                'mass' : mass, 
-                'stockmass' : stockmass, 
-                'cointermass' : cointermass, 
-                #'entertime' : entertime, 
+                'recadd' : recadd, 
                 'entervol' : entervol, 
                 'entercol' : entercol, 
-                'testcol' : testcol, 
-                'testvol' : testvol, 
-                'activecol' : activecol, 
                 'solvent' : solvent, 
-                'culture' : culture, 
                 'exrmethod' : exrmethod,
-                'department' : department, 
-                'activeresult' : activeresult, 
                 'comment' : comment, 
                 'provider': request.user,
         }
@@ -79,51 +55,27 @@ def crudel(request):
 def crualter(request):
     if request.method == 'GET':
         #try:
-        id = request.GET.get('id')
-        frombact = request.GET.get('frombact')
+        bactid = request.GET.get('frombact')
         mcccnumber = request.GET.get('mcccnumber')
-        genus = request.GET.get('genus')
-        species = request.GET.get('species')
         chinesename = request.GET.get('chinesename')
         media = request.GET.get('media')
-        medianumber = request.GET.get('medianumber')
-        mass = request.GET.get('mass')
-        stockmass = request.GET.get('stockmass')
-        cointermass = request.GET.get('cointermass')
-        #entertime = request.GET.get('entertime')
+        recadd = request.GET.get('recadd')
         entervol = request.GET.get('entervol')
         entercol = request.GET.get('entercol')
-        testcol = request.GET.get('testcol')
-        testvol = request.GET.get('testvol')
-        activecol = request.GET.get('activecol')
         solvent = request.GET.get('solvent')
-        culture = request.GET.get('culture')
         exrmethod = request.GET.get('exrmethod')
-        department = request.GET.get('department')
-        activeresult = request.GET.get('activeresult')
         comment = request.GET.get('comment')
+        frombact = bact.objects.get(id=bactid)
         infos = {
             'frombact' : frombact,
             'mcccnumber' : mcccnumber, 
-            'genus' : genus, 
-            'species' : species, 
             'chinesename' : chinesename, 
             'media' : media, 
-            'medianumber' : medianumber, 
-            'mass' : mass, 
-            'stockmass' : stockmass, 
-            'cointermass' : cointermass, 
-            #'entertime' : entertime, 
+            'recadd' : recadd, 
             'entervol' : entervol, 
             'entercol' : entercol, 
-            'testcol' : testcol, 
-            'testvol' : testvol, 
-            'activecol' : activecol, 
             'solvent' : solvent, 
-            'culture' : culture, 
             'exrmethod' : exrmethod,
-            'department' : department, 
-            'activeresult' : activeresult, 
             'comment' : comment, 
             'provider': request.user,
         }

@@ -19,32 +19,28 @@ def cpdload(request):
         frombact = request.GET.get('frombact')
         mass = request.GET.get('mass')
         stru = request.GET.get('stru')
+        recadd = request.GET.get('recadd')
         nmr = request.GET.get('nmr')
         ms = request.GET.get('ms')
         rot = request.GET.get('rot')
         red = request.GET.get('red')
         blue = request.GET.get('blue')
         media = request.GET.get('media')
-        depa = request.GET.get('depa')
-        spc = request.GET.get('spc')
-        resu = request.GET.get('resu')
-        dtime = request.GET.get('dtime')
+        comment = request.GET.get('comment')
         info = {
                 'cpdnumber' : cpdnumber,
                 'frombact' : frombact,
                 'mass' : mass,
                 'stru' : stru,
+                'recadd' : recadd,
                 'nmr' : nmr,
                 'ms' : ms,
                 'rot' : rot,
                 'red' : red,
                 'blue' : blue,
                 'media' : media,
-                'depa' : depa,
-                'spc' : spc,
-                'resu' : resu,
-                'dtime' : dtime,
                 'prov': request.user
+                'comment' : comment
         }
         cpd.objects.create(**info)
         return cpdindex(request, msg = 0) #msg = 0代表正常插入
@@ -67,32 +63,29 @@ def cpdalter(request):
             frombact = request.GET.get('frombact')
             mass = request.GET.get('mass')
             stru = request.GET.get('stru')
+            recadd = request.GET.get('recadd')
             nmr = request.GET.get('nmr')
             ms = request.GET.get('ms')
             rot = request.GET.get('rot')
             red = request.GET.get('red')
             blue = request.GET.get('blue')
             media = request.GET.get('media')
-            depa = request.GET.get('depa')
-            spc = request.GET.get('spc')
-            resu = request.GET.get('resu')
-            dtime = request.GET.get('dtime')
+            comment = request.GET.get('comment')
+
             infos = {
                     'cpdnumber' : cpdnumber,
                     'frombact' : frombact,
                     'mass' : mass,
                     'stru' : stru,
+                    'recadd' : recadd,
                     'nmr' : nmr,
                     'ms' : ms,
                     'rot' : rot,
                     'red' : red,
                     'blue' : blue,
                     'media' : media,
-                    'depa' : depa,
-                    'spc' : spc,
-                    'resu' : resu,
-                    'dtime' : dtime,
                     'prov': request.user
+                    'comment' : comment
             }
             cpd.objects.select_for_update().filter(id = id).update(**infos)
             return cpdindex(request, msg = 0)

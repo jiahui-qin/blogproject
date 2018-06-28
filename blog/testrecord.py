@@ -21,34 +21,35 @@ def upload(request):
     if request.method == "GET":
         try:
             testtype = request.GET.get('testtype') #或者改成两个可选项？粗提物或者化合物
-            boxnumber = request.GET.get('boxnumber') #盒序号
-            samplestart = request.GET.get('samplestart') #样品起序号
-            sampleend = request.GET.get('sampleend') #样品终序号
-            samplename = request.GET.get('samplename') #样品名
-            samplenum = int(sampleend) - int(samplestart) + 1 #样品数量
-            solvent = request.GET.get('solvent') #溶剂
-            mass = request.GET.get('mass')#重量，单位miug
-            volume = request.GET.get('volume') #体积单位niuL
-            concentration = request.GET.get('concentration') #浓度 单位(mg/mL)
-            testconcentration = request.GET.get('testconcentration') #测试浓度 单位(miug/mL)
-            department = request.GET.get('department') #测样单位
-            #sendtime = request.GET.get('sendtime') #送样时间
-            comment =request.GET.get('comment')
+            samst = request.GET.get('samst') #盒序号
+            samend = request.GET.get('samend') #样品起序号
+            solvent = request.GET.get('solvent') #样品终序号
+            mass = request.GET.get('mass') #样品名
+            volume = request.GET.get('volume') #溶剂
+            conc = request.GET.get('conc')#重量，单位miug
+            testconc = request.GET.get('testconc') #体积单位niuL
+            department = request.GET.get('department') #浓度 单位(mg/mL)
+            comment = request.GET.get('comment') #测试浓度 单位(miug/mL)
+            if request.GET.get('fromcru'):
+                id = request.GET.get('fromcru')
+                fromcru = crudeex.objects.get(id=fromcru)
+            else:
+                id = request.GET.get('frombact')
+                frombact = bact.objects.get(id=frombact)
             info = {
                 'testtype' : testtype, 
-                'boxnumber' : boxnumber, 
-                'samplestart' : samplestart, 
-                'sampleend' : sampleend, 
-                'samplenum' : samplenum,
-                'samplename' : samplename, 
+                'samst' : samst, 
+                'samend' : samend, 
                 'solvent' : solvent, 
-                'mass' : mass, 
+                'mass' : mass,
                 'volume' : volume, 
-                'concentration' : concentration, 
-                'testconcentration' : testconcentration, 
-                'department' : department,  
+                'conc' : conc, 
+                'testconc' : testconc, 
+                'department' : department,
                 'comment' : comment,
                 'provider': request.user
+                'fromcru' : fromcru
+                'frombact' : frombact
             }        
             testrecord.objects.create(**info)
             return recordindex(request, msg = 0) #msg = 0代表正常插入
@@ -70,33 +71,35 @@ def recalter(request):
         try:
             id = request.GET.get('id')
             testtype = request.GET.get('testtype') #或者改成两个可选项？粗提物或者化合物
-            boxnumber = request.GET.get('boxnumber') #盒序号
-            samplestart = request.GET.get('samplestart') #样品起序号
-            sampleend = request.GET.get('sampleend') #样品终序号
-            samplename = request.GET.get('samplename') #样品名
-            samplenum = int(sampleend) - int(samplestart) + 1 #样品数量
-            solvent = request.GET.get('solvent') #溶剂
-            mass = request.GET.get('mass')#重量，单位miug
-            volume = request.GET.get('volume') #体积单位niuL
-            concentration = request.GET.get('concentration') #浓度 单位(mg/mL)
-            testconcentration = request.GET.get('testconcentration') #测试浓度 单位(miug/mL)
-            department = request.GET.get('department') #测样单位
-            comment =request.GET.get('comment')
+            samst = request.GET.get('samst') #盒序号
+            samend = request.GET.get('samend') #样品起序号
+            solvent = request.GET.get('solvent') #样品终序号
+            mass = request.GET.get('mass') #样品名
+            volume = request.GET.get('volume') #溶剂
+            conc = request.GET.get('conc')#重量，单位miug
+            testconc = request.GET.get('testconc') #体积单位niuL
+            department = request.GET.get('department') #浓度 单位(mg/mL)
+            comment = request.GET.get('comment') #测试浓度 单位(miug/mL)
+            if request.GET.get('fromcru'):
+                id = request.GET.get('fromcru')
+                fromcru = crudeex.objects.get(id=fromcru)
+            else:
+                id = request.GET.get('frombact')
+                frombact = bact.objects.get(id=frombact)
             infos = {
                 'testtype' : testtype, 
-                'boxnumber' : boxnumber, 
-                'samplestart' : samplestart, 
-                'sampleend' : sampleend, 
-                'samplenum' : samplenum,
-                'samplename' : samplename, 
+                'samst' : samst, 
+                'samend' : samend, 
                 'solvent' : solvent, 
-                'mass' : mass, 
+                'mass' : mass,
                 'volume' : volume, 
-                'concentration' : concentration, 
-                'testconcentration' : testconcentration, 
-                'department' : department,  
+                'conc' : conc, 
+                'testconc' : testconc, 
+                'department' : department,
                 'comment' : comment,
                 'provider': request.user
+                'fromcru' : fromcru
+                'frombact' : frombact
             }
             testrecord.objects.select_for_update().filter(id = id).update(**infos)
             return recordindex(request, msg = 0)

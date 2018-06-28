@@ -31,25 +31,15 @@ class bact(models.Model):  #菌株
 class crudeex(models.Model): ##粗提物
     frombact = models.ForeignKey(bact) ##来源菌株
     mcccnumber = models.CharField(max_length = 50) #mccc编号
-    #genus = models.CharField(max_length = 200) #属名
-    #species = models.CharField(max_length = 200) #种名
     chinesename = models.CharField(max_length = 200) #中文名
     recadd = models.CharField(max_length = 100)#样品存储地址
     media = models.CharField(max_length = 200) #培养基
-    #mass = models.FloatField() #重量，单位mg
-    #stockmass = models.FloatField() #库存量，单位mg
-    #cointermass = models.FloatField() #样品瓶重量，单位miug
     entertime = models.DateTimeField(auto_now_add=True,editable = True) #入库时间
     entervol = models.FloatField() #入库体积
     entercol =  models.FloatField() #入库浓度
-    
-    #activecol = models.FloatField(blank = True) #活性浓度
     solvent = models.CharField(max_length = 100) #溶剂
     exrmethod = models.CharField(max_length = 500, blank = True) #提取方法
     provider = models.ForeignKey(User) #提供人
-    #department = models.CharField(max_length=100) #测样单位
-    #sendtime = models.DateTimeField(auto_now_add=True, editable = True) #送样时间
-    #activeresult = models.CharField(max_length = 500, blank = True) #活性检测结果
     comment = models.CharField(max_length = 500, blank = True)
     def __str__(self):
         return self.mcccnumber + '|' + self.chinesename
@@ -76,22 +66,20 @@ class cpd(models.Model): ##化合物
         return self.cpdnumber + '|' + self.stru
 
 class testrecord(models.Model):
+    testtype = models.CharField(max_length = 20) #送测类型
     fromcru = models.ForeignKey(crudeex, null = True) ##链接至粗提物,可以在粗提物的每一行后边加一个按钮，增加送测记录。
-    testtype = models.CharField(max_length = 20) #或者改成两个可选项？粗提物或者化合物
-    boxnumber = models.IntegerField(blank = True) #盒序号
-    samplestart = models.IntegerField(blank = True) #样品起序号
-    sampleend = models.IntegerField(blank = True) #样品终序号
-    samplenum = models.IntegerField(blank = True) #样品数量
-    samplename = models.CharField(max_length = 100) #样品名
+    fromcpd = models.ForeignKey(cpd, null = True)#链接至化合物
+    samst = models.IntegerField(blank = True) #样品起序号
+    samend = models.IntegerField(blank = True) #样品终序号
     solvent = models.CharField(max_length = 100) #溶剂
     mass = models.FloatField() #重量，单位miug
     volume = models.FloatField() #体积单位niuL
-    concentration = models.FloatField() #浓度 单位(mg/mL)
-    testconcentration = models.FloatField(blank= True) #测试浓度 单位(miug/mL)
+    conc = models.FloatField() #浓度 单位(mg/mL)
+    testconc = models.FloatField(blank= True) #测试浓度 单位(miug/mL)
     provider = models.ForeignKey(User) #提供人
     department = models.CharField(max_length=100) #测样单位
     sendtime = models.DateTimeField(auto_now_add=True, editable = True)
     comment = models.CharField(max_length = 500, blank = True)
 
     def __str__(self):
-        return self.samplename
+        return self.testtype
