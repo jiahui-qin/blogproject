@@ -9,22 +9,22 @@ from django.utils.html import strip_tags
 @python_2_unicode_compatible
 
 class bact(models.Model):  #菌株
-    bactnumber = models.CharField(max_length = 50) #菌株保藏编号
-    sourcenum = models.CharField(max_length = 50, blank = True) #平台资源编号
-    genus = models.CharField(max_length = 200) #属名
-    species = models.CharField(max_length = 200) #种名
-    chinesename = models.CharField(max_length = 200, blank = True) #中文名
-    recadd = models.CharField(max_length = 100)#样品存储地址
-    orinum = models.CharField(max_length = 100, blank = True) #原始资源编号
-    history = models.CharField(max_length = 100, blank = True) #来源历史
+    bactnumber = models.CharField(max_length = 50) #菌株保藏编号 输入
+    sourcenum = models.CharField(max_length = 50, blank = True) #平台资源编号 输入
+    genus = models.CharField(max_length = 200) #属名 输入
+    species = models.CharField(max_length = 200) #种名 输入
+    chinesename = models.CharField(max_length = 200, blank = True) #中文名 输入
+    recadd = models.CharField(max_length = 100)#样品存储地址 输入
+    orinum = models.CharField(max_length = 100, blank = True) #原始资源编号 输入
+    history = models.CharField(max_length = 100, blank = True) #来源历史 输入
     storetime = models.DateTimeField(auto_now_add=True,editable = True) #收藏时间
-    media = models.CharField(max_length = 50) #培养基编号
-    getmet = models.CharField(max_length = 100) #获取途径
+    media = models.CharField(max_length = 50) #培养基编号 输入
+    getmet = models.CharField(max_length = 100) #获取途径 输入
     upload = models.ForeignKey(User, null = True)#保藏人
-    modbact = models.CharField(max_length = 50, blank = True)#模式菌株
-    mianuse = models.CharField(max_length = 100, blank = True) #主要用途
-    danger = models.CharField(max_length = 100, blank = True) #生物危害程度
-    comment = models.CharField(max_length = 500, blank = True)
+    modbact = models.CharField(max_length = 50, blank = True)#模式菌株 输入
+    mianuse = models.CharField(max_length = 100, blank = True) #主要用途 输入
+    danger = models.CharField(max_length = 100, blank = True) #生物危害程度 输入
+    comment = models.CharField(max_length = 500, blank = True) #输入
     def __str__(self):
         return self.bactnumber + '|' + self.chinesename
 
