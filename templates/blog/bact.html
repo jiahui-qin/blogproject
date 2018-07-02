@@ -55,14 +55,9 @@
                             <th>属名</th>
                             <th>种名</th>
                             <th>中文名</th>
-                            <th>其它平台资源编号</th>
-                            <th>来源历史</th>
-                            <th>收藏时间</th>
-                            <th>原始资源编号</th>
+                            <th>样品存储地址</th>
                             <th>培养基编号</th>
-                            <th>基因元器件</th>
-                            <th>记录地址</th>
-                            <th>共享方式</th>
+                            <th>收藏时间</th>
                             <th>获取途径</th>
                             <th>提供人</th>
                         </tr>
@@ -72,14 +67,11 @@
                             {% if request.user == test.upload %}
                             <tr class="row1 success" id = "useajax" data-toggle="modal" data-target="#alter" data-whatever="{{test.id}}"
                             data-bactnumber = "{{test.bactnumber}}" data-sourcenum = "{{test.sourcenum}}" data-genus = "{{test.genus}}" 
-                            data-species = "{{test.species}}" data-chinesename = "{{test.chinesename}}" data-othersourcenum = "{{test.othersourcenum}}" 
-                            data-history = "{{test.history}}"  data-orinumber = "{{test.orinumber}}"
-                            data-mainuse = "{{test.mainuse}}" data-danger = "{{test.danger}}"  data-hostname = "{{test.hostname}}" 
-                            data-ill = "{{test.ill}}"  data-tranroute = "{{test.tranroute}}"   data-media = "{{test.media}}" 
-                            data-mediatem = "{{test.mediatem}}" data-gene = "{{test.gene}}"  data-recadd = "{{test.recadd}}"
-                            data-shareme = "{{test.shareme}}"  data-getmet = "{{test.getmet}}"  data-callme = "{{test.callme}}"
-                            data-mainkey = "{{test.mainkey}}"  data-prod = "{{test.prod}}"  data-didv = "{{test.didv}}"
-                            data-judge = "{{test.judge}}" data-genenumber = "{{test.genenumber}}">
+                            data-species = "{{test.species}}" data-chinesename = "{{test.chinesename}}" data-recadd = "{{test.recadd}}" 
+                            data-orinum = "{{test.orinum}}"  data-history = "{{test.history}}"
+                            data-media = "{{test.media}}" data-getmet = "{{test.getmet}}"  data-modbact = "{{test.modbact}}" 
+                            data-mianuse = "{{test.mianuse}}"  data-danger = "{{test.danger}}"   data-comment = "{{test.comment}}" 
+                           >
                             {% else %}
                             <tr class="row1">
                             {% endif %}
@@ -88,16 +80,11 @@
                                     <th class = "field-genus">{{test.genus}}</th>
                                     <th class = "field-species">{{test.species}}</th>
                                     <th class = "field-chinesename">{{test.chinesename}}</th>
-                                    <th class = "field-othersourcenum">{{test.othersourcenum}}</th>
-                                    <th class = "field-history">{{test.history}}</th>
-                                    <th class = "field-storetimr">{{test.storetime}}</th>
-                                    <th class = "field-orinumber">{{test.orinumber}}</th>
-                                    <th class = "field-media">{{test.media}}</th>
-                                    <th class = "field-gene">{{test.gene}}</th>
                                     <th class = "field-recadd">{{test.recadd}}</th>
-                                    <th class = "field-shareme">{{test.shareme}}</th>
+                                    <th class = "field-media">{{test.media}}</th>
+                                    <th class = "field-storetime">{{test.storetime}}</th>
                                     <th class = "field-getmet">{{test.getmet}}</th>
-                                    <th class = "field-prod">{{test.prod}}</th>
+                                    <th class = "field-upload">{{test.upload}}</th>
                             </tr> 
                             {% empty %}
                               <div class="row1">null</div>
