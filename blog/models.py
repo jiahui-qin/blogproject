@@ -29,7 +29,7 @@ class bact(models.Model):  #菌株
         return self.bactnumber + '|' + self.chinesename
 
 class crudeex(models.Model): ##粗提物
-    frombact = models.ForeignKey(bact) ##来源菌株
+    frombact = models.ForeignKey(bact) ##来源菌株  %%没有显示出来
     mcccnumber = models.CharField(max_length = 50) #mccc编号
     chinesename = models.CharField(max_length = 200) #中文名
     recadd = models.CharField(max_length = 100)#样品存储地址
