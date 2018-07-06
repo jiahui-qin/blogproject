@@ -39,8 +39,8 @@ def cpdload(request):
                 'red' : red,
                 'blue' : blue,
                 'media' : media,
-                'prov': request.user
-                'comment' : comment
+                'prov': request.user,
+                'comment' : comment,
         }
         cpd.objects.create(**info)
         return cpdindex(request, msg = 0) #msg = 0代表正常插入
@@ -84,8 +84,8 @@ def cpdalter(request):
                     'red' : red,
                     'blue' : blue,
                     'media' : media,
-                    'prov': request.user
-                    'comment' : comment
+                    'prov': request.user,
+                    'comment' : comment,
             }
             cpd.objects.select_for_update().filter(id = id).update(**infos)
             return cpdindex(request, msg = 0)

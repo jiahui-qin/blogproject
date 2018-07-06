@@ -47,10 +47,10 @@ def upload(request):
                 'testconc' : testconc, 
                 'department' : department,
                 'comment' : comment,
-                'provider': request.user
-                'fromcru' : fromcru
-                'frombact' : frombact
-            }        
+                'provider': request.user,
+                'fromcru' : fromcru,
+                'frombact' : frombact,
+                }        
             testrecord.objects.create(**info)
             return recordindex(request, msg = 0) #msg = 0代表正常插入
         except:
@@ -97,9 +97,9 @@ def recalter(request):
                 'testconc' : testconc, 
                 'department' : department,
                 'comment' : comment,
-                'provider': request.user
-                'fromcru' : fromcru
-                'frombact' : frombact
+                'provider': request.user,
+                'fromcru' : fromcru,
+                'frombact' : frombact,
             }
             testrecord.objects.select_for_update().filter(id = id).update(**infos)
             return recordindex(request, msg = 0)
