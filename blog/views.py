@@ -7,7 +7,7 @@ from django.shortcuts import render
 from .models import testrecord, crudeex, bact,cpd
 from django.db.models import Q
 from django.utils import timezone
-from .bact import bactindex, bactload, bactdel,bactalter
+from .bact import bactindex, bactload, bactdel,bactalter,batchinput
 from .testrecord import recordindex, upload,recdel,recalter
 from .crudeex import crudeexindex, curdeexupload, crudel, crualter, bact2cru,cru2rec
 from .cpd import cpdindex, cpdload, cpdalter, cpddel

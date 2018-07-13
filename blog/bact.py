@@ -7,6 +7,7 @@ from django.shortcuts import render
 from .models import testrecord, crudeex, bact,cpd
 from django.db.models import Q
 from django.utils import timezone
+import os
 
 
 def bactindex(request, msg = -1):
@@ -105,3 +106,15 @@ def bactalter(request):
             return bactindex(request, msg = 0)
         except:
             return bactindex(request, msg = 1)
+
+def batchinput(request):
+    if request.method == 'POST':
+        file_obj = request.FILES.get('file')
+        print(file_obj.name)
+        if not file_obj:
+            return bactindex(request, msg=1)
+        file_s = open(os.path.join("./data", file_obj.name), 'wb+')
+        for line in file_obj.chunks():
+            file_s.write(line)
+        file_s.close()
+        return bactindex(request, msg = 0)

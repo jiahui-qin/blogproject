@@ -6,13 +6,19 @@
             <div class="row">
                 <div class="col-md-4 col-sm-5 col-xs-8">
                     <center>
-                   <!--  <button type="button" class="btn btn-info  btn-lg">上传</button>-->
                         <button class="btn btn-info btn-primary btn-lg" data-toggle="modal" data-target="#bactinput">
                             上传
                         </button>
                     </center>
                 </div><!-- col-md-4 -->
-                <div class="col-md-8 col-sm-7 col-xs-4">
+                <div class="col-md-4 col-sm-5 col-xs-8">
+                    <center>
+                        <button class="btn btn-info btn-primary btn-lg" data-toggle="modal" data-target="#batchinput">
+                            批量上传
+                        </button>
+                    </center>
+                </div><!-- col-md-4 -->
+                <div class="col-md-4 col-sm-7 col-xs-4">
                     <nav class="main-nav" role="navigation">
                         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                             <ul class="list-unstyled text-center" >
@@ -26,7 +32,6 @@
             </div>
 
             <div class="col-md-12 col-sm-7 col-xs-4">
-
                     {% if msg == 0 %}
                     <div class="alert alert-success alert-dismissable">
                         <button type="button" class="close" data-dismiss="alert"
@@ -208,143 +213,182 @@
 
 <!-- modal alter -->
 <div class="modal fade" id="alter" tabindex="-1" role="dialog" aria-labelledby="alterLabel" aria-hidden="true">
-        <div class="modal-dialog" >
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title" id="alterLabel">修改</h4>
-                </div>
-                <div class="modal-body">
-                    <form class="form-horizontal" role="form" method="get" action="{% url 'blog:bactalter' %}">
-                        <!-- 写的时候action后边的{}url后边加了两个引号，就一直跳转到/testrecord界面，去掉之后才变 -->
-                            {% csrf_token %}
-                        <input type="hidden" id="alterid"  name="id" value="{{test.id}}" />
-                        <div class="form-group has-success">
-                            <label for="firstname" class="col-sm-2 control-label">菌株保藏编号</label>
-                            <div class="col-sm-10">
-                            <input type="input" name="bactnumber" class="form-control" id="firstname" placeholder="请输入">
-                            </div>
-                        </div>
-                        <div class="form-group has-success">
-                            <label for="lastname" class="col-sm-2 control-label">平台资源编号</label>
-                            <div class="col-sm-10">
-                            <input type="input" name="sourcenum" class="form-control" id="lastname" placeholder="请输入">
-                            </div>
-                        </div>
-                        <div class="form-group has-success">
-                            <label for="lastname" class="col-sm-2 control-label">属名</label>
-                            <div class="col-sm-10">
-                            <input type="input" name="genus" class="form-control" id="lastname" placeholder="请输入">
-                            </div>
-                        </div>
-                        <div class="form-group has-success">
-                            <label for="lastname" class="col-sm-2 control-label">种名</label>
-                            <div class="col-sm-10">
-                            <input type="input" name="species" class="form-control" id="lastname" placeholder="请输入">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="lastname" class="col-sm-2 control-label">中文名</label>
-                            <div class="col-sm-10">
-                            <input type="input" name="chinesename" class="form-control" id="lastname" placeholder="请输入">
-                            </div>
-                        </div>
-                        <div class="form-group has-success">
-                            <label for="lastname" class="col-sm-2 control-label">样品存储地址</label>
-                            <div class="col-sm-10">
-                            <input type="input" name="recadd" class="form-control" id="lastname" placeholder="请输入">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="lastname" class="col-sm-2 control-label">原始资源编号</label>
-                            <div class="col-sm-10">
-                            <input type="input" name="orinum" class="form-control" id="lastname" placeholder="请输入">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="lastname" class="col-sm-2 control-label">来源历史</label>
-                            <div class="col-sm-10">
-                            <input type="input" name="history" class="form-control" id="lastname" placeholder="请输入">
-                            </div>
-                        </div>
-                        <div class="form-group has-success">
-                            <label for="lastname" class="col-sm-2 control-label">培养基编号</label>
-                            <div class="col-sm-10">
-                            <input type="input" name="media" class="form-control" id="lastname" placeholder="请输入">
-                            </div>
-                        </div>
-                        <div class="form-group has-success">
-                            <label for="lastname" class="col-sm-2 control-label">获取途径</label>
-                            <div class="col-sm-10">
-                            <input type="input" name="getmet" class="form-control" id="lastname" placeholder="请输入">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="lastname" class="col-sm-2 control-label">模式菌株</label>
-                            <div class="col-sm-10">
-                            <input type="input" name="modbact" class="form-control" id="lastname" placeholder="请输入">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="lastname" class="col-sm-2 control-label">主要用途</label>
-                            <div class="col-sm-10">
-                            <input type="input" name="mainuse" class="form-control" id="lastname" placeholder="请输入">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="lastname" class="col-sm-2 control-label">生物危害程度</label>
-                            <div class="col-sm-10">
-                            <input type="input" name="danger" class="form-control" id="lastname" placeholder="请输入">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="lastname" class="col-sm-2 control-label">备注</label>
-                            <div class="col-sm-10">
-                            <input type="input" name="comment" class="form-control" id="lastname" placeholder="请输入">
-                            </div>
-                        </div>
-                        <div class = "col-sm-8"></div>
-                        <div class = "col-sm-4">
-                        <button type="submit" class="btn btn-default">提交新纪录</button>
-                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                        </div>
-                    </form>
-                    <form class="form-horizontal" role="form" method="get" action="{% url 'blog:bactdel' %}">
-                    {% csrf_token %}
-                    <div class="col-sm-offset-2 col-sm-10">
-                        <input type="hidden" id="delid"  name="id" value="{{test.id}}">
-                        <button type="submit" class="btn btn-default">删除</button>
-                        <button type="button" class="btn btn-primary" data-dismiss="modal" >不删除</button>
-                    </div>
-                    </form>
-                    </div>
-                <div class="modal-footer">  
-                </div>
+    <div class="modal-dialog" >
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="alterLabel">修改</h4>
             </div>
-        </div> 
-    </div>
+            <div class="modal-body">
+                <form class="form-horizontal" role="form" method="get" action="{% url 'blog:bactalter' %}">
+                    <!-- 写的时候action后边的{}url后边加了两个引号，就一直跳转到/testrecord界面，去掉之后才变 -->
+                        {% csrf_token %}
+                    <input type="hidden" id="alterid"  name="id" value="{{test.id}}" />
+                    <div class="form-group has-success">
+                        <label for="firstname" class="col-sm-2 control-label">菌株保藏编号</label>
+                        <div class="col-sm-10">
+                        <input type="input" name="bactnumber" class="form-control" id="firstname" placeholder="请输入">
+                        </div>
+                    </div>
+                    <div class="form-group has-success">
+                        <label for="lastname" class="col-sm-2 control-label">平台资源编号</label>
+                        <div class="col-sm-10">
+                        <input type="input" name="sourcenum" class="form-control" id="lastname" placeholder="请输入">
+                        </div>
+                    </div>
+                    <div class="form-group has-success">
+                        <label for="lastname" class="col-sm-2 control-label">属名</label>
+                        <div class="col-sm-10">
+                        <input type="input" name="genus" class="form-control" id="lastname" placeholder="请输入">
+                        </div>
+                    </div>
+                    <div class="form-group has-success">
+                        <label for="lastname" class="col-sm-2 control-label">种名</label>
+                        <div class="col-sm-10">
+                        <input type="input" name="species" class="form-control" id="lastname" placeholder="请输入">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="lastname" class="col-sm-2 control-label">中文名</label>
+                        <div class="col-sm-10">
+                        <input type="input" name="chinesename" class="form-control" id="lastname" placeholder="请输入">
+                        </div>
+                    </div>
+                    <div class="form-group has-success">
+                        <label for="lastname" class="col-sm-2 control-label">样品存储地址</label>
+                        <div class="col-sm-10">
+                        <input type="input" name="recadd" class="form-control" id="lastname" placeholder="请输入">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="lastname" class="col-sm-2 control-label">原始资源编号</label>
+                        <div class="col-sm-10">
+                        <input type="input" name="orinum" class="form-control" id="lastname" placeholder="请输入">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="lastname" class="col-sm-2 control-label">来源历史</label>
+                        <div class="col-sm-10">
+                        <input type="input" name="history" class="form-control" id="lastname" placeholder="请输入">
+                        </div>
+                    </div>
+                    <div class="form-group has-success">
+                        <label for="lastname" class="col-sm-2 control-label">培养基编号</label>
+                        <div class="col-sm-10">
+                        <input type="input" name="media" class="form-control" id="lastname" placeholder="请输入">
+                        </div>
+                    </div>
+                    <div class="form-group has-success">
+                        <label for="lastname" class="col-sm-2 control-label">获取途径</label>
+                        <div class="col-sm-10">
+                        <input type="input" name="getmet" class="form-control" id="lastname" placeholder="请输入">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="lastname" class="col-sm-2 control-label">模式菌株</label>
+                        <div class="col-sm-10">
+                        <input type="input" name="modbact" class="form-control" id="lastname" placeholder="请输入">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="lastname" class="col-sm-2 control-label">主要用途</label>
+                        <div class="col-sm-10">
+                        <input type="input" name="mainuse" class="form-control" id="lastname" placeholder="请输入">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="lastname" class="col-sm-2 control-label">生物危害程度</label>
+                        <div class="col-sm-10">
+                        <input type="input" name="danger" class="form-control" id="lastname" placeholder="请输入">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="lastname" class="col-sm-2 control-label">备注</label>
+                        <div class="col-sm-10">
+                        <input type="input" name="comment" class="form-control" id="lastname" placeholder="请输入">
+                        </div>
+                    </div>
+                    <div class = "col-sm-8"></div>
+                    <div class = "col-sm-4">
+                    <button type="submit" class="btn btn-default">提交新纪录</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    </div>
+                </form>
+                <form class="form-horizontal" role="form" method="get" action="{% url 'blog:bactdel' %}">
+                {% csrf_token %}
+                <div class="col-sm-offset-2 col-sm-10">
+                    <input type="hidden" id="delid"  name="id" value="{{test.id}}">
+                    <button type="submit" class="btn btn-default">删除</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" >不删除</button>
+                </div>
+                </form>
+                </div>
+            <div class="modal-footer">  
+            </div>
+        </div>
+    </div> 
+</div>
     
-    <script> 
-        $('#alter').on('show.bs.modal', function (event) {
-            var btn = $(event.relatedTarget)
-            var modal = $(this)
-            modal.find('#alterid').val(btn.attr("data-whatever"))
-            modal.find('#delid').val(btn.attr("data-whatever"))
-            modal.find('#bactnumber').val(btn.attr("data-bactnumber"))
-            modal.find('#sourcenum').val(btn.attr("data-sourcenum"))
-            modal.find('#genus').val(btn.attr("data-genus"))
-            modal.find('#species').val(btn.attr("data-species"))
-            modal.find('#chinesename').val(btn.attr("data-chinesename"))
-            modal.find('#recadd').val(btn.attr("data-recadd"))
-            modal.find('#orinum').val(btn.attr("data-orinum"))
-            modal.find('#history').val(btn.attr("data-history"))
-            modal.find('#media').val(btn.attr("data-media"))
-            modal.find('#getmet').val(btn.attr("data-getmet"))
-            modal.find('#modbact').val(btn.attr("data-modbact"))
-            modal.find('#mianuse').val(btn.attr("data-mianuse"))
-            modal.find('#danger').val(btn.attr("data-danger"))
-            modal.find('#comment').val(btn.attr("data-comment"))
-        })
-    </script> 
+<script> 
+    $('#alter').on('show.bs.modal', function (event) {
+        var btn = $(event.relatedTarget)
+        var modal = $(this)
+        modal.find('#alterid').val(btn.attr("data-whatever"))
+        modal.find('#delid').val(btn.attr("data-whatever"))
+        modal.find('#bactnumber').val(btn.attr("data-bactnumber"))
+        modal.find('#sourcenum').val(btn.attr("data-sourcenum"))
+        modal.find('#genus').val(btn.attr("data-genus"))
+        modal.find('#species').val(btn.attr("data-species"))
+        modal.find('#chinesename').val(btn.attr("data-chinesename"))
+        modal.find('#recadd').val(btn.attr("data-recadd"))
+        modal.find('#orinum').val(btn.attr("data-orinum"))
+        modal.find('#history').val(btn.attr("data-history"))
+        modal.find('#media').val(btn.attr("data-media"))
+        modal.find('#getmet').val(btn.attr("data-getmet"))
+        modal.find('#modbact').val(btn.attr("data-modbact"))
+        modal.find('#mianuse').val(btn.attr("data-mianuse"))
+        modal.find('#danger').val(btn.attr("data-danger"))
+        modal.find('#comment').val(btn.attr("data-comment"))
+    })
+</script> 
+
+<div class="modal fade" id="batchinput" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">批量上传</h4>
+            </div>
+            <!--
+            <center>
+            <form class="form-horizontal" role="form" method="post" >
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="inputfile">文件输入</label>
+                <input type="file" id="inputfile">
+            </div>
+            <button type="submit" class="btn btn-primary">确认上传</button>
+            </form>
+            </center>
+            -->
+            <form class="form-inline" role="form"  method="post" enctype="multipart/form-data" action="{% url 'blog:batchinput' %}" accept-charset="utf-8">
+                {% csrf_token %}
+                <div class="form-group">
+                    <input type="file" name="file">
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="上传文件">
+                </div>
+            </form>
+
+            
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary">确认上传</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+
 </body>
 {% endblock main %}
