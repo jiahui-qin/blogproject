@@ -8,6 +8,7 @@ from .models import testrecord, crudeex, bact,cpd
 from django.db.models import Q
 from django.utils import timezone
 import os
+import csv
 
 
 def bactindex(request, msg = -1):
@@ -25,7 +26,6 @@ def bactload(request):
         recadd =  request.GET.get('recadd')
         orinum = request.GET.get('orinum') 
         history = request.GET.get('history')
-        storetime = request.GET.get('storetime')
         media = request.GET.get('media') 
         getmet = request.GET.get('getmet') 
         modbact =request.GET.get('modbact')
@@ -41,7 +41,6 @@ def bactload(request):
             'recadd' : recadd,
             'orinum' : orinum, 
             'history' : history,
-            'storetime' : storetime,
             'media' : media, 
             'getmet' : getmet, 
             'upload' : request.user,
@@ -116,5 +115,29 @@ def batchinput(request):
         file_s = open(os.path.join("./data", file_obj.name), 'wb+')
         for line in file_obj.chunks():
             file_s.write(line)
+            print(line)
         file_s.close()
-        return bactindex(request, msg = 0)
+        with open(os.path.join("./data", file_obj.name), 'r') as rf:
+            reader = csv.reader(rf)
+            line = reader.__next__()
+            for rows in reader:
+                infos = {
+                    'bactnumber' : rows[0],
+                    'sourcenum' : rows[1], 
+                    'genus' : rows[2], 
+                    'species' : rows[3],
+                    'chinesename' : rows[4], 
+                    'recadd' : rows[5],
+                    'orinum' : rows[6], 
+                    'history' : rows[7],
+                    'media' : rows[8], 
+                    'getmet' : rows[9], 
+                    'modbact' : rows[10],
+                    'mianuse' : rows[11],
+                    'danger' : rows[12],
+                    'comment' : rows[13],
+                    'upload' : request.user,
+                }
+                bact.objects.create(**infos)
+        os.remove(os.path.join("./data", file_obj.name))
+        return bactindex(request, msg = 0) 
