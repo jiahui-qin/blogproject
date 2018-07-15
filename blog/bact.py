@@ -9,6 +9,8 @@ from django.db.models import Q
 from django.utils import timezone
 import os
 import csv
+from django.core.urlresolvers import reverse  
+from django.shortcuts import redirect  
 
 
 def bactindex(request, msg = -1):
@@ -50,7 +52,8 @@ def bactload(request):
             'comment' : comment,
         }        
         bact.objects.create(**info)
-        return bactindex(request, msg = 0) #msg = 0代表正常插入
+        return HttpResponseRedirect('/bactindex')
+        #return bactindex(request, msg = 0) #msg = 0代表正常插入
         #except:
         #    return bactindex(request, msg = 1) #msg = 1 代表插入失败
 
