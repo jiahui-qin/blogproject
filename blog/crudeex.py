@@ -7,6 +7,11 @@ from django.shortcuts import render
 from .models import testrecord, crudeex, bact,cpd
 from django.db.models import Q
 from django.utils import timezone
+import os
+import csv
+from django.core.urlresolvers import reverse  
+from django.shortcuts import redirect  
+
 
 def crudeexindex(request, msg = -1):  ##粗提物
     lists = crudeex.objects.all()
@@ -124,4 +129,36 @@ def cru2rec(request):
             'provider': request.user,
         }        
         testrecord.objects.create(**info)
+        return crudeexindex(request, msg = 0)
+
+def cbatchinput(request):
+    if request.method == 'POST':
+        file_obj = request.FILES.get('file')
+        print(file_obj.name)
+        if not file_obj:
+            return crudeexindex(request, msg=1)
+        file_s = open(os.path.join("./data", file_obj.name), 'wb+')
+        for line in file_obj.chunks():
+            file_s.write(line)
+            print(line)
+        file_s.close()
+        with open(os.path.join("./data", file_obj.name), 'r') as rf:
+            reader = csv.reader(rf)
+            line = reader.__next__()
+            for rows in reader:
+                infos = {
+                    'frombact' : bact.objects.get(bactnumber=rows[0]),
+                    'mcccnumber' : rows[1], 
+                    'chinesename' : rows[2], 
+                    'recadd' : rows[3],
+                    'media' : rows[4], 
+                    'entervol' : rows[5],
+                    'entercol' : rows[6], 
+                    'solvent' : rows[7],
+                    'exrmethod' : rows[8], 
+                    'comment' : rows[9], 
+                    'provider' : request.user,
+                }
+                crudeex.objects.create(**infos)
+        os.remove(os.path.join("./data", file_obj.name))
         return crudeexindex(request, msg = 0)

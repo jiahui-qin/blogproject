@@ -12,7 +12,14 @@
                 </button>
             </center>
         </div><!-- col-md-4 -->
-        <div class="col-md-8 col-sm-7 col-xs-4">
+        <div class="col-md-4 col-sm-5 col-xs-8">
+            <center>
+                <button class="btn btn-info btn-primary btn-lg" data-toggle="modal" data-target="#batchinput">
+                    批量上传
+                </button>
+            </center>
+        </div><!-- col-md-4 -->
+        <div class="col-md-4 col-sm-7 col-xs-4">
             <nav class="main-nav" role="navigation">
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul class="list-unstyled text-center" >
@@ -46,21 +53,17 @@
     <table class="table table-hover table-condensed">
             <thead>
                 <tr>
+                    <th>来源菌株</th>
                     <th>mccc编号</th>
-                    <th>属名</th>
-                    <th>种名</th>
                     <th>中文名</th>
+                    <th>样品存储地址</th>
                     <th>培养基</th>
                     <th>入库时间</th>
-                    <th>库存情况</th>
-                    <th>测试情况</th>
+                    <th>入库体积</th>
+                    <th>入库浓度</th>
                     <th>溶剂</th>
-                    <th>培养条件</th>
                     <th>提取方法</th>
                     <th>提供人</th>
-                    <th>测样单位</th>
-                    <th>送样时间</th>
-                    <th>活性结果</th>
                     <th>备注</th>
                 </tr>
             </thead>
@@ -79,13 +82,14 @@
                     data-entercol = "{{crudeex.entercol}}"  data-solvent = "{{crudeex.solvent}}"  data-exrmethod = "{{crudeex.exrmethod}}" 
                     data-comment = "{{crudeex.comment}}">
                     {% endif %}
-                            <td class = "field-mcccnumber"> {{crudeex.mcccnumber}}</td>
-                            <th class = "field-frombact">{{crudeex.frombact}}</th>
+                            <td class = "field-frombact">{{crudeex.frombact}}</td>
+                            <th class = "field-mcccnumber"> {{crudeex.mcccnumber}}</th>
                             <th class = "field-chinesename">{{crudeex.chinesename}}</th>
                             <th class = "field-recadd">{{crudeex.recadd}}</th>
                             <th class = "field-media">{{crudeex.media}}</th>
                             <th class = "field-entertime">{{crudeex.entertime}}</th>
-                            <th class = "field-entervol">{{crudeex.entervol}} mL {{crudeex.entercol}}ug/ml</th>
+                            <th class = "field-entervol">{{crudeex.entervol}}</th>
+                            <th class = "field-entercol">{{crudeex.entercol}}</th>
                             <th class = "field-solvent">{{crudeex.solvent}}</th>
                             <th class = "field-exrmethod">{{crudeex.exrmethod}}</th>
                             <th class = "field-provider">{{crudeex.provider}}</th>
@@ -307,6 +311,7 @@
     $('#alter').on('show.bs.modal', function (event) {
         var btn = $(event.relatedTarget)
         var modal = $(this)
+        console.log("data-whatever")
         modal.find('#alterid').val(btn.attr("data-whatever"))
         modal.find('#delid').val(btn.attr("data-whatever"))
         modal.find('#frombact').val(btn.attr("data-frombact"))
@@ -314,7 +319,6 @@
         modal.find('#chinesename').val(btn.attr("data-chinesename"))
         modal.find('#media').val(btn.attr("data-media"))
         modal.find('#recadd').val(btn.attr("data-recadd"))
-        modal.find('#mass').val(btn.attr("data-mass"))
         modal.find('#entervol').val(btn.attr("data-entervol"))
         modal.find('#entercol').val(btn.attr("data-entercol"))
         modal.find('#solvent').val(btn.attr("data-solvent"))
@@ -322,6 +326,8 @@
         modal.find('#comment').val(btn.attr("data-comment"))
     })
 </script> 
+
+
 <!-- modal upload -->
 <div class="modal fade" id="upload" tabindex="-1" role="dialog" aria-labelledby="uploadLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -422,6 +428,7 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+
 <!--
 <script> 
     $('#upload').on('show.bs.modal', function (event) {
@@ -432,5 +439,29 @@
     })
 </script> 
 -->
+<div class="modal fade" id="batchinput" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">批量上传</h4>
+            </div>
+            <form class="form-inline" role="form"  method="post" enctype="multipart/form-data" action="{% url 'blog:cbatchinput' %}" accept-charset="utf-8">
+                {% csrf_token %}
+                <div class="form-group">
+                    <input type="file" name="file">
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="上传文件">
+                </div>
+            </form>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary">确认上传</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+
 </body>
 {% endblock main %}

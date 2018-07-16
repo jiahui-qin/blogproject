@@ -359,18 +359,6 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 class="modal-title" id="myModalLabel">批量上传</h4>
             </div>
-            <!--
-            <center>
-            <form class="form-horizontal" role="form" method="post" >
-            {% csrf_token %}
-            <div class="form-group">
-                <label for="inputfile">文件输入</label>
-                <input type="file" id="inputfile">
-            </div>
-            <button type="submit" class="btn btn-primary">确认上传</button>
-            </form>
-            </center>
-            -->
             <form class="form-inline" role="form"  method="post" enctype="multipart/form-data" action="{% url 'blog:batchinput' %}" accept-charset="utf-8">
                 {% csrf_token %}
                 <div class="form-group">
@@ -380,8 +368,6 @@
                     <input type="submit" value="上传文件">
                 </div>
             </form>
-
-            
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
                 <button type="button" class="btn btn-primary">确认上传</button>
