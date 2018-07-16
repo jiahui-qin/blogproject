@@ -49,7 +49,7 @@ class crudeex(models.Model): ##粗提物
 
 class cpd(models.Model): ##化合物
     cpdnumber = models.CharField(max_length = 20)#化合物编号
-    frombact = models.ForeignKey(crudeex)#来源菌株
+    frombact = models.ForeignKey(crudeex)#来源化合物
     mass = models.FloatField() #精确质量数
     stru = models.CharField(max_length = 50)#分子式
     recadd = models.CharField(max_length = 100)#样品存储地址

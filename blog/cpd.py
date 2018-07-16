@@ -15,8 +15,9 @@ def cpdindex(request, msg = -1):   ##化合物
 
 def cpdload(request):
     if request.method == 'GET':
+        fromcru = request.GET.get('fromcru')
         cpdnumber = request.GET.get('cpdnumber')
-        frombact = request.GET.get('frombact')
+        frombact = crudeex.objects.get(id=fromcru)
         mass = request.GET.get('mass')
         stru = request.GET.get('stru')
         recadd = request.GET.get('recadd')
@@ -59,8 +60,9 @@ def cpdalter(request):
     if request.method == 'GET':
         try:
             id = request.GET.get('id')
+            fromcru = request.GET.get('fromcru')
             cpdnumber = request.GET.get('cpdnumber')
-            frombact = request.GET.get('frombact')
+            frombact = crudeex.objects.get(id=fromcru)
             mass = request.GET.get('mass')
             stru = request.GET.get('stru')
             recadd = request.GET.get('recadd')

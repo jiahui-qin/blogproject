@@ -333,6 +333,7 @@
     $('#alter').on('show.bs.modal', function (event) {
         var btn = $(event.relatedTarget)
         var modal = $(this)
+        console.log("data-recadd")
         modal.find('#alterid').val(btn.attr("data-whatever"))
         modal.find('#delid').val(btn.attr("data-whatever"))
         modal.find('#bactnumber').val(btn.attr("data-bactnumber"))
