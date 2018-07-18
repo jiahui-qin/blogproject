@@ -29,6 +29,8 @@ urlpatterns = [
 
     url(r'^batchinput/$', views.batchinput, name='batchinput'),
     url(r'^cbatchinput/$', views.cbatchinput, name='cbatchinput'),
+    url(r'^cpdbatchinput/$', views.cpdbatchinput, name='cpdbatchinput'),
+    url(r'^tbatchinput/$', views.tbatchinput, name='tbatchinput'),
 
     url(r'^accounts/login/$', views.login_user, name = 'login_user'),
     url(r'^accounts/logout/$', views.logout_user, name = 'logout_user'),

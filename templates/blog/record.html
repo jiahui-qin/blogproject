@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load blog_tags %}
 {%block main %}
 
 <body>
@@ -13,7 +13,14 @@
                 <!-- 模态框（Modal） --> 
             </center>
         </div><!-- col-md-4 -->
-        <div class="col-md-8 col-sm-7 col-xs-4">
+        <div class="col-md-4 col-sm-5 col-xs-8">
+            <center>
+                <button class="btn btn-info btn-primary btn-lg" data-toggle="modal" data-target="#batchinput">
+                    批量上传
+                </button>
+            </center>
+        </div><!-- col-md-4 -->
+        <div class="col-md-4 col-sm-7 col-xs-4">
             <nav class="main-nav" role="navigation">
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul class="list-unstyled text-center" >
@@ -48,17 +55,15 @@
             <thead>
                 <tr>
                     <th>类别</th>
-                    <th>来源菌株</th>
-                    <th>盒序号</th>
+                    <th>来源粗提物</th>
+                    <th>来源化合物</th>
                     <th>样品起序号</th>
                     <th>样品终序号</th>
-                    <th>样品数量</th>
-                    <th>样品名</th>
                     <th>溶剂</th>
-                    <th>重量（μg）</th>
-                    <th>体积(μl)</th>
-                    <th>样品浓度(mg/mL)</th>
-                    <th>测试浓度(μg/ml)</th>
+                    <th>重量</th>
+                    <th>体积</th>
+                    <th>浓度</th>
+                    <th>测试浓度</th>
                     <th>提供人(送样人)</th>
                     <th>测样单位</th>
                     <th>送测时间</th>
@@ -124,61 +129,96 @@
                         <div class="form-group">
                             <label for="lastname" class="col-sm-2 control-label">类别</label>
                             <div class="col-sm-10">
-                            <input type="input" name="testtype" class="form-control" id="lastname" placeholder="请输入">
+                            <select type="input" name="testtype" class="form-control" id="testtype" onchange="closeone()">
+                                <ul>
+                                    <option  value = 'cpd'>化合物</option>
+                                    <option  value = 'crudeex'>粗提物</option>
+                                </ul>
+                            </select>
+                            </div>
+                        </div>
+                        <div class="form-group has-success">
+                            <label  class="col-sm-2 control-label">来源粗提物</label>
+                            <div class="col-sm-10">
+                                <select type="input" name="fromcru" class="form-control" id="fromcru">
+                                    {% get_all_cru as cru_list %}
+                                    <ul>
+                                        {% for crudeex in cru_list %}
+                                        <option  value = '{{crudeex.id}}'>{{crudeex.mcccnumber}}</option>
+                                        {% empty %}
+                                        <a>null</a>
+                                        {% endfor %}
+                                    </ul>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group has-success">
+                            <label  class="col-sm-2 control-label">来源化合物</label>
+                            <div class="col-sm-10">
+                                <select type="input" name="fromcpd" class="form-control" id="fromcpd">
+                                    {% get_all_cpd as cpd_list %}
+                                    <ul>
+                                        {% for cpd in cpd_list %}
+                                        <option  value = '{{cpd.id}}'>{{cpd.cpdnumber}}</option>
+                                        {% empty %}
+                                        <a>null</a>
+                                        {% endfor %}
+                                    </ul>
+                                </select>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="lastname" class="col-sm-2 control-label">样品起序号</label>
                             <div class="col-sm-10">
-                            <input type="input" name="samst" class="form-control" id="lastname" placeholder="请输入">
+                            <input type="input" name="samst" class="form-control"  placeholder="请输入">
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="lastname" class="col-sm-2 control-label">样品终序号</label>
                             <div class="col-sm-10">
-                            <input type="input" name="samend" class="form-control" id="lastname" placeholder="请输入">
+                            <input type="input" name="samend" class="form-control"  placeholder="请输入">
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="lastname" class="col-sm-2 control-label">溶剂</label>
                             <div class="col-sm-10">
-                            <input type="input" name="solvent" class="form-control" id="lastname" placeholder="请输入">
+                            <input type="input" name="solvent" class="form-control"  placeholder="请输入">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="lastname" class="col-sm-2 control-label">重量(μg)</label>
+                            <label for="lastname" class="col-sm-2 control-label">重量</label>
                             <div class="col-sm-10">
-                            <input type="input" name="mass" class="form-control" id="lastname" placeholder="请输入">
+                            <input type="input" name="mass" class="form-control"  placeholder="请输入">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="lastname" class="col-sm-2 control-label">体积(μL)</label>
+                            <label for="lastname" class="col-sm-2 control-label">体积</label>
                             <div class="col-sm-10">
-                            <input type="input" name="volume" class="form-control" id="lastname" placeholder="请输入">
+                            <input type="input" name="volume" class="form-control"  placeholder="请输入">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="lastname" class="col-sm-2 control-label">浓度(mg/mL)</label>
+                            <label for="lastname" class="col-sm-2 control-label">浓度</label>
                             <div class="col-sm-10">
-                            <input type="input" name="conc" class="form-control" id="lastname" placeholder="请输入">
+                            <input type="input" name="conc" class="form-control"  placeholder="请输入">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="lastname" class="col-sm-2 control-label">测试浓度(μg/mL)</label>
+                            <label for="lastname" class="col-sm-2 control-label">测试浓度</label>
                             <div class="col-sm-10">
-                            <input type="input" name="testconc" class="form-control" id="lastname" placeholder="请输入">
+                            <input type="input" name="testconc" class="form-control"  placeholder="请输入">
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="lastname" class="col-sm-2 control-label">测样单位</label>
                             <div class="col-sm-10">
-                            <input type="input" name="department" class="form-control" id="lastname" placeholder="请输入">
+                            <input type="input" name="department" class="form-control"  placeholder="请输入">
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="lastname" class="col-sm-2 control-label">备注</label>
                             <div class="col-sm-10">
-                            <input type="input" name="comment" class="form-control" id="lastname" placeholder="请输入">
+                            <input type="input" name="comment" class="form-control"  placeholder="请输入">
                             </div>
                         </div>
                         <div class = "col-sm-8"></div>
@@ -194,6 +234,17 @@
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
 
+<script>
+    function closeone(){
+        var x=document.getElementById("testtype");
+        if (x == 'cpd'){
+            $("#fromcru").attr('disabled','TRUE')
+        }
+        else{
+            $("#fromcpd").attr('disabled','TRUE')
+        }
+    }
+</script>
 
 <!-- modal alter -->
 <div class="modal fade" id="alter" tabindex="-1" role="dialog" aria-labelledby="alterLabel" aria-hidden="true">
@@ -211,61 +262,96 @@
                     <div class="form-group">
                         <label for="lastname" class="col-sm-2 control-label">类别</label>
                         <div class="col-sm-10">
-                        <input type="input" name="testtype" class="form-control" id="lastname" placeholder="testtype">
+                            <select type="input" name="testtype" class="form-control" id="testtype" onchange="closeone()">
+                                <ul>
+                                    <option  value = 'cpd'>化合物</option>
+                                    <option  value = 'crudeex'>粗提物</option>
+                                </ul>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label  class="col-sm-2 control-label">来源粗提物</label>
+                        <div class="col-sm-10">
+                            <select type="input" name="fromcru" class="form-control" id="fromcru">
+                                {% get_all_cru as cru_list %}
+                                <ul>
+                                    {% for crudeex in cru_list %}
+                                    <option  value = '{{crudeex.id}}'>{{crudeex.mcccnumber}}</option>
+                                    {% empty %}
+                                    <a>null</a>
+                                    {% endfor %}
+                                </ul>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label  class="col-sm-2 control-label">来源化合物</label>
+                        <div class="col-sm-10">
+                            <select type="input" name="fromcpd" class="form-control" id="fromcpd">
+                                {% get_all_cpd as cpd_list %}
+                                <ul>
+                                    {% for cpd in cpd_list %}
+                                    <option  value = '{{cpd.id}}'>{{cpd.cpdnumber}}</option>
+                                    {% empty %}
+                                    <a>null</a>
+                                    {% endfor %}
+                                </ul>
+                            </select>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="lastname" class="col-sm-2 control-label">样品起序号</label>
                         <div class="col-sm-10">
-                        <input type="input" name="samst" class="form-control" id="lastname" placeholder="samst">
+                        <input type="input" name="samst" class="form-control" id="samst" >
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="lastname" class="col-sm-2 control-label">样品终序号</label>
                         <div class="col-sm-10">
-                        <input type="input" name="samend" class="form-control" id="lastname" placeholder="samend">
+                        <input type="input" name="samend" class="form-control" id="samend" >
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="lastname" class="col-sm-2 control-label">溶剂</label>
                         <div class="col-sm-10">
-                        <input type="input" name="solvent" class="form-control" id="lastname" placeholder="solvent">
+                        <input type="input" name="solvent" class="form-control" id="solvent" >
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="lastname" class="col-sm-2 control-label">重量(μg)</label>
+                        <label for="lastname" class="col-sm-2 control-label">重量</label>
                         <div class="col-sm-10">
-                        <input type="input" name="mass" class="form-control" id="lastname" placeholder="mass">
+                        <input type="input" name="mass" class="form-control" id="mass" >
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="lastname" class="col-sm-2 control-label">体积(μL)</label>
+                        <label for="lastname" class="col-sm-2 control-label">体积</label>
                         <div class="col-sm-10">
-                        <input type="input" name="volume" class="form-control" id="lastname" placeholder="volume">
+                        <input type="input" name="volume" class="form-control" id="volume" >
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="lastname" class="col-sm-2 control-label">浓度(mg/mL)</label>
+                        <label for="lastname" class="col-sm-2 control-label">浓度</label>
                         <div class="col-sm-10">
-                        <input type="input" name="conc" class="form-control" id="lastname" placeholder="conc">
+                        <input type="input" name="conc" class="form-control" id="conc">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="lastname" class="col-sm-2 control-label">测试浓度(μg/mL)</label>
+                        <label for="lastname" class="col-sm-2 control-label">测试浓度</label>
                         <div class="col-sm-10">
-                        <input type="input" name="testconc" class="form-control" id="lastname" placeholder="testconc">
+                        <input type="input" name="testconc" class="form-control" id="testconc">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="lastname" class="col-sm-2 control-label">测样单位</label>
                         <div class="col-sm-10">
-                        <input type="input" name="department" class="form-control" id="lastname" placeholder="department">
+                        <input type="input" name="department" class="form-control" id="department">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="lastname" class="col-sm-2 control-label">备注</label>
                         <div class="col-sm-10">
-                        <input type="input" name="comment" class="form-control" id="lastname" placeholder="comment">
+                        <input type="input" name="comment" class="form-control" id="comment">
                         </div>
                     </div>
                     <div class = "col-sm-8"></div>
@@ -288,14 +374,25 @@
         </div>
     </div> 
 </div>
-
+<script>
+    function closeone(){
+        var x=document.getElementById("testtype");
+        if (x == 'cpd'){
+            $("#fromcru").attr('disabled','TRUE')
+        }
+        else{
+            $("#fromcpd").attr('disabled','TRUE')
+        }
+    }
+</script>
 <script> 
     $('#alter').on('show.bs.modal', function (event) {
         var btn = $(event.relatedTarget)
         var modal = $(this)
         modal.find('#alterid').val(btn.attr("data-whatever"))
         modal.find('#delid').val(btn.attr("data-whatever"))
-        modal.find('#testtype').val(btn.attr("data-testtype"))
+        modal.find('#fromcru').val(btn.attr("data-fromcru"))
+        modal.find('#fromcpd').val(btn.attr("data-fromcpd"))
         modal.find('#samst').val(btn.attr("data-samst"))
         modal.find('#samend').val(btn.attr("data-samend"))
         modal.find('#solvent').val(btn.attr("data-solvent"))
@@ -307,46 +404,30 @@
         modal.find('#comment').val(btn.attr("data-comment"))
     })
 </script> 
-<!--
-<script>
-$(document).ready(function(){
-    var i = 1
-    $("tr").each(function(){
-        $(this).attr("id","id"+i)
-        console.log(this.id)
-        i = i + 1
-    })
-})
-</script>
--->
-<!--
-<script>
-    function decid(this)
-    var tr = $(this)  
-    console.log(tr.dataset.whatever)
-    //获取表格中的一行数据  
-    $('#alter').modal('show'); 
-    $('#alterid').val(tr.dataset.whatever)
-    $('#delid').val(tr.dataset.whatever)
-    $('#testtype').val(tr.dataset.testtype)
-    $('#testtype').val(tr.dataset.testtype)
-    $('#boxnumber').val(tr.dataset.boxnumber)
-    $('#samplestart').val(tr.dataset.samplestart)
-    $('#samplestart').val(tr.dataset.samplestart)
-    $('#sampleend').val(tr.dataset.sampleend)
-    $('#samplenum').val(tr.dataset.samplenum)
-    $('#samplename').val(tr.dataset.samplename)
-    $('#solvent').val(tr.dataset.solvent)
-    $('#mass').val(tr.dataset.mass)
-    $('#volume').val(tr.dataset.volume)
-    $('#concentration').val(tr.dataset.concentration)
-    $('#testconcentration').val(tr.dataset.testconcentration)
-    $('#provider').val(tr.dataset.provider)
-    $('#department').val(tr.dataset.department)
-    $('#sentime').val(tr.dataset.sentime)
-    $('#comment').val(tr.dataset.comment)
-</script>
--->
+
+<div class="modal fade" id="batchinput" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">批量上传</h4>
+            </div>
+            <form class="form-inline" role="form"  method="post" enctype="multipart/form-data" action="{% url 'blog:tbatchinput' %}" accept-charset="utf-8">
+                {% csrf_token %}
+                <div class="form-group">
+                    <input type="file" name="file">
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="上传文件">
+                </div>
+            </form>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary">确认上传</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
 </body>
 {% endblock main %}
 

@@ -7,10 +7,10 @@ from django.shortcuts import render
 from .models import testrecord, crudeex, bact,cpd
 from django.db.models import Q
 from django.utils import timezone
-from .bact import bactindex, bactload, bactdel,bactalter,batchinput
-from .testrecord import recordindex, upload,recdel,recalter
-from .crudeex import crudeexindex, curdeexupload, crudel, crualter, bact2cru,cru2rec,cbatchinput
-from .cpd import cpdindex, cpdload, cpdalter, cpddel
+from .bact import *
+from .testrecord import *
+from .crudeex import *
+from .cpd import *
 
 @login_required
 def index(request, lists, msg = -1):

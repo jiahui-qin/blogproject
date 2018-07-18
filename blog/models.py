@@ -49,7 +49,7 @@ class crudeex(models.Model): ##粗提物
 
 class cpd(models.Model): ##化合物
     cpdnumber = models.CharField(max_length = 20)#化合物编号
-    frombact = models.ForeignKey(crudeex)#来源化合物
+    frombact = models.ForeignKey(crudeex)#来源粗提物
     mass = models.FloatField() #精确质量数
     stru = models.CharField(max_length = 50)#分子式
     recadd = models.CharField(max_length = 100)#样品存储地址
@@ -67,7 +67,7 @@ class cpd(models.Model): ##化合物
 
 class testrecord(models.Model):
     testtype = models.CharField(max_length = 20) #送测类型
-    fromcru = models.ForeignKey(crudeex, null = True) ##链接至粗提物,可以在粗提物的每一行后边加一个按钮，增加送测记录。
+    fromcru = models.ForeignKey(crudeex, null = True) ##链接至粗提物
     fromcpd = models.ForeignKey(cpd, null = True)#链接至化合物
     samst = models.IntegerField(blank = True) #样品起序号
     samend = models.IntegerField(blank = True) #样品终序号
@@ -78,8 +78,8 @@ class testrecord(models.Model):
     testconc = models.FloatField(blank= True) #测试浓度 单位(miug/mL)
     provider = models.ForeignKey(User) #提供人
     department = models.CharField(max_length=100) #测样单位
-    sendtime = models.DateTimeField(auto_now_add=True, editable = True)
-    comment = models.CharField(max_length = 500, blank = True)
+    sendtime = models.DateTimeField(auto_now_add=True, editable = True)#送样时间
+    comment = models.CharField(max_length = 500, blank = True)#备注
 
     def __str__(self):
         return self.testtype

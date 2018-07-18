@@ -7,6 +7,10 @@ from django.shortcuts import render
 from .models import testrecord, crudeex, bact,cpd
 from django.db.models import Q
 from django.utils import timezone
+import os
+import csv
+from django.core.urlresolvers import reverse  
+from django.shortcuts import redirect  
 
 def cpdindex(request, msg = -1):   ##化合物
     lists = cpd.objects.all()
@@ -93,3 +97,35 @@ def cpdalter(request):
             return cpdindex(request, msg = 0)
         except:
             return cpdindex(request, msg = 1)
+
+def cpdbatchinput(request):
+    if request.method == 'POST':
+        file_obj = request.FILES.get('file')
+        if not file_obj:
+            return cpdindex(request, msg=1)
+        file_s = open(os.path.join("./data", file_obj.name), 'wb+')
+        for line in file_obj.chunks():
+            file_s.write(line)
+        file_s.close()
+        with open(os.path.join("./data", file_obj.name), 'r') as rf:
+            reader = csv.reader(rf)
+            line = reader.__next__()
+            for rows in reader:
+                infos = {
+                    'cpdnumber' : rows[0],
+                    'frombact' : crudeex.objects.get(mcccnumber=rows[1]), 
+                    'mass' : rows[2], 
+                    'stru' : rows[3],
+                    'recadd' : rows[4], 
+                    'nmr' : rows[5],
+                    'ms' : rows[6], 
+                    'rot' : rows[7],
+                    'red' : rows[8], 
+                    'blue' : rows[9], 
+                    'media' : rows[10],
+                    'comment' : rows[11],
+                    'prov' : request.user,
+                }
+                cpd.objects.create(**infos)
+        os.remove(os.path.join("./data", file_obj.name))
+        return cpdindex(request, msg = 0) 
