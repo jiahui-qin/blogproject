@@ -126,18 +126,18 @@
                     <!-- 输入新记录表单 -->
                     <form class="form-horizontal" role="form" method="get" action="{% url 'blog:upload' %}">
                             {% csrf_token %}
-                        <div class="form-group">
+                        <div class="form-group has-success">
                             <label for="lastname" class="col-sm-2 control-label">类别</label>
                             <div class="col-sm-10">
                             <select type="input" name="testtype" class="form-control" id="testtype" onchange="closeone()">
                                 <ul>
-                                    <option  value = 'cpd'>化合物</option>
-                                    <option  value = 'crudeex'>粗提物</option>
+                                    <option  value = '化合物'>化合物</option>
+                                    <option  value = '粗提物'>粗提物</option>
                                 </ul>
                             </select>
                             </div>
                         </div>
-                        <div class="form-group has-success">
+                        <div class="form-group">
                             <label  class="col-sm-2 control-label">来源粗提物</label>
                             <div class="col-sm-10">
                                 <select type="input" name="fromcru" class="form-control" id="fromcru">
@@ -152,7 +152,7 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="form-group has-success">
+                        <div class="form-group">
                             <label  class="col-sm-2 control-label">来源化合物</label>
                             <div class="col-sm-10">
                                 <select type="input" name="fromcpd" class="form-control" id="fromcpd">
@@ -179,25 +179,25 @@
                             <input type="input" name="samend" class="form-control"  placeholder="请输入">
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group has-success">
                             <label for="lastname" class="col-sm-2 control-label">溶剂</label>
                             <div class="col-sm-10">
                             <input type="input" name="solvent" class="form-control"  placeholder="请输入">
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group has-success">
                             <label for="lastname" class="col-sm-2 control-label">重量</label>
                             <div class="col-sm-10">
                             <input type="input" name="mass" class="form-control"  placeholder="请输入">
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group has-success">
                             <label for="lastname" class="col-sm-2 control-label">体积</label>
                             <div class="col-sm-10">
                             <input type="input" name="volume" class="form-control"  placeholder="请输入">
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group has-success">
                             <label for="lastname" class="col-sm-2 control-label">浓度</label>
                             <div class="col-sm-10">
                             <input type="input" name="conc" class="form-control"  placeholder="请输入">
@@ -209,7 +209,7 @@
                             <input type="input" name="testconc" class="form-control"  placeholder="请输入">
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group has-success">
                             <label for="lastname" class="col-sm-2 control-label">测样单位</label>
                             <div class="col-sm-10">
                             <input type="input" name="department" class="form-control"  placeholder="请输入">
@@ -235,15 +235,19 @@
     </div><!-- /.modal -->
 
 <script>
-    function closeone(){
-        var x=document.getElementById("testtype");
-        if (x == 'cpd'){
-            $("#fromcru").attr('disabled','TRUE')
+        document.getElementById("testtype").onchange =function(){
+            console.log()
         }
-        else{
-            $("#fromcpd").attr('disabled','TRUE')
-        }
-    }
+    //function closeone(){
+    //    x = $('#testtype option:selected').val();
+    //    console.log('12321412')
+    //    if (x == '化合物'){
+    //        $("#fromcru").attr({'disabled':'TRUE','value':''})
+    //    }
+    //    else{
+    //        $("#fromcpd").attr({'disabled':'TRUE','value':''})
+    //    }
+    //}
 </script>
 
 <!-- modal alter -->
@@ -259,10 +263,10 @@
                     <!-- 写的时候action后边的{}url后边加了两个引号，就一直跳转到/testrecord界面，去掉之后才变 -->
                         {% csrf_token %}
                     <input type="hidden" id="alterid"  name="id" value="{{test.id}}" />
-                    <div class="form-group">
+                    <div class="form-group has-success">
                         <label for="lastname" class="col-sm-2 control-label">类别</label>
                         <div class="col-sm-10">
-                            <select type="input" name="testtype" class="form-control" id="testtype" onchange="closeone()">
+                            <select type="input" name="testtype" class="form-control" id="testtype" onchange="closeone1()">
                                 <ul>
                                     <option  value = 'cpd'>化合物</option>
                                     <option  value = 'crudeex'>粗提物</option>
@@ -312,25 +316,25 @@
                         <input type="input" name="samend" class="form-control" id="samend" >
                         </div>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group has-success">
                         <label for="lastname" class="col-sm-2 control-label">溶剂</label>
                         <div class="col-sm-10">
                         <input type="input" name="solvent" class="form-control" id="solvent" >
                         </div>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group has-success">
                         <label for="lastname" class="col-sm-2 control-label">重量</label>
                         <div class="col-sm-10">
                         <input type="input" name="mass" class="form-control" id="mass" >
                         </div>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group has-success">
                         <label for="lastname" class="col-sm-2 control-label">体积</label>
                         <div class="col-sm-10">
                         <input type="input" name="volume" class="form-control" id="volume" >
                         </div>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group has-success">
                         <label for="lastname" class="col-sm-2 control-label">浓度</label>
                         <div class="col-sm-10">
                         <input type="input" name="conc" class="form-control" id="conc">
@@ -342,7 +346,7 @@
                         <input type="input" name="testconc" class="form-control" id="testconc">
                         </div>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group has-success">
                         <label for="lastname" class="col-sm-2 control-label">测样单位</label>
                         <div class="col-sm-10">
                         <input type="input" name="department" class="form-control" id="department">

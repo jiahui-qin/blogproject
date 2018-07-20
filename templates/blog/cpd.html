@@ -128,14 +128,14 @@
                     <!-- 输入新记录表单 -->
                     <form class="form-horizontal" role="form" method="get" action="{% url 'blog:cpdload' %}">
                             {% csrf_token %}
-                        <div class="form-group">
+                        <div class="form-group has-success">
                             <label for="lastname" class="col-sm-2 control-label">化合物编号</label>
                             <div class="col-sm-10">
                             <input type="input" name="cpdnumber" class="form-control" id="lastname" >
                             </div>
                         </div>
                         <div class="form-group has-success">
-                            <label  class="col-sm-2 control-label">来源化合物</label>
+                            <label  class="col-sm-2 control-label">来源粗提物</label>
                             <div class="col-sm-10">
                                 <select type="input" name="fromcru" class="form-control" id="fromcru">
                                     {% get_all_cru as cru_list %}
@@ -149,19 +149,19 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group has-success">
                             <label for="lastname" class="col-sm-2 control-label">精确质量数</label>
                             <div class="col-sm-10">
                             <input type="input" name="mass" class="form-control" id="lastname" >
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group has-success">
                             <label for="lastname" class="col-sm-2 control-label">分子式</label>
                             <div class="col-sm-10">
                             <input type="input" name="stru" class="form-control" id="lastname" >
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group has-success">
                             <label for="lastname" class="col-sm-2 control-label">样品存储地址</label>
                             <div class="col-sm-10">
                             <input type="input" name="recadd" class="form-control" id="lastname" >
@@ -236,7 +236,7 @@
                         <!-- 写的时候action后边的{}url后边加了两个引号，就一直跳转到/testrecord界面，去掉之后才变 -->
                             {% csrf_token %}
                         <input type="hidden" id="alterid"  name="id" value="{{test.id}}" />
-                        <div class="form-group">
+                        <div class="form-group has-success">
                             <label for="lastname" class="col-sm-2 control-label">化合物编号</label>
                             <div class="col-sm-10">
                             <input type="input" name="cpdnumber" class="form-control" id="cpdnumber" >
@@ -257,19 +257,19 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group has-success">
                             <label for="lastname" class="col-sm-2 control-label">精确质量数</label>
                             <div class="col-sm-10">
                             <input type="input" name="mass" class="form-control" id="mass" >
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group has-success">
                             <label for="lastname" class="col-sm-2 control-label">分子式</label>
                             <div class="col-sm-10">
                             <input type="input" name="stru" class="form-control" id="stru" >
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group has-success">
                             <label for="lastname" class="col-sm-2 control-label">样品存储地址</label>
                             <div class="col-sm-10">
                             <input type="input" name="recadd" class="form-control" id="recadd" >
