@@ -15,11 +15,11 @@ import csv
 from django.core.urlresolvers import reverse  
 from django.shortcuts import redirect  
 
-
-def recordindex(request, msg = -1):
+@login_required
+def recordindex(request, msg = -1,err = []):
     lists = testrecord.objects.all()
     num = len(lists) 
-    return render(request, 'blog/record.html', {'tests' : lists, 'msg' : msg, 'num' : num} )
+    return render(request, 'blog/record.html', {'tests' : lists, 'msg' : msg, 'num' : num, 'err' : err} )
 
 def upload(request):
     if request.method == "GET":
@@ -125,26 +125,36 @@ def tbatchinput(request):
         with open(os.path.join("./data", file_obj.name), 'r') as rf:
             reader = csv.reader(rf)
             line = reader.__next__()
+            nnn = 0
+            errlist = []
             for rows in reader:
-                infos = {
-                    'testtype' : rows[0],
-                    'fromcru' : crudeex.objects.get(mcccnumber=rows[1]), 
-                    'fromcpd' : cpd.objects.get(cpdnumber=rows[2]), 
-                    'samst' : rows[3],
-                    'samend' : rows[4], 
-                    'solvent' : rows[5],
-                    'mass' : rows[6], 
-                    'volume' : rows[7],
-                    'conc' : rows[8], 
-                    'testconc' : rows[9], 
-                    'department' : rows[10],
-                    'comment' : rows[11],
-                    'provider' : request.user,
-                }
-                if rows[1]:
-                    infos['fromcru'] = crudeex.objects.get(mcccnumber=rows[1])
-                else:
-                    infos['fromcpd'] = cpd.objects.get(cpdnumber=rows[2])
-                testrecord.objects.create(**infos)
-        os.remove(os.path.join("./data", file_obj.name))
-        return recordindex(request, msg = 0) 
+                try:
+                    infos = {
+                        'testtype' : rows[0],
+                        'fromcru' : crudeex.objects.get(mcccnumber=rows[1]), 
+                        'fromcpd' : cpd.objects.get(cpdnumber=rows[2]), 
+                        'samst' : rows[3],
+                        'samend' : rows[4], 
+                        'solvent' : rows[5],
+                        'mass' : rows[6], 
+                        'volume' : rows[7],
+                        'conc' : rows[8], 
+                        'testconc' : rows[9], 
+                        'department' : rows[10],
+                        'comment' : rows[11],
+                        'provider' : request.user,
+                    }
+                    if rows[1]:
+                        infos['fromcru'] = crudeex.objects.get(mcccnumber=rows[1])
+                    else:
+                        infos['fromcpd'] = cpd.objects.get(cpdnumber=rows[2])
+                    testrecord.objects.create(**infos)
+                    nnn = nnn + 1
+                except:
+                    nnn = nnn + 1
+                    errlist.append(nnn)
+        os.remove(os.path.join("./data", file_obj.name)) 
+        if not len(errlist):
+            return recordindex(request, msg = 0) 
+        else:
+            return recordindex(request, err = errlist,msg = 2)
