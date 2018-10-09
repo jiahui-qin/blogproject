@@ -48,17 +48,20 @@
                                     </div>
                                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                                         <ul class="nav navbar-nav navbar-right" id = 'hhhh'>
-                                            <!--
-                                            <li class="cl-effect-11"><a href="{% url 'blog:recordindex' %}" data-hover="送测记录">送测记录</a></li>
-                                            -->
-                                            <li class="cl-effect-11"><a href="{% url 'blog:cpdindex' %}" data-hover="化合物数据库">化合物数据库</a></li>
-                                            <li class="cl-effect-11"><a href="{% url 'blog:bactindex' %}" data-hover="菌株数据库">菌株数据库</a></li>
-                                            <li class="cl-effect-11"><a href="{% url 'blog:crudeexindex' %}" data-hover="粗提物数据库">粗提物数据库</a></li>
+                                            <li class="cl-effect-11" id = 'record'><a href="{% url 'blog:recordindex' %}" data-hover="送测记录">送测记录</a></li>
+                                            <li class="cl-effect-11" id = 'bact'><a href="{% url 'blog:bactindex' %}" data-hover="菌株数据库">菌株数据库</a></li>
+                                            <li class="cl-effect-11" id = 'cru'><a href="{% url 'blog:crudeexindex' %}" data-hover="粗提物数据库">粗提物数据库</a></li>
+                                            <li class="cl-effect-11" id = 'cpd'><a href="{% url 'blog:cpdindex' %}" data-hover="化合物数据库">化合物数据库</a></li>
                                             <li class="cl-effect-11"><a href="{% url 'blog:logout_user' %}" data-hover="登出">登出</a></li>
                                         </ul>
+                                
                                 <script>
                                     var urlstr = location.href;
                                     var urlstatus=false;
+                                    if (urlstr.match('bact')) {$("#bact").find('a').css({'text-decoration':'underline','font-weight':'bold'})}
+                                    if (urlstr.match('cpd')) {$("#cpd").find('a').css({'text-decoration':'underline','font-weight':'bold'})}
+                                    if (urlstr.match('cru')) {$("#cru").find('a').css({'text-decoration':'underline','font-weight':'bold'})}
+                                    if (urlstr.match('record')) {$("#record").find('a').css({'text-decoration':'underline','font-weight':'bold'})}
                                     $("#nav a").each(function () {  
                                       if ((urlstr + '/').indexOf($(this).attr('href')) > -1&&$(this).attr('href')!='') {
                                         $(this).addClass('curument'); urlstatus = true;
