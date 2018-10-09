@@ -12,40 +12,43 @@ import csv
 from django.core.urlresolvers import reverse  
 from django.shortcuts import redirect  
 
-
-def crudeexindex(request, msg = -1):  ##粗提物
+@login_required
+def crudeexindex(request, msg = -1, err = []):  ##粗提物
     lists = crudeex.objects.all()
     num = len(lists)
-    return render(request, 'blog/crudeex.html', context = {'tests' : lists, 'msg' : msg, 'num' : num} )
+    return render(request, 'blog/crudeex.html', context = {'tests' : lists, 'msg' : msg, 'num' : num, 'err' : err} )
 
 def curdeexupload(request):
-    if request.method == 'GET':
-        bactid = request.GET.get('frombact')
-        mcccnumber = request.GET.get('mcccnumber')
-        chinesename = request.GET.get('chinesename')
-        media = request.GET.get('media')
-        recadd = request.GET.get('recadd')
-        entervol = request.GET.get('entervol')
-        entercol = request.GET.get('entercol')
-        solvent = request.GET.get('solvent')
-        exrmethod = request.GET.get('exrmethod')
-        comment = request.GET.get('comment')
-        frombact = bact.objects.get(id=bactid)
-        info = {
-                'frombact' : frombact,
-                'mcccnumber' : mcccnumber, 
-                'chinesename' : chinesename, 
-                'media' : media, 
-                'recadd' : recadd, 
-                'entervol' : entervol, 
-                'entercol' : entercol, 
-                'solvent' : solvent, 
-                'exrmethod' : exrmethod,
-                'comment' : comment, 
-                'provider': request.user,
-        }
-        crudeex.objects.create(**info)
-        return crudeexindex(request, msg = 0) #msg = 0代表正常插入
+    try:
+        if request.method == 'GET':
+            bactid = request.GET.get('frombact')
+            mcccnumber = request.GET.get('mcccnumber')
+            chinesename = request.GET.get('chinesename')
+            media = request.GET.get('media')
+            recadd = request.GET.get('recadd')
+            entervol = request.GET.get('entervol')
+            entercol = request.GET.get('entercol')
+            solvent = request.GET.get('solvent')
+            exrmethod = request.GET.get('exrmethod')
+            comment = request.GET.get('comment')
+            frombact = bact.objects.get(id=bactid)
+            info = {
+                    'frombact' : frombact,
+                    'mcccnumber' : mcccnumber, 
+                    'chinesename' : chinesename, 
+                    'media' : media, 
+                    'recadd' : recadd, 
+                    'entervol' : entervol, 
+                    'entercol' : entercol, 
+                    'solvent' : solvent, 
+                    'exrmethod' : exrmethod,
+                    'comment' : comment, 
+                    'provider': request.user,
+            }
+            crudeex.objects.create(**info)
+            return crudeexindex(request, msg = 0) #msg = 0代表正常插入
+    except:
+        return crudeexindex(request, msg = 1)
 
 def crudel(request):
     if request.method == "GET":
@@ -59,35 +62,35 @@ def crudel(request):
 
 def crualter(request):
     if request.method == 'GET':
-        #try:
-        bactid = request.GET.get('frombact')
-        mcccnumber = request.GET.get('mcccnumber')
-        chinesename = request.GET.get('chinesename')
-        media = request.GET.get('media')
-        recadd = request.GET.get('recadd')
-        entervol = request.GET.get('entervol')
-        entercol = request.GET.get('entercol')
-        solvent = request.GET.get('solvent')
-        exrmethod = request.GET.get('exrmethod')
-        comment = request.GET.get('comment')
-        frombact = bact.objects.get(id=bactid)
-        infos = {
-            'frombact' : frombact,
-            'mcccnumber' : mcccnumber, 
-            'chinesename' : chinesename, 
-            'media' : media, 
-            'recadd' : recadd, 
-            'entervol' : entervol, 
-            'entercol' : entercol, 
-            'solvent' : solvent, 
-            'exrmethod' : exrmethod,
-            'comment' : comment, 
-            'provider': request.user,
-        }
-        crudeex.objects.select_for_update().filter(id = id).update(**infos)
-        return crudeexindex(request, msg = 0)
-    #except:
-    #    return crudeexindex(request, msg = 1)
+        try:
+            bactid = request.GET.get('frombact')
+            mcccnumber = request.GET.get('mcccnumber')
+            chinesename = request.GET.get('chinesename')
+            media = request.GET.get('media')
+            recadd = request.GET.get('recadd')
+            entervol = request.GET.get('entervol')
+            entercol = request.GET.get('entercol')
+            solvent = request.GET.get('solvent')
+            exrmethod = request.GET.get('exrmethod')
+            comment = request.GET.get('comment')
+            frombact = bact.objects.get(id=bactid)
+            infos = {
+                'frombact' : frombact,
+                'mcccnumber' : mcccnumber, 
+                'chinesename' : chinesename, 
+                'media' : media, 
+                'recadd' : recadd, 
+                'entervol' : entervol, 
+                'entercol' : entercol, 
+                'solvent' : solvent, 
+                'exrmethod' : exrmethod,
+                'comment' : comment, 
+                'provider': request.user,
+            }
+            crudeex.objects.select_for_update().filter(id = id).update(**infos)
+            return crudeexindex(request, msg = 0)
+        except:
+            return crudeexindex(request, msg = 1)
 
 def bact2cru(request, bactid):
     bacts = bact.objects.get(id = bactid)
@@ -145,20 +148,31 @@ def cbatchinput(request):
         with open(os.path.join("./data", file_obj.name), 'r') as rf:
             reader = csv.reader(rf)
             line = reader.__next__()
+            nnn = 0
+            errlist = []
             for rows in reader:
-                infos = {
-                    'frombact' : bact.objects.get(bactnumber=rows[0]),
-                    'mcccnumber' : rows[1], 
-                    'chinesename' : rows[2], 
-                    'recadd' : rows[3],
-                    'media' : rows[4], 
-                    'entervol' : rows[5],
-                    'entercol' : rows[6], 
-                    'solvent' : rows[7],
-                    'exrmethod' : rows[8], 
-                    'comment' : rows[9], 
-                    'provider' : request.user,
-                }
-                crudeex.objects.create(**infos)
+                try:
+                    infos = {
+                        'frombact' : bact.objects.get(bactnumber=rows[0]),
+                        'mcccnumber' : rows[1], 
+                        'chinesename' : rows[2], 
+                        'recadd' : rows[3],
+                        'media' : rows[4], 
+                        'entervol' : rows[5],
+                        'entercol' : rows[6], 
+                        'solvent' : rows[7],
+                        'exrmethod' : rows[8], 
+                        'comment' : rows[9], 
+                        'provider' : request.user,
+                    }
+                    crudeex.objects.create(**infos)
+                    nnn = nnn + 1
+                except:
+                    nnn = nnn + 1
+                    errlist.append(nnn)
         os.remove(os.path.join("./data", file_obj.name))
         return crudeexindex(request, msg = 0)
+        if not len(errlist):
+            return crudeexindex(request, msg = 0)
+        else:
+            return crudeexindex(request, msg = 2, err = errlist)

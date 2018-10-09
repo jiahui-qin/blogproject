@@ -23,6 +23,7 @@
                         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                             <ul class="list-unstyled text-center" >
                                 <li>当前登录用户： {{request.user}}</li>
+                                <li>当前数据库 <strong>菌株数据库</strong></li>
                                 <li>当前数据库上传记录 {{num}}</li>
                             </ul>
                         </div><!-- /.navbar-collapse -->
@@ -46,6 +47,14 @@
                             &times;
                         </button>
                         错误！请进行一些更改。
+                    </div>
+                    {% elif msg == 2 %}
+                    <div class="alert alert-danger alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert"
+                                aria-hidden="true">
+                            &times;
+                        </button>
+                        上传数据中第 {{err}} 发生了错误，请重新输入。
                     </div>
                     {% else %}
                     {% endif %}

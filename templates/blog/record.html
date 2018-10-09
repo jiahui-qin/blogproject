@@ -25,6 +25,7 @@
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul class="list-unstyled text-center" >
                             <li>当前登录用户： {{request.user}}</li>
+                            <li>当前数据库 <strong>送测记录</strong></li>
                             <li>当前数据库上传记录 {{num}}</li>
                           </ul>
                 </div><!-- /.navbar-collapse -->
@@ -47,6 +48,14 @@
                     &times;
                 </button>
                 错误！请进行一些更改。
+            </div>
+            {% elif msg == 2 %}
+            <div class="alert alert-danger alert-dismissable">
+                <button type="button" class="close" data-dismiss="alert"
+                        aria-hidden="true">
+                    &times;
+                </button>
+                上传数据中第 {{err}} 发生了错误，请重新输入。
             </div>
             {% else %}
             {% endif %}
@@ -233,20 +242,19 @@
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
 
-<script>
-        document.getElementById("testtype").onchange =function(){
-            console.log()
+<script type="text/JavaScript">
+       function closeone(){
+        var objS = document.getElementById("testtype");
+        var vals = objS.options[objS.selectedIndex].value;
+        if (vals == '化合物'){
+            $("#fromcru").attr({'disabled':'TRUE','value':''})
+            $("#fromcpd").removeAttr("disabled")
         }
-    //function closeone(){
-    //    x = $('#testtype option:selected').val();
-    //    console.log('12321412')
-    //    if (x == '化合物'){
-    //        $("#fromcru").attr({'disabled':'TRUE','value':''})
-    //    }
-    //    else{
-    //        $("#fromcpd").attr({'disabled':'TRUE','value':''})
-    //    }
-    //}
+        else{
+            $("#fromcpd").attr({'disabled':'TRUE','value':''})
+            $("#fromcru").removeAttr("disabled")
+        }
+    }
 </script>
 
 <!-- modal alter -->
@@ -377,16 +385,19 @@
         </div>
     </div> 
 </div>
-<script>
-    function closeone(){
-        var x=document.getElementById("testtype");
-        if (x == 'cpd'){
-            $("#fromcru").attr('disabled','TRUE')
-        }
-        else{
-            $("#fromcpd").attr('disabled','TRUE')
-        }
-    }
+<script type="text/JavaScript">
+    function closeone1(){
+     var objS = document.getElementById("testtype");
+     var vals = objS.options[objS.selectedIndex].value;
+     if (vals == '化合物'){
+         $("#fromcru").attr({'disabled':'TRUE','value':''})
+         $("#fromcpd").removeAttr("disabled")
+     }
+     else{
+         $("#fromcpd").attr({'disabled':'TRUE','value':''})
+         $("#fromcru").removeAttr("disabled")
+     }
+ }
 </script>
 <script> 
     $('#alter').on('show.bs.modal', function (event) {
