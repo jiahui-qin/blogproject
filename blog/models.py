@@ -9,17 +9,17 @@ from django.utils.html import strip_tags
 @python_2_unicode_compatible
 
 class bact(models.Model):  #菌株
-    bactnumber = models.CharField(max_length = 50) #菌株保藏编号 输入
+    bactnumber = models.CharField(max_length = 50,blank = False) #菌株保藏编号 输入
     sourcenum = models.CharField(max_length = 50, blank = True) #平台资源编号 输入
-    genus = models.CharField(max_length = 200) #属名 输入
-    species = models.CharField(max_length = 200) #种名 输入
+    genus = models.CharField(max_length = 200,blank = False) #属名 输入
+    species = models.CharField(max_length = 200,blank = False) #种名 输入
     chinesename = models.CharField(max_length = 200, blank = True) #中文名 输入
-    recadd = models.CharField(max_length = 100)#样品存储地址 输入
+    recadd = models.CharField(max_length = 100,blank = False)#样品存储地址 输入
     orinum = models.CharField(max_length = 100, blank = True) #原始资源编号 输入
     history = models.CharField(max_length = 100, blank = True) #来源历史 输入
     storetime = models.DateTimeField(auto_now_add=True,editable = True) #收藏时间
-    media = models.CharField(max_length = 50) #培养基编号 输入
-    getmet = models.CharField(max_length = 100) #获取途径 输入
+    media = models.CharField(max_length = 50,blank = False) #培养基编号 输入
+    getmet = models.CharField(max_length = 100,blank = False) #获取途径 输入
     upload = models.ForeignKey(User, null = True)#保藏人
     modbact = models.CharField(max_length = 50, blank = True)#模式菌株 输入
     mianuse = models.CharField(max_length = 100, blank = True) #主要用途 输入
@@ -75,7 +75,7 @@ class testrecord(models.Model):
     mass = models.FloatField() #重量，单位miug
     volume = models.FloatField() #体积单位niuL
     conc = models.FloatField() #浓度 单位(mg/mL)
-    testconc = models.FloatField(blank= True) #测试浓度 单位(miug/mL)
+    testconc = models.FloatField(blank = True) #测试浓度 单位(miug/mL)
     provider = models.ForeignKey(User) #提供人
     department = models.CharField(max_length=100) #测样单位
     sendtime = models.DateTimeField(auto_now_add=True, editable = True)#送样时间

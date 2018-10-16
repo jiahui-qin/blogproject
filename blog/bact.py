@@ -35,6 +35,8 @@ def bactload(request):
             mianuse =request.GET.get('mianuse')
             danger =request.GET.get('danger')
             comment =request.GET.get('comment')
+            if bactnumber == "" or genus == "" or species == "" or recadd == "" or  media == "" or getmet == "":
+                return bactindex(request, msg = 1)
             info = {
                 'bactnumber' : bactnumber,
                 'sourcenum' : sourcenum, 

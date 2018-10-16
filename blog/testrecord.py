@@ -57,6 +57,7 @@ def upload(request):
                 id = request.GET.get('fromcpd')
                 fromcpd = cpd.objects.get(id=cpdid)
                 info['fromcpd'] = fromcpd
+            print(info)
             testrecord.objects.create(**info)
             return recordindex(request, msg = 0) #msg = 0代表正常插入
         except:

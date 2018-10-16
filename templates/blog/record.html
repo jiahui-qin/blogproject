@@ -390,13 +390,16 @@
     function closeone1(){
      var objS = document.getElementById("testtype");
      var vals = objS.options[objS.selectedIndex].value;
+     console.log(vals)
      if (vals == '化合物'){
          $("#fromcru").attr({'disabled':'TRUE','value':''})
          $("#fromcpd").removeAttr("disabled")
+         $("#fromcpd").attr({'value':'data-fromcpd'})
      }
      else{
          $("#fromcpd").attr({'disabled':'TRUE','value':''})
          $("#fromcru").removeAttr("disabled")
+         $("#fromcru").attr({'value':'data-fromcru'})
      }
  }
 </script>
@@ -406,8 +409,9 @@
         var modal = $(this)
         modal.find('#alterid').val(btn.attr("data-whatever"))
         modal.find('#delid').val(btn.attr("data-whatever"))
-        modal.find('#fromcru').val(btn.attr("data-fromcru"))
-        modal.find('#fromcpd').val(btn.attr("data-fromcpd"))
+        modal.find('#testtype').val(btn.attr("data-testtype"))
+        //modal.find('#fromcru').val(btn.attr("data-fromcru"))
+        //modal.find('#fromcpd').val(btn.attr("data-fromcpd"))
         modal.find('#samst').val(btn.attr("data-samst"))
         modal.find('#samend').val(btn.attr("data-samend"))
         modal.find('#solvent').val(btn.attr("data-solvent"))
