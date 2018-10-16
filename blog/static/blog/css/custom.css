@@ -204,7 +204,9 @@ img {
 .cl-effect-11 a:focus::before {
     max-width: 100%;
 }
-
+.cl-effect-11 a:haver::after {
+    color:#D0104C;
+}
 /**
  * 4.0 - Home/Blog
  */
