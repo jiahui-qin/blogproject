@@ -29,7 +29,9 @@ class bact(models.Model):  #菌株
         return self.bactnumber + '|' + self.chinesename
 
 class crudeex(models.Model): ##粗提物
+    ##10/22修改，加入一列粗提物编号
     frombact = models.ForeignKey(bact) ##来源菌株  %%没有显示出来
+    crunumber = models.CharField(max_length = 50) #粗提物编号，唯一
     mcccnumber = models.CharField(max_length = 50) #mccc编号
     chinesename = models.CharField(max_length = 200) #中文名
     recadd = models.CharField(max_length = 100)#样品存储地址
@@ -48,8 +50,10 @@ class crudeex(models.Model): ##粗提物
 
 
 class cpd(models.Model): ##化合物
-    cpdnumber = models.CharField(max_length = 20)#化合物编号
-    frombact = models.ForeignKey(crudeex)#来源粗提物
+    ##10.22修改，加入一列来源菌株
+    cpdnumber = models.CharField(max_length = 20)#化合物编号，唯一
+    fromcru = models.ForeignKey(crudeex)#来源粗提物
+    frombact = models.ForeignKey(bact) #来源菌株
     mass = models.FloatField() #精确质量数
     stru = models.CharField(max_length = 50)#分子式
     recadd = models.CharField(max_length = 100)#样品存储地址

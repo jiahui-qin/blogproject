@@ -22,7 +22,8 @@ def cpdload(request):
         try:
             fromcru = request.GET.get('fromcru')
             cpdnumber = request.GET.get('cpdnumber')
-            frombact = crudeex.objects.get(id=fromcru)
+            fromcru = crudeex.objects.get(id=fromcru)
+            frombact = fromcru.frombact
             mass = request.GET.get('mass')
             stru = request.GET.get('stru')
             recadd = request.GET.get('recadd')
@@ -35,6 +36,7 @@ def cpdload(request):
             comment = request.GET.get('comment')
             info = {
                     'cpdnumber' : cpdnumber,
+                    'fromcru' : fromcru,
                     'frombact' : frombact,
                     'mass' : mass,
                     'stru' : stru,
@@ -69,7 +71,8 @@ def cpdalter(request):
             id = request.GET.get('id')
             fromcru = request.GET.get('fromcru')
             cpdnumber = request.GET.get('cpdnumber')
-            frombact = crudeex.objects.get(id=fromcru)
+            fromcru = crudeex.objects.get(id=fromcru)
+            frombact = fromcru.frombact
             mass = request.GET.get('mass')
             stru = request.GET.get('stru')
             recadd = request.GET.get('recadd')
@@ -83,6 +86,7 @@ def cpdalter(request):
 
             infos = {
                     'cpdnumber' : cpdnumber,
+                    'fromcru' : fromcru,
                     'frombact' : frombact,
                     'mass' : mass,
                     'stru' : stru,
@@ -119,7 +123,8 @@ def cpdbatchinput(request):
                 try:
                     infos = {
                         'cpdnumber' : rows[0],
-                        'frombact' : crudeex.objects.get(mcccnumber=rows[1]), 
+                        'fromcru' : crudeex.objects.get(mcccnumber=rows[1]), 
+                        'frombact' : fromcru.frombact,
                         'mass' : rows[2], 
                         'stru' : rows[3],
                         'recadd' : rows[4], 
@@ -132,6 +137,7 @@ def cpdbatchinput(request):
                         'comment' : rows[11],
                         'prov' : request.user,
                     }
+                    infos['frombact'] = info.get('fromcru').frombact
                     cpd.objects.create(**infos)
                     nnn = nnn + 1
                 except:

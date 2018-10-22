@@ -65,7 +65,8 @@
                     <thead>
                         <tr>
                             <th>化合物编号</th>
-                            <th>来源化合物</th>
+                            <th>来源粗提物</th>
+                            <th>来源菌株</th>
                             <th>精确质量数</th>
                             <th>分子式</th>
                             <th>样品存储地址</th>
@@ -100,6 +101,7 @@
                             data-comment = "{{test.comment}}">
                             {% endif %}
                                 <td class = "field-cpdnumber"> {{test.cpdnumber}}</td>
+                                <th class = "field-fromcru">{{test.fromcru}}</th>
                                 <th class = "field-frombact">{{test.frombact}}</th>
                                 <th class = "field-mass">{{test.mass}}</th>
                                 <th class = "field-stru">{{test.stru}}</th>
