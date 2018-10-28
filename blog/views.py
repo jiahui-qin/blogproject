@@ -30,6 +30,10 @@ def altermanage(request):
 def alter(request):
     return render
 
+@login_required
+def start(request):
+#    #return HttpResponseRedirect(reverse(NAME_OF_PROFILE_VIEW, args=[request.user.username]))
+    return render(request, 'blog/start.html')
 
 def login_user(request):
     state = "Please log in below..."
