@@ -11,3 +11,8 @@ def get_all_cru():
 @register.simple_tag
 def get_all_cpd():
     return cpd.objects.all().order_by('-time')
+@register.simple_tag
+def get_all(bactid):
+    rela_cru = crudeex.objects.filter(frombact__id=bactid)
+    
+    return len(rela_cru)

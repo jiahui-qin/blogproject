@@ -1,5 +1,4 @@
 {% extends 'base.html' %}
-
 {%block main %}
 
 <body>
@@ -84,7 +83,7 @@
                             data-orinum = "{{test.orinum}}"  data-history = "{{test.history}}"
                             data-media = "{{test.media}}" data-getmet = "{{test.getmet}}"  data-modbact = "{{test.modbact}}" 
                             data-mianuse = "{{test.mianuse}}"  data-danger = "{{test.danger}}"   data-comment = "{{test.comment}}" 
-                           >
+                            >
                             {% else %}
                             <tr class="row1">
                             {% endif %}
@@ -363,6 +362,8 @@
         modal.find('#comment').val(btn.attr("data-comment"))
     })
 </script> 
+
+
 
 <div class="modal fade" id="batchinput" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
