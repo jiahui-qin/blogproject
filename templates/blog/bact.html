@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load blog_tags %}
 {%block main %}
 
 <body>
@@ -71,11 +72,13 @@
                             <th>培养基编号</th>
                             <th>收藏时间</th>
                             <th>获取途径</th>
+                            <th>相关粗提物</th>
                             <th>提供人</th>
                         </tr>
                     </thead>
                     <tbody>
                             {% for test in tests %}
+                            <a>{{test.num_crudeex}}</a>
                             {% if request.user == test.upload %}
                             <tr class="row1 success" id = "useajax" data-toggle="modal" data-target="#alter" data-whatever="{{test.id}}"
                             data-bactnumber = "{{test.bactnumber}}" data-sourcenum = "{{test.sourcenum}}" data-genus = "{{test.genus}}" 
@@ -96,6 +99,7 @@
                                     <th class = "field-media">{{test.media}}</th>
                                     <th class = "field-storetime">{{test.storetime}}</th>
                                     <th class = "field-getmet">{{test.getmet}}</th>
+                                    <th class = "field-rela">{{test.num_crudeex}}</th>
                                     <th class = "field-upload">{{test.upload}}</th>
                             </tr> 
                             {% empty %}
@@ -388,6 +392,9 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal -->
 </div>
+
+
+
 
 </body>
 {% endblock main %}

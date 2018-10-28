@@ -60,6 +60,7 @@ def logout_user(request):
     return HttpResponseRedirect("/accounts/login/")
 
 
+
 #
 #
 #def managedata(request):

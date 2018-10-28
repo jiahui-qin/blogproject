@@ -10,11 +10,13 @@ from django.utils import timezone
 import os
 import csv
 from django.core.urlresolvers import reverse  
-from django.shortcuts import redirect  
+from django.shortcuts import redirect
+from django.db.models.aggregates import Count
 
 @login_required
 def bactindex(request, msg = -1, err = []):
-    lists = bact.objects.all()
+    lists =bact.objects.annotate(num_crudeex=Count('crudeex'))
+    #lists = bact.objects.all()
     num = len(lists)
     return render(request, 'blog/bact.html', context = {'tests' : lists, 'msg' : msg, 'num': num, 'err' : err} )
 

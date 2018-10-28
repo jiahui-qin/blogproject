@@ -1,5 +1,6 @@
 from ..models import bact, crudeex,cpd
 from django import template
+from django.db.models.aggregates import Count
 register = template.Library()
 
 @register.simple_tag
@@ -12,7 +13,5 @@ def get_all_cru():
 def get_all_cpd():
     return cpd.objects.all().order_by('-time')
 @register.simple_tag
-def get_all(bactid):
-    rela_cru = crudeex.objects.filter(frombact__id=bactid)
-    
-    return len(rela_cru)
+def get_cru():
+    return bact.objects.annotate(num_crudeex=Count('crudeex'))
