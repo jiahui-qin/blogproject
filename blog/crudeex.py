@@ -175,3 +175,8 @@ def cbatchinput(request):
             return crudeexindex(request, msg = 0)
         else:
             return crudeexindex(request, msg = 2, err = errlist)
+
+def cru2cpd(request, cruid):
+    cru = crudeex.objects.get(id = cruid)
+    lists = cpd.objects.filter(fromcru = cru)
+    return render(request, 'blog/cpd.html', context = {'tests' : lists, 'msg' : -1} )
