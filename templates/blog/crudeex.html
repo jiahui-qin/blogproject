@@ -78,7 +78,7 @@
             <tbody>
                     {% for crudeex in tests %}
                     {% if request.user == crudeex.provider %}
-                    <tr class="row1 success" data-toggle="modal" data-target="#alter"  data-frombact = "{{crudeex.frombact.id}}"
+                    <tr class="row1 success"   data-frombact = "{{crudeex.frombact.id}}"
                     data-whatever = "{{crudeex.id}}" data-mcccnumber = "{{crudeex.mcccnumber}}" data-chinesename = "{{crudeex.chinesename}}"  
                     data-recadd = "{{crudeex.recadd}}" data-media = "{{crudeex.media}}" data-entervol = "{{crudeex.entervol}}"
                     data-entercol = "{{crudeex.entercol}}"  data-solvent = "{{crudeex.solvent}}"  data-exrmethod = "{{crudeex.exrmethod}}" 
@@ -102,6 +102,7 @@
                             <th class = "field-exrmethod">{{crudeex.exrmethod}}</th>
                             <th class = "field-provider">{{crudeex.provider}}</th>
                             <th class = "field-comment">{{crudeex.comment}}</th>
+                            <th><button type="button" class="btn btn-primary btn-xs"  data-toggle="modal" data-target="#alter" >更改记录</button></th>
                             <!--
                                 <th class = "field-upload"><button type="button" class="btn btn-info btn-xs" data-toggle="modal" data-target="#upload">添加送测记录</button></th>
                             -->
@@ -317,7 +318,7 @@
 
 <script> 
     $('#alter').on('show.bs.modal', function (event) {
-        var btn = $(event.relatedTarget)
+        var btn = $(event.relatedTarget).parent().parent()
         var modal = $(this)
         modal.find('#alterid').val(btn.attr("data-whatever"))
         modal.find('#delid').val(btn.attr("data-whatever"))

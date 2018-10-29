@@ -84,7 +84,7 @@
                     <tbody>
                             {% for test in tests %}
                             {% if request.user == test.prov %}
-                            <tr class="row1 success" data-toggle="modal" data-target="#alter" data-whatever="{{test.id}}"
+                            <tr class="row1 success"  data-whatever="{{test.id}}"
                             data-cpdnumber = "{{test.cpdnumber}}" data-frombact = "{{test.frombact}}"
                             data-mass = "{{test.mass}}" data-stru = "{{test.stru}}" data-recadd = "{{test.recadd}}"
                             data-nmr = "{{test.nmr}}" data-ms = "{{test.ms}}"
@@ -115,6 +115,7 @@
                                 <th class = "field-prov">{{test.prov}}</th>
                                 <th class = "field-time">{{test.time}}</th>
                                 <th class = "field-comment">{{test.comment}}</th>
+                                <th><button type="button" class="btn btn-primary btn-xs"  data-toggle="modal" data-target="#alter" >更改记录</button></th>
                             </tr> 
                             {% empty %}
                               <div class="row1">null</div>
@@ -350,7 +351,7 @@
 
 <script> 
     $('#alter').on('show.bs.modal', function (event) {
-        var btn = $(event.relatedTarget)
+        var btn = $(event.relatedTarget).parent().parent()
         var modal = $(this)
         console.log("data-whatever")
         modal.find('#alterid').val(btn.attr("data-whatever"))

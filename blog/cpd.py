@@ -19,41 +19,42 @@ def cpdindex(request, msg = -1, err = []):   ##化合物
 
 def cpdload(request):
     if request.method == 'GET':
-        try:
-            fromcru = request.GET.get('fromcru')
-            cpdnumber = request.GET.get('cpdnumber')
-            fromcru = crudeex.objects.get(id=fromcru)
-            frombact = fromcru.frombact
-            mass = request.GET.get('mass')
-            stru = request.GET.get('stru')
-            recadd = request.GET.get('recadd')
-            nmr = request.GET.get('nmr')
-            ms = request.GET.get('ms')
-            rot = request.GET.get('rot')
-            red = request.GET.get('red')
-            blue = request.GET.get('blue')
-            media = request.GET.get('media')
-            comment = request.GET.get('comment')
-            info = {
-                    'cpdnumber' : cpdnumber,
-                    'fromcru' : fromcru,
-                    'frombact' : frombact,
-                    'mass' : mass,
-                    'stru' : stru,
-                    'recadd' : recadd,
-                    'nmr' : nmr,
-                    'ms' : ms,
-                    'rot' : rot,
-                    'red' : red,
-                    'blue' : blue,
-                    'media' : media,
-                    'prov': request.user,
-                    'comment' : comment,
-            }
-            cpd.objects.create(**info)
-            return cpdindex(request, msg = 0) #msg = 0代表正常插入
-        except:
-            return cpdindex(request, msg = 1)
+        #try:
+        fromcru = request.GET.get('fromcru')
+        cpdnumber = request.GET.get('cpdnumber')
+        fromcru = crudeex.objects.get(id=fromcru)
+        frombact = fromcru.frombact
+        mass = request.GET.get('mass')
+        stru = request.GET.get('stru')
+        recadd = request.GET.get('recadd')
+        nmr = request.GET.get('nmr')
+        ms = request.GET.get('ms')
+        rot = request.GET.get('rot')
+        red = request.GET.get('red')
+        blue = request.GET.get('blue')
+        media = request.GET.get('media')
+        comment = request.GET.get('comment')
+        info = {
+                'cpdnumber' : cpdnumber,
+                'fromcru' : fromcru,
+                'frombact' : frombact,
+                'mass' : mass,
+                'stru' : stru,
+                'recadd' : recadd,
+                'nmr' : nmr,
+                'ms' : ms,
+                'rot' : rot,
+                'red' : red,
+                'blue' : blue,
+                'media' : media,
+                'prov': request.user,
+                'comment' : comment,
+        }
+        print(info)
+        cpd.objects.create(**info)
+        return cpdindex(request, msg = 0) #msg = 0代表正常插入
+        #except:
+        #    return cpdindex(request, msg = 1)
 
 def cpddel(request):
     if request.method == "GET":

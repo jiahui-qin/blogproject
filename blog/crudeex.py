@@ -63,6 +63,7 @@ def crudel(request):
 def crualter(request):
     if request.method == 'GET':
         try:
+            id = request.GET.get('id')
             bactid = request.GET.get('frombact')
             mcccnumber = request.GET.get('mcccnumber')
             chinesename = request.GET.get('chinesename')
@@ -87,6 +88,7 @@ def crualter(request):
                 'comment' : comment, 
                 'provider': request.user,
             }
+            #print(infos)
             crudeex.objects.select_for_update().filter(id = id).update(**infos)
             return crudeexindex(request, msg = 0)
         except:

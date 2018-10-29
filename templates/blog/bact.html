@@ -78,9 +78,8 @@
                     </thead>
                     <tbody>
                             {% for test in tests %}
-                            <a>{{test.num_crudeex}}</a>
                             {% if request.user == test.upload %}
-                            <tr class="row1 success" id = "useajax" data-toggle="modal" data-target="#alter" data-whatever="{{test.id}}"
+                            <tr class="row1 success" id = "useajax"  data-whatever="{{test.id}}"
                             data-bactnumber = "{{test.bactnumber}}" data-sourcenum = "{{test.sourcenum}}" data-genus = "{{test.genus}}" 
                             data-species = "{{test.species}}" data-chinesename = "{{test.chinesename}}" data-recadd = "{{test.recadd}}" 
                             data-orinum = "{{test.orinum}}"  data-history = "{{test.history}}"
@@ -101,6 +100,7 @@
                                     <th class = "field-getmet">{{test.getmet}}</th>
                                     <th class = "field-rela">{{test.num_crudeex}}</th>
                                     <th class = "field-upload">{{test.upload}}</th>
+                                    <th><button type="button" class="btn btn-primary btn-xs"  data-toggle="modal" data-target="#alter" >更改记录</button></th>
                             </tr> 
                             {% empty %}
                               <div class="row1">null</div>
@@ -345,7 +345,7 @@
     
 <script> 
     $('#alter').on('show.bs.modal', function (event) {
-        var btn = $(event.relatedTarget)
+        var btn = $(event.relatedTarget).parent().parent()
         var modal = $(this)
         console.log("data-recadd")
         modal.find('#alterid').val(btn.attr("data-whatever"))

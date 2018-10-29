@@ -81,7 +81,7 @@
             <tbody>
                 {% for test in tests %}
                 {% if request.user == test.provider %}
-                <tr class="row1 success"  data-toggle="modal" data-target="#alter" data-whatever="{{test.id}}"
+                <tr class="row1 success" data-whatever="{{test.id}}"
                 data-testtype = "{{test.testtype}}" data-fromcru = "{{test.fromcru}}" data-fromcpd = "{{test.fromcpd}}" 
                 data-samst = "{{test.samst}}" data-samend = "{{test.samend}}" data-solvent = "{{test.solvent}}" 
                 data-mass = "{{test.mass}}" data-volume = "{{test.volume}}" data-conc = "{{test.conc}}"
@@ -109,6 +109,7 @@
                     <th class = "field-department">{{test.department}}</th>
                     <th class = "field-sendtime">{{test.sendtime}}</th>
                     <th class = "field-comment">{{test.comment}}</th>
+                    <th><button type="button" class="btn btn-primary btn-xs"  data-toggle="modal" data-target="#alter" >特别小的原始按钮</button></th>
                 </tr>
                 {% empty %}
                 <div class="row1">null</div>
@@ -404,8 +405,18 @@
 </script>
 <script> 
     $('#alter').on('show.bs.modal', function (event) {
-        var btn = $(event.relatedTarget)
+        var btn = $(event.relatedTarget).parent().parent()
         var modal = $(this)
+        //if (btn.attr("data-testtype") == '化合物'){
+        //    $("#fromcru").attr({'disabled':'TRUE','value':''})
+        //    $("#fromcpd").removeAttr("disabled")
+        //    $("#fromcpd").attr({'value':btn.attr("data-fromcpd")})
+        //}
+        //else{
+        //    $("#fromcpd").attr({'disabled':'TRUE','value':''})
+        //    $("#fromcru").removeAttr("disabled")
+        //    $("#fromcru").attr({'value':btn.attr("data-fromcru")})
+        //}
         modal.find('#alterid').val(btn.attr("data-whatever"))
         modal.find('#delid').val(btn.attr("data-whatever"))
         modal.find('#testtype').val(btn.attr("data-testtype"))

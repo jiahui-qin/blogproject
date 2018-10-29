@@ -75,44 +75,47 @@ def recdel(request):
 
 def recalter(request):
     if request.method == 'GET':
-        try:
-            cpdid = request.GET.get('fromcpd')
-            cruid = request.GET.get('fromcru')
-            testtype = request.GET.get('testtype') #或者改成两个可选项？粗提物或者化合物
-            samst = request.GET.get('samst') #盒序号
-            samend = request.GET.get('samend') #样品起序号
-            solvent = request.GET.get('solvent') #样品终序号
-            mass = request.GET.get('mass') #样品名
-            volume = request.GET.get('volume') #溶剂
-            conc = request.GET.get('conc')#重量，单位miug
-            testconc = request.GET.get('testconc') #体积单位niuL
-            department = request.GET.get('department') #浓度 单位(mg/mL)
-            comment = request.GET.get('comment') #测试浓度 单位(miug/mL)
-            info = {
-                'testtype' : testtype, 
-                'samst' : samst, 
-                'samend' : samend, 
-                'solvent' : solvent, 
-                'mass' : mass,
-                'volume' : volume, 
-                'conc' : conc, 
-                'testconc' : testconc, 
-                'department' : department,
-                'comment' : comment,
-                'provider': request.user,
-                }
-            if cruid:
-                id = request.GET.get('fromcru')
-                fromcru = crudeex.objects.get(id=cruid)
-                info['fromcru'] = fromcru
-            else:
-                id = request.GET.get('fromcpd')
-                fromcpd = cpd.objects.get(id=cpdid)
-                info['fromcpd'] = fromcpd
-            testrecord.objects.select_for_update().filter(id = id).update(**infos)
-            return recordindex(request, msg = 0)
-        except:
-            return recordindex(request, msg = 1)
+        #try:
+        cpdid = request.GET.get('fromcpd')
+        cruid = request.GET.get('fromcru')
+        testtype = request.GET.get('testtype') #或者改成两个可选项？粗提物或者化合物
+        samst = request.GET.get('samst') #盒序号
+        samend = request.GET.get('samend') #样品起序号
+        solvent = request.GET.get('solvent') #样品终序号
+        mass = request.GET.get('mass') #样品名
+        volume = request.GET.get('volume') #溶剂
+        conc = request.GET.get('conc')#重量，单位miug
+        testconc = request.GET.get('testconc') #体积单位niuL
+        department = request.GET.get('department') #浓度 单位(mg/mL)
+        comment = request.GET.get('comment') #测试浓度 单位(miug/mL)
+        if testtype == "粗提物" :
+            cpdid = ''
+        else:
+            cruid = ''
+        info = {
+            'samst' : samst, 
+            'samend' : samend, 
+            'solvent' : solvent, 
+            'mass' : mass,
+            'volume' : volume, 
+            'conc' : conc, 
+            'testconc' : testconc, 
+            'department' : department,
+            'comment' : comment,
+            'provider': request.user,
+            }
+        if cruid:
+            id = request.GET.get('fromcru')
+            fromcru = crudeex.objects.get(id=cruid)
+            info['fromcru'] = fromcru
+        else:
+            id = request.GET.get('fromcpd')
+            fromcpd = cpd.objects.get(id=cpdid)
+            info['fromcpd'] = fromcpd
+        testrecord.objects.select_for_update().filter(id = id).update(**info)
+        return recordindex(request, msg = 0)
+        #except:
+        #    return recordindex(request, msg = 1)
 
 def tbatchinput(request):
     if request.method == 'POST':

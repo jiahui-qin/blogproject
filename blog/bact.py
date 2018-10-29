@@ -74,6 +74,7 @@ def bactdel(request):
 
 def bactalter(request):
     if request.method == 'GET':
+        ##之前失败是因为提供了收藏时间··这个不应该被修正的
         try:
             id = request.GET.get('id')
             bactnumber = request.GET.get('bactnumber') 
@@ -84,7 +85,6 @@ def bactalter(request):
             recadd =  request.GET.get('recadd')
             orinum = request.GET.get('orinum') 
             history = request.GET.get('history')
-            storetime = request.GET.get('storetime')
             media = request.GET.get('media') 
             getmet = request.GET.get('getmet') 
             modbact =request.GET.get('modbact')
@@ -100,7 +100,6 @@ def bactalter(request):
                 'recadd' : recadd,
                 'orinum' : orinum, 
                 'history' : history,
-                'storetime' : storetime,
                 'media' : media, 
                 'getmet' : getmet, 
                 'upload' : request.user,
