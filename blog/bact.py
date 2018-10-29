@@ -156,3 +156,8 @@ def batchinput(request):
             return bactindex(request, msg = 0) 
         else:
             return bactindex(request, msg = 2, err = errlist)
+
+def bact2cru(request, bactid):
+    bacts = bact.objects.get(id = bactid)
+    lists = crudeex.objects.filter(frombact = bacts)
+    return render(request, 'blog/crudeex.html', context = {'tests' : lists, 'msg' : -1} )

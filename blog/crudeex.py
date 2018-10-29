@@ -94,10 +94,7 @@ def crualter(request):
         except:
             return crudeexindex(request, msg = 1)
 
-def bact2cru(request, bactid):
-    bacts = bact.objects.get(id = bactid)
-    lists = crudeex.objects.filter(frombact = bacts)
-    return render(request, 'blog/crudeex.html', context = {'tests' : lists, 'msg' : -1} )
+
 
 def cru2rec(request):
     if request.method == "GET":

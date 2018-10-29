@@ -72,8 +72,9 @@
                             <th>培养基编号</th>
                             <th>收藏时间</th>
                             <th>获取途径</th>
-                            <th>相关粗提物</th>
                             <th>提供人</th>
+                            <th>修改</th>
+                            <th>相关粗提物</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -89,7 +90,7 @@
                             {% else %}
                             <tr class="row1">
                             {% endif %}
-                                    <td class = "field-bactnumber"><a href="{% url 'blog:bact2cru' test.id %}">{{test.bactnumber}}</a> </td>
+                                    <td class = "field-bactnumber">{{test.bactnumber}}</td>
                                     <th class = "field-sourcenum">{{test.sourcenum}}</th>
                                     <th class = "field-genus">{{test.genus}}</th>
                                     <th class = "field-species">{{test.species}}</th>
@@ -98,9 +99,9 @@
                                     <th class = "field-media">{{test.media}}</th>
                                     <th class = "field-storetime">{{test.storetime}}</th>
                                     <th class = "field-getmet">{{test.getmet}}</th>
-                                    <th class = "field-rela">{{test.num_crudeex}}</th>
                                     <th class = "field-upload">{{test.upload}}</th>
                                     <th><button type="button" class="btn btn-primary btn-xs"  data-toggle="modal" data-target="#alter" >更改记录</button></th>
+                                    <th><button type="button" class="btn  btn-info btn-xs"><a href="{% url 'blog:bact2cru' test.id %}">{{test.num_crudeex}}</a></button></th>
                             </tr> 
                             {% empty %}
                               <div class="row1">null</div>
