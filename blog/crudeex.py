@@ -136,13 +136,11 @@ def cru2rec(request):
 def cbatchinput(request):
     if request.method == 'POST':
         file_obj = request.FILES.get('file')
-        print(file_obj.name)
         if not file_obj:
             return crudeexindex(request, msg=1)
         file_s = open(os.path.join("./data", file_obj.name), 'wb+')
         for line in file_obj.chunks():
             file_s.write(line)
-            print(line)
         file_s.close()
         with open(os.path.join("./data", file_obj.name), 'r') as rf:
             reader = csv.reader(rf)

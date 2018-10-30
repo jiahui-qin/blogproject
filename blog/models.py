@@ -73,8 +73,6 @@ class testrecord(models.Model):
     testtype = models.CharField(max_length = 20) #送测类型
     fromcru = models.ForeignKey(crudeex, null = True) ##链接至粗提物
     fromcpd = models.ForeignKey(cpd, null = True)#链接至化合物
-    samst = models.IntegerField(blank = True) #样品起序号
-    samend = models.IntegerField(blank = True) #样品终序号
     solvent = models.CharField(max_length = 100) #溶剂
     mass = models.FloatField() #重量，单位miug
     volume = models.FloatField() #体积单位niuL
@@ -83,6 +81,7 @@ class testrecord(models.Model):
     provider = models.ForeignKey(User) #提供人
     department = models.CharField(max_length=100) #测样单位
     sendtime = models.DateTimeField(auto_now_add=True, editable = True)#送样时间
+    batch = models.CharField(max_length = 20) #送测批次
     comment = models.CharField(max_length = 500, blank = True)#备注
 
     def __str__(self):

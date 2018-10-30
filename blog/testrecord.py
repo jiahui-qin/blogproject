@@ -27,19 +27,16 @@ def upload(request):
             cpdid = request.GET.get('fromcpd')
             cruid = request.GET.get('fromcru')
             testtype = request.GET.get('testtype') #或者改成两个可选项？粗提物或者化合物
-            samst = request.GET.get('samst') #盒序号
-            samend = request.GET.get('samend') #样品起序号
-            solvent = request.GET.get('solvent') #样品终序号
-            mass = request.GET.get('mass') #样品名
-            volume = request.GET.get('volume') #溶剂
-            conc = request.GET.get('conc')#重量，单位miug
-            testconc = request.GET.get('testconc') #体积单位niuL
-            department = request.GET.get('department') #浓度 单位(mg/mL)
-            comment = request.GET.get('comment') #测试浓度 单位(miug/mL)
+            solvent = request.GET.get('solvent') 
+            mass = request.GET.get('mass') 
+            volume = request.GET.get('volume') 
+            conc = request.GET.get('conc')
+            testconc = request.GET.get('testconc') #
+            department = request.GET.get('department') #
+            batch = request.GET.get('batch')#送测批次
+            comment = request.GET.get('comment') #
             info = {
                 'testtype' : testtype, 
-                'samst' : samst, 
-                'samend' : samend, 
                 'solvent' : solvent, 
                 'mass' : mass,
                 'volume' : volume, 
@@ -47,6 +44,7 @@ def upload(request):
                 'testconc' : testconc, 
                 'department' : department,
                 'comment' : comment,
+                'batch' : batch,
                 'provider': request.user,
                 }
             if cruid:
@@ -57,7 +55,6 @@ def upload(request):
                 id = request.GET.get('fromcpd')
                 fromcpd = cpd.objects.get(id=cpdid)
                 info['fromcpd'] = fromcpd
-            print(info)
             testrecord.objects.create(**info)
             return recordindex(request, msg = 0) #msg = 0代表正常插入
         except:
@@ -75,47 +72,67 @@ def recdel(request):
 
 def recalter(request):
     if request.method == 'GET':
-        #try:
-        cpdid = request.GET.get('fromcpd')
-        cruid = request.GET.get('fromcru')
-        testtype = request.GET.get('testtype') #或者改成两个可选项？粗提物或者化合物
-        samst = request.GET.get('samst') #盒序号
-        samend = request.GET.get('samend') #样品起序号
-        solvent = request.GET.get('solvent') #样品终序号
-        mass = request.GET.get('mass') #样品名
-        volume = request.GET.get('volume') #溶剂
-        conc = request.GET.get('conc')#重量，单位miug
-        testconc = request.GET.get('testconc') #体积单位niuL
-        department = request.GET.get('department') #浓度 单位(mg/mL)
-        comment = request.GET.get('comment') #测试浓度 单位(miug/mL)
-        if testtype == "粗提物" :
-            cpdid = ''
-        else:
-            cruid = ''
-        info = {
-            'samst' : samst, 
-            'samend' : samend, 
-            'solvent' : solvent, 
-            'mass' : mass,
-            'volume' : volume, 
-            'conc' : conc, 
-            'testconc' : testconc, 
-            'department' : department,
-            'comment' : comment,
-            'provider': request.user,
-            }
-        if cruid:
-            id = request.GET.get('fromcru')
-            fromcru = crudeex.objects.get(id=cruid)
-            info['fromcru'] = fromcru
-        else:
-            id = request.GET.get('fromcpd')
-            fromcpd = cpd.objects.get(id=cpdid)
-            info['fromcpd'] = fromcpd
-        testrecord.objects.select_for_update().filter(id = id).update(**info)
-        return recordindex(request, msg = 0)
-        #except:
-        #    return recordindex(request, msg = 1)
+        try:
+            id = request.GET.get('id')
+            #testtype = request.GET.get('testtype') #或者改成两个可选项？粗提物或者化合物
+            solvent = request.GET.get('solvent') #样品终序号
+            mass = request.GET.get('mass') #样品名
+            volume = request.GET.get('volume') #溶剂
+            conc = request.GET.get('conc')#重量，单位miug
+            testconc = request.GET.get('testconc') #体积单位niuL
+            batch = request.GET.get('batch')#送测批次
+            department = request.GET.get('department') #浓度 单位(mg/mL)
+            comment = request.GET.get('comment') #测试浓度 单位(miug/mL)
+            info = {
+                'solvent' : solvent, 
+                'mass' : mass,
+                'volume' : volume, 
+                'conc' : conc, 
+                'testconc' : testconc, 
+                'department' : department,
+                'comment' : comment,
+                'batch' : batch,
+                'provider': request.user,
+                }
+
+            ##if testtype == "粗提物" :
+            ##    id = request.GET.get('fromcru')
+            ##    fromcru = crudeex.objects.get(id=cruid)
+            ##    info['fromcru'] = fromcru
+            ##else:
+            ##    id = request.GET.get('fromcpd')
+            ##    fromcpd = cpd.objects.get(id=cpdid)
+            ##    info['fromcpd'] = fromcpd
+            testrecord.objects.select_for_update().filter(id = id).update(**info)
+            return recordindex(request, msg = 0)
+        except:
+            return recordindex(request, msg = 1)
+
+def batchalter(request):
+    if request.method == 'GET':
+        try:
+            batch = request.GET.get('batch')
+            solvent = request.GET.get('solvent')
+            mass = request.GET.get('mass') 
+            volume = request.GET.get('volume') 
+            conc = request.GET.get('conc')
+            testconc = request.GET.get('testconc') 
+
+            comment = request.GET.get('comment') #测试浓度 单位(miug/mL)
+            info = {
+                'solvent' : solvent, 
+                'mass' : mass,
+                'volume' : volume, 
+                'conc' : conc, 
+                'testconc' : testconc, 
+                'comment' : comment,
+                }
+            lists = testrecord.objects.filter(batch = batch).values('id')
+            for i in lists:
+                testrecord.objects.select_for_update().filter(id = i['id']).update(**info)
+            return recordindex(request, msg = 0)
+        except:
+            return recordindex(request, msg = 1)
 
 def tbatchinput(request):
     if request.method == 'POST':
@@ -137,15 +154,14 @@ def tbatchinput(request):
                         'testtype' : rows[0],
                         'fromcru' : crudeex.objects.get(mcccnumber=rows[1]), 
                         'fromcpd' : cpd.objects.get(cpdnumber=rows[2]), 
-                        'samst' : rows[3],
-                        'samend' : rows[4], 
-                        'solvent' : rows[5],
-                        'mass' : rows[6], 
-                        'volume' : rows[7],
-                        'conc' : rows[8], 
-                        'testconc' : rows[9], 
-                        'department' : rows[10],
-                        'comment' : rows[11],
+                        'solvent' : rows[3],
+                        'mass' : rows[4], 
+                        'volume' : rows[5],
+                        'conc' : rows[6], 
+                        'testconc' : rows[7], 
+                        'department' : rows[8],
+                        'batch' : rows[9],
+                        'comment' : rows[10],
                         'provider' : request.user,
                     }
                     if rows[1]:

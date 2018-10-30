@@ -37,8 +37,9 @@ urlpatterns = [
 
     url(r'^bact/bact2cru/(\d+)$', views.bact2cru, name='bact2cru'),
     url(r'^cru/cru2cpd/(\d+)$', views.cru2cpd, name='cru2cpd'),
-    
     url(r'^cru2rec/$', views.cru2rec, name='cru2rec'),
+    
+    url(r'^batchalter/$', views.batchalter, name='batchalter'),
     url(r'^start/$', views.start, name = 'login_user'),
 
     #url(r'^managedata/$', views.managedata, name = 'managedata'),

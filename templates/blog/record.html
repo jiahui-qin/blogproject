@@ -4,23 +4,28 @@
 
 <body>
     <div class="row">
-        <div class="col-md-4 col-sm-5 col-xs-8">
+        <div class="col-md-3 col-sm-5 col-xs-8">
             <center>
-           <!--  <button type="button" class="btn btn-info  btn-lg">上传</button>-->
                 <button class="btn btn-info btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
                     上传
                 </button>
-                <!-- 模态框（Modal） --> 
             </center>
         </div><!-- col-md-4 -->
-        <div class="col-md-4 col-sm-5 col-xs-8">
+        <div class="col-md-3 col-sm-5 col-xs-8">
             <center>
                 <button class="btn btn-info btn-primary btn-lg" data-toggle="modal" data-target="#batchinput">
                     批量上传
                 </button>
             </center>
         </div><!-- col-md-4 -->
-        <div class="col-md-4 col-sm-7 col-xs-4">
+        <div class="col-md-3 col-sm-5 col-xs-8">
+            <center>
+                <button class="btn btn-info btn-primary btn-lg" data-toggle="modal" data-target="#batchalter">
+                    批次修改
+                </button>
+            </center>
+        </div><!-- col-md-4 -->
+        <div class="col-md-3 col-sm-7 col-xs-4">
             <nav class="main-nav" role="navigation">
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul class="list-unstyled text-center" >
@@ -65,8 +70,6 @@
                     <th>类别</th>
                     <th>来源粗提物</th>
                     <th>来源化合物</th>
-                    <th>样品起序号</th>
-                    <th>样品终序号</th>
                     <th>溶剂</th>
                     <th>重量</th>
                     <th>体积</th>
@@ -75,6 +78,7 @@
                     <th>提供人(送样人)</th>
                     <th>测样单位</th>
                     <th>送测时间</th>
+                    <th>批次</th>
                     <th>备注</th>
                 </tr>
             </thead>
@@ -83,14 +87,14 @@
                 {% if request.user == test.provider %}
                 <tr class="row1 success" data-whatever="{{test.id}}"
                 data-testtype = "{{test.testtype}}" data-fromcru = "{{test.fromcru}}" data-fromcpd = "{{test.fromcpd}}" 
-                data-samst = "{{test.samst}}" data-samend = "{{test.samend}}" data-solvent = "{{test.solvent}}" 
+                data-solvent = "{{test.solvent}}" data-batch = "{{test.batch}}" 
                 data-mass = "{{test.mass}}" data-volume = "{{test.volume}}" data-conc = "{{test.conc}}"
                 data-testconc = "{{test.testconc}}" data-provider = "{{test.provider}}" 
                 data-department = "{{test.department}}" data-sendtime = "{{test.sendtime}}" data-comment = "{{test.comment}}">
                 {% else %}
                 <tr class="row1" data-whatever="{{test.id}}"
                 data-testtype = "{{test.testtype}}" data-fromcru = "{{test.fromcru}}" data-fromcpd = "{{test.fromcpd}}" 
-                data-samst = "{{test.samst}}" data-samend = "{{test.samend}}" data-solvent = "{{test.solvent}}" 
+                data-solvent = "{{test.solvent}}"  data-batch = "{{test.batch}}" 
                 data-mass = "{{test.mass}}" data-volume = "{{test.volume}}" data-conc = "{{test.conc}}"
                 data-testconc = "{{test.testconc}}" data-provider = "{{test.provider}}" 
                 data-department = "{{test.department}}" data-sendtime = "{{test.sendtime}}" data-comment = "{{test.comment}}">
@@ -98,8 +102,6 @@
                     <td class = "field-testtype"> {{test.testtype}}</td>
                     <th class = "field-fromcru">{{test.fromcru}}</th>
                     <th class = "field-fromcpd">{{test.fromcpd}}</th>
-                    <th class = "field-samst">{{test.samst}}</th>
-                    <th class = "field-samend">{{test.samend}}</th>
                     <th class = "field-solvent">{{test.solvent}}</th>
                     <th class = "field-mass">{{test.mass}}</th>
                     <th class = "field-volume">{{test.volume}}</th>
@@ -108,8 +110,9 @@
                     <th class = "field-provider">{{test.provider}}</th>
                     <th class = "field-department">{{test.department}}</th>
                     <th class = "field-sendtime">{{test.sendtime}}</th>
+                    <th class = "field-batch">{{test.batch}}</th>
                     <th class = "field-comment">{{test.comment}}</th>
-                    <th><button type="button" class="btn btn-primary btn-xs"  data-toggle="modal" data-target="#alter" >特别小的原始按钮</button></th>
+                    <th><button type="button" class="btn btn-primary btn-xs"  data-toggle="modal" data-target="#alter" >修改</button></th>
                 </tr>
                 {% empty %}
                 <div class="row1">null</div>
@@ -176,18 +179,6 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label for="lastname" class="col-sm-2 control-label">样品起序号</label>
-                            <div class="col-sm-10">
-                            <input type="input" name="samst" class="form-control"  placeholder="请输入">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="lastname" class="col-sm-2 control-label">样品终序号</label>
-                            <div class="col-sm-10">
-                            <input type="input" name="samend" class="form-control"  placeholder="请输入">
-                            </div>
-                        </div>
                         <div class="form-group has-success">
                             <label for="lastname" class="col-sm-2 control-label">溶剂</label>
                             <div class="col-sm-10">
@@ -222,6 +213,12 @@
                             <label for="lastname" class="col-sm-2 control-label">测样单位</label>
                             <div class="col-sm-10">
                             <input type="input" name="department" class="form-control"  placeholder="请输入">
+                            </div>
+                        </div>
+                        <div class="form-group has-success">
+                            <label for="lastname" class="col-sm-2 control-label">送测批次</label>
+                            <div class="col-sm-10">
+                            <input type="input" name="batch" class="form-control"  placeholder="请输入">
                             </div>
                         </div>
                         <div class="form-group">
@@ -271,6 +268,7 @@
                     <!-- 写的时候action后边的{}url后边加了两个引号，就一直跳转到/testrecord界面，去掉之后才变 -->
                         {% csrf_token %}
                     <input type="hidden" id="alterid"  name="id" value="{{test.id}}" />
+                    <!--
                     <div class="form-group has-success">
                         <label for="lastname" class="col-sm-2 control-label">类别</label>
                         <div class="col-sm-10">
@@ -312,18 +310,7 @@
                             </select>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label for="lastname" class="col-sm-2 control-label">样品起序号</label>
-                        <div class="col-sm-10">
-                        <input type="input" name="samst" class="form-control" id="samst" >
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="lastname" class="col-sm-2 control-label">样品终序号</label>
-                        <div class="col-sm-10">
-                        <input type="input" name="samend" class="form-control" id="samend" >
-                        </div>
-                    </div>
+                    -->
                     <div class="form-group has-success">
                         <label for="lastname" class="col-sm-2 control-label">溶剂</label>
                         <div class="col-sm-10">
@@ -358,6 +345,12 @@
                         <label for="lastname" class="col-sm-2 control-label">测样单位</label>
                         <div class="col-sm-10">
                         <input type="input" name="department" class="form-control" id="department">
+                        </div>
+                    </div>
+                    <div class="form-group has-success">
+                        <label for="lastname" class="col-sm-2 control-label">送测批次</label>
+                        <div class="col-sm-10">
+                        <input type="input" name="batch" class="form-control" id="batch">
                         </div>
                     </div>
                     <div class="form-group">
@@ -407,6 +400,7 @@
     $('#alter').on('show.bs.modal', function (event) {
         var btn = $(event.relatedTarget).parent().parent()
         var modal = $(this)
+        //console.log(btn.attr("data-testtype"))
         //if (btn.attr("data-testtype") == '化合物'){
         //    $("#fromcru").attr({'disabled':'TRUE','value':''})
         //    $("#fromcpd").removeAttr("disabled")
@@ -417,19 +411,24 @@
         //    $("#fromcru").removeAttr("disabled")
         //    $("#fromcru").attr({'value':btn.attr("data-fromcru")})
         //}
+        //if (btn.attr("data-testtype") == '化合物'){
+        //    $("#fromcru").attr({'disabled':'TRUE','value':''})
+        //    $("#fromcpd").removeAttr("disabled")
+        //}
+        //else{
+        //    $("#fromcpd").attr({'disabled':'TRUE','value':''})
+        //    $("#fromcru").removeAttr("disabled")
+        //}
         modal.find('#alterid').val(btn.attr("data-whatever"))
         modal.find('#delid').val(btn.attr("data-whatever"))
         modal.find('#testtype').val(btn.attr("data-testtype"))
-        //modal.find('#fromcru').val(btn.attr("data-fromcru"))
-        //modal.find('#fromcpd').val(btn.attr("data-fromcpd"))
-        modal.find('#samst').val(btn.attr("data-samst"))
-        modal.find('#samend').val(btn.attr("data-samend"))
         modal.find('#solvent').val(btn.attr("data-solvent"))
         modal.find('#mass').val(btn.attr("data-mass"))
         modal.find('#volume').val(btn.attr("data-volume"))
         modal.find('#conc').val(btn.attr("data-conc"))
         modal.find('#testconc').val(btn.attr("data-testconc"))
         modal.find('#department').val(btn.attr("data-department"))
+        modal.find('#batch').val(btn.attr("data-batch"))
         modal.find('#comment').val(btn.attr("data-comment"))
     })
 </script> 
@@ -457,9 +456,67 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal -->
 </div>
+
+<div class="modal fade" id="batchalter" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">批次修改</h4>
+            </div>
+            <form class="form-horizontal" role="form" method="get" action="{% url 'blog:batchalter' %}">
+                {% csrf_token %}
+            <div class="form-group has-success">
+                <label for="lastname" class="col-sm-2 control-label">溶剂</label>
+                <div class="col-sm-10">
+                <input type="input" name="solvent" class="form-control"  placeholder="请输入">
+                </div>
+            </div>
+            <div class="form-group has-success">
+                <label for="lastname" class="col-sm-2 control-label">重量</label>
+                <div class="col-sm-10">
+                <input type="input" name="mass" class="form-control"  placeholder="请输入">
+                </div>
+            </div>
+            <div class="form-group has-success">
+                <label for="lastname" class="col-sm-2 control-label">体积</label>
+                <div class="col-sm-10">
+                <input type="input" name="volume" class="form-control"  placeholder="请输入">
+                </div>
+            </div>
+            <div class="form-group has-success">
+                <label for="lastname" class="col-sm-2 control-label">浓度</label>
+                <div class="col-sm-10">
+                <input type="input" name="conc" class="form-control"  placeholder="请输入">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="lastname" class="col-sm-2 control-label">测试浓度</label>
+                <div class="col-sm-10">
+                <input type="input" name="testconc" class="form-control"  placeholder="请输入">
+                </div>
+            </div>
+            <div class="form-group has-success">
+                <label for="lastname" class="col-sm-2 control-label">送测批次</label>
+                <div class="col-sm-10">
+                <input type="input" name="batch" class="form-control"  placeholder="请输入">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="lastname" class="col-sm-2 control-label">备注</label>
+                <div class="col-sm-10">
+                <input type="input" name="comment" class="form-control"  placeholder="请输入">
+                </div>
+            </div>
+            <div class = "col-sm-8"></div>
+            <div class = "col-sm-4">
+            <button type="submit" class="btn btn-default">提交批次纪录</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </form>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+
 </body>
 {% endblock main %}
-
-
-
-
