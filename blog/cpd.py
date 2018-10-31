@@ -10,10 +10,13 @@ from django.utils import timezone
 import os
 import csv
 from django.core.urlresolvers import reverse  
-from django.shortcuts import redirect  
+from django.shortcuts import redirect
+from django.db.models.aggregates import Count
+
 @login_required
 def cpdindex(request, msg = -1, err = []):   ##化合物
-    lists = cpd.objects.all()
+    ##lists = cpd.objects.all()
+    lists = cpd.objects.annotate(num_rec=Count('testrecord'))
     num = len(lists)
     return render(request, 'blog/cpd.html', context = {'tests' : lists, 'msg' : msg, 'num' : num, 'err' : err} )
 
@@ -149,3 +152,8 @@ def cpdbatchinput(request):
             return cpdindex(request, msg = 0) 
         else:
             return cpdindex(msg = 2, err = errlist)
+
+def cpd2rec(request, cpdid):
+    cpds = cpd.objects.get(id = cpdid)
+    lists = testrecord.objects.filter(fromcpd = cpds)
+    return render(request, 'blog/record.html', context = {'tests' : lists, 'msg' : -1} )

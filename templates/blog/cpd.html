@@ -116,6 +116,7 @@
                                 <th class = "field-time">{{test.time}}</th>
                                 <th class = "field-comment">{{test.comment}}</th>
                                 <th><button type="button" class="btn btn-primary btn-xs"  data-toggle="modal" data-target="#alter" >更改记录</button></th>
+                                <th><button type="button" class="btn  btn-info btn-xs"><a href="{% url 'blog:cpd2rec' test.id %}">{{test.num_rec}}</a></button></th>
                             </tr> 
                             {% empty %}
                               <div class="row1">null</div>
