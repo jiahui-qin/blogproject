@@ -4,9 +4,8 @@ from django.urls import reverse
 from django.utils.six import python_2_unicode_compatible
 from django.utils.html import strip_tags
 
-# Create your models here.
-
-@python_2_unicode_compatible
+# python manage.py makemigrations
+# python manage.py migrate
 
 class bact(models.Model):  #菌株
     bactnumber = models.CharField(max_length = 50,blank = False) #菌株保藏编号 输入
@@ -70,14 +69,17 @@ class cpd(models.Model): ##化合物
         return self.cpdnumber + '|' + self.stru
 
 class testrecord(models.Model):
+    #12/15修正，修改体积、浓度、送测批次，修正为可以为空
+    ###送测批次
+    ###按照送测批次修改，送测批次应该为必填项
     testtype = models.CharField(max_length = 20) #送测类型
     fromcru = models.ForeignKey(crudeex, null = True) ##链接至粗提物
     fromcpd = models.ForeignKey(cpd, null = True)#链接至化合物
     solvent = models.CharField(max_length = 100) #溶剂
     mass = models.FloatField() #重量，单位miug
-    volume = models.FloatField() #体积单位niuL
-    conc = models.FloatField() #浓度 单位(mg/mL)
-    testconc = models.FloatField(blank = True) #测试浓度 单位(miug/mL)
+    volume = models.FloatField(blank = True,null = True) #体积单位niuL
+    conc = models.FloatField(blank = True,null = True) #浓度 单位(mg/mL)
+    testconc = models.FloatField(blank = True,null = True) #测试浓度 单位(miug/mL)
     provider = models.ForeignKey(User) #提供人
     department = models.CharField(max_length=100) #测样单位
     sendtime = models.DateTimeField(auto_now_add=True, editable = True)#送样时间

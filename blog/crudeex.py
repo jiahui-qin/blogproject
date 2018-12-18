@@ -16,7 +16,7 @@ from django.db.models.aggregates import Count
 @login_required
 def crudeexindex(request, msg = -1, err = []):  ##粗提物
     ##lists = crudeex.objects.all()
-    lists = crudeex.objects.annotate(num_cpd=Count('cpd'))
+    lists = crudeex.objects.annotate(num_cpd=Count('cpd')).order_by('-id')
     num = len(lists)
     return render(request, 'blog/crudeex.html', context = {'tests' : lists, 'msg' : msg, 'num' : num, 'err' : err} )
 

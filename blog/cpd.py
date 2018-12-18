@@ -16,7 +16,7 @@ from django.db.models.aggregates import Count
 @login_required
 def cpdindex(request, msg = -1, err = []):   ##化合物
     ##lists = cpd.objects.all()
-    lists = cpd.objects.annotate(num_rec=Count('testrecord'))
+    lists = cpd.objects.annotate(num_rec=Count('testrecord')).order_by('-id')
     num = len(lists)
     return render(request, 'blog/cpd.html', context = {'tests' : lists, 'msg' : msg, 'num' : num, 'err' : err} )
 
