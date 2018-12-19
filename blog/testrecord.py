@@ -26,6 +26,7 @@ def upload(request):
     ##上传一条新纪录
     if request.method == "GET":
         try:
+            recordid = request.GET.get('recordid')
             cpdid = request.GET.get('fromcpd')
             cruid = request.GET.get('fromcru')
             testtype = request.GET.get('testtype') #或者改成两个可选项？粗提物或者化合物
@@ -38,6 +39,7 @@ def upload(request):
             batch = request.GET.get('batch')#送测批次
             comment = request.GET.get('comment') #
             info = {
+                'recordid' : recordid,
                 'testtype' : testtype, 
                 'solvent' : solvent, 
                 'mass' : mass,
@@ -79,6 +81,7 @@ def recalter(request):
         #try:
         id = request.GET.get('id')
         #testtype = request.GET.get('testtype') #或者改成两个可选项？粗提物或者化合物
+        recordid = request.GET.get('recordid')
         solvent = request.GET.get('solvent') #样品终序号
         mass = request.GET.get('mass') #样品名
         volume = request.GET.get('volume') #溶剂
@@ -89,6 +92,8 @@ def recalter(request):
         comment = request.GET.get('comment') #测试浓度 单位(miug/mL)
         infos = {
             }
+        if recordid != 'None':
+            infos['recordid'] = recordid
         if solvent != 'None':
             infos['solvent'] = solvent
         if mass != 'None':
@@ -142,6 +147,68 @@ def batchalter(request):
         except:
             return recordindex(request, msg = 1)
 
+def loadalter(request):
+    ##上传文件修改
+    if request.method == 'POST':
+        file_obj = request.FILES.get('file')
+        if not file_obj:
+            return recordindex(request, msg=1)
+        file_s = open(os.path.join("./data", file_obj.name), 'wb+')
+        for line in file_obj.chunks():
+            file_s.write(line)
+        file_s.close()
+
+        ##识别编码格式
+        f = open(os.path.join("./data", file_obj.name),'rb')
+        r = f.read()
+        file_info = detect(r)
+        f.close()
+        with open(os.path.join("./data", file_obj.name), 'r', encoding=file_info['encoding']) as rf:
+            reader = csv.reader(rf)
+            line = reader.__next__()
+            nnn = 0
+            errlist = []
+            for rows in reader:
+                #try:                    
+                # 'fromcru' : crudeex.objects.get(mcccnumber=rows[1]), 
+                #  'fromcpd' : cpd.objects.get(cpdnumber=rows[2]), 
+                recordid = rows[0]
+                infos = {}
+                if rows[1]:
+                    infos['testtype'] = rows[1]
+                if rows[2]:
+                    infos['fromcru'] = crudeex.objects.get(mcccnumber=rows[1])
+                elif rows[3]:
+                    infos['fromcpd'] = cpd.objects.get(cpdnumber=rows[2])
+                else:
+                    pass
+                if rows[4]:
+                    infos['solvent'] = rows[4]
+                if rows[5]:
+                    infos['mass'] = rows[5]
+                if rows[6]:
+                    infos['volume'] = rows[6]
+                if rows[7]:
+                    infos['conc'] = rows[7]
+                if rows[8]:
+                    infos['testconc'] = rows[8]
+                if rows[9]:
+                    infos['department'] = rows[9]
+                if rows[10]:
+                    infos['batch'] = rows[10]
+                if rows[11]:
+                    infos['comment'] = rows[11]
+                testrecord.objects.select_for_update().filter(recordid = recordid).update(**infos)
+                nnn = nnn + 1
+                #except:
+                #    nnn = nnn + 1
+                #    errlist.append(nnn)
+        os.remove(os.path.join("./data", file_obj.name)) 
+        if not len(errlist):
+            return recordindex(request, msg = 0) 
+        else:
+            return recordindex(request, err = errlist,msg = 2)
+
 def tbatchinput(request):
     if request.method == 'POST':
         file_obj = request.FILES.get('file')
@@ -152,11 +219,13 @@ def tbatchinput(request):
             file_s.write(line)
         file_s.close()
 
+        ##识别编码格式
         f = open(os.path.join("./data", file_obj.name),'rb')
         r = f.read()
         file_info = detect(r)
         f.close()
         
+
         with open(os.path.join("./data", file_obj.name), 'r', encoding=file_info['encoding']) as rf:
             reader = csv.reader(rf)
             line = reader.__next__()
@@ -167,27 +236,28 @@ def tbatchinput(request):
                 # 'fromcru' : crudeex.objects.get(mcccnumber=rows[1]), 
                 #  'fromcpd' : cpd.objects.get(cpdnumber=rows[2]), 
                 infos = {
-                    'testtype' : rows[0],
-                    'solvent' : rows[3],
-                    'mass' : rows[4],  
-                    'department' : rows[8],
-                    'comment' : rows[10],
+                    'recordid' : rows[0],
+                    'testtype' : rows[1],
+                    'solvent' : rows[4],
+                    'mass' : rows[5],  
+                    'department' : rows[9],
+                    'comment' : rows[11],
                     'provider' : request.user,
                 }
-                if rows[1]:
-                    infos['fromcru'] = crudeex.objects.get(mcccnumber=rows[1])
-                elif rows[2]:
-                    infos['fromcpd'] = cpd.objects.get(cpdnumber=rows[2])
+                if rows[2]:
+                    infos['fromcru'] = crudeex.objects.get(mcccnumber=rows[2])
+                elif rows[3]:
+                    infos['fromcpd'] = cpd.objects.get(cpdnumber=rows[3])
                 else:
                     pass
-                if rows[5]:
-                    infos['volume'] = rows[5]
                 if rows[6]:
-                    infos['conc'] = rows[6]
+                    infos['volume'] = rows[6]
                 if rows[7]:
-                    infos['testconc'] = rows[7]
-                if rows[9]:
-                    infos['batch'] = rows[9]
+                    infos['conc'] = rows[7]
+                if rows[8]:
+                    infos['testconc'] = rows[8]
+                if rows[10]:
+                    infos['batch'] = rows[10]
                 testrecord.objects.create(**infos)
                 nnn = nnn + 1
                 #except:

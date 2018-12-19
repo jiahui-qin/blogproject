@@ -6,9 +6,10 @@ from django.utils.html import strip_tags
 
 # python manage.py makemigrations
 # python manage.py migrate
+# python manage.py createsuperuser
 
 class bact(models.Model):  #菌株
-    bactnumber = models.CharField(max_length = 50,blank = False) #菌株保藏编号 输入
+    bactnumber = models.CharField(max_length = 50,blank = False, unique = True) #菌株保藏编号 唯一
     sourcenum = models.CharField(max_length = 50, blank = True) #平台资源编号 输入
     genus = models.CharField(max_length = 200,blank = False) #属名 输入
     species = models.CharField(max_length = 200,blank = False) #种名 输入
@@ -30,7 +31,7 @@ class bact(models.Model):  #菌株
 class crudeex(models.Model): ##粗提物
     ##10/22修改，加入一列粗提物编号
     frombact = models.ForeignKey(bact) ##来源菌株  %%没有显示出来
-    crunumber = models.CharField(max_length = 50) #粗提物编号，唯一
+    crunumber = models.CharField(max_length = 50, unique = True) #粗提物编号，唯一
     mcccnumber = models.CharField(max_length = 50) #mccc编号
     chinesename = models.CharField(max_length = 200) #中文名
     recadd = models.CharField(max_length = 100)#样品存储地址
@@ -50,7 +51,7 @@ class crudeex(models.Model): ##粗提物
 
 class cpd(models.Model): ##化合物
     ##10.22修改，加入一列来源菌株
-    cpdnumber = models.CharField(max_length = 20)#化合物编号，唯一
+    cpdnumber = models.CharField(max_length = 20, unique = True)#化合物编号，唯一
     fromcru = models.ForeignKey(crudeex)#来源粗提物
     frombact = models.ForeignKey(bact) #来源菌株
     mass = models.FloatField() #精确质量数
@@ -70,8 +71,10 @@ class cpd(models.Model): ##化合物
 
 class testrecord(models.Model):
     #12/15修正，修改体积、浓度、送测批次，修正为可以为空
-    ###送测批次
+    ###送测批次TrueTrue
     ###按照送测批次修改，送测批次应该为必填项
+    #12/19修正，加入recordid
+    recordid = models.CharField(max_length = 20, unique = True)
     testtype = models.CharField(max_length = 20) #送测类型
     fromcru = models.ForeignKey(crudeex, null = True) ##链接至粗提物
     fromcpd = models.ForeignKey(cpd, null = True)#链接至化合物

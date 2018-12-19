@@ -41,6 +41,7 @@ urlpatterns = [
     url(r'^cpd2rec/(\d+)$', views.cpd2rec, name='cpd2rec'),
     
     url(r'^batchalter/$', views.batchalter, name='batchalter'),
+    url(r'^loadalter/$', views.loadalter, name='loadalter'),
     url(r'^start/$', views.start, name = 'login_user'),
 
     #url(r'^managedata/$', views.managedata, name = 'managedata'),

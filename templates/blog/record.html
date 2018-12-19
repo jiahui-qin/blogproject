@@ -67,6 +67,7 @@
     <table class="table table-hover table-condensed">
             <thead>
                 <tr>
+                    <th>序号</th>
                     <th>类别</th>
                     <th>来源粗提物</th>
                     <th>来源化合物</th>
@@ -85,21 +86,22 @@
             <tbody>
                 {% for test in tests %}
                 {% if request.user == test.provider %}
-                <tr class="row1 success" data-whatever="{{test.id}}"
+                <tr class="row1 success" data-whatever="{{test.id}}" data-recordid = "{{test.recordid}}"
                 data-testtype = "{{test.testtype}}" data-fromcru = "{{test.fromcru}}" data-fromcpd = "{{test.fromcpd}}" 
                 data-solvent = "{{test.solvent}}" data-batch = "{{test.batch}}" 
                 data-mass = "{{test.mass}}" data-volume = "{{test.volume}}" data-conc = "{{test.conc}}"
                 data-testconc = "{{test.testconc}}" data-provider = "{{test.provider}}" 
                 data-department = "{{test.department}}" data-sendtime = "{{test.sendtime}}" data-comment = "{{test.comment}}">
                 {% else %}
-                <tr class="row1" data-whatever="{{test.id}}"
+                <tr class="row1" data-whatever="{{test.id}}"  data-recordid = "{{test.recordid}}"
                 data-testtype = "{{test.testtype}}" data-fromcru = "{{test.fromcru}}" data-fromcpd = "{{test.fromcpd}}" 
                 data-solvent = "{{test.solvent}}"  data-batch = "{{test.batch}}" 
                 data-mass = "{{test.mass}}" data-volume = "{{test.volume}}" data-conc = "{{test.conc}}"
                 data-testconc = "{{test.testconc}}" data-provider = "{{test.provider}}" 
                 data-department = "{{test.department}}" data-sendtime = "{{test.sendtime}}" data-comment = "{{test.comment}}">
                 {% endif %}
-                    <td class = "field-testtype"> {{test.testtype}}</td>
+                    <td class = "field-recordid"> {{test.recordid}}</td>
+                    <th class = "field-testtype"> {{test.testtype}}</th>
                     <th class = "field-fromcru">{{test.fromcru}}</th>
                     <th class = "field-fromcpd">{{test.fromcpd}}</th>
                     <th class = "field-solvent">{{test.solvent}}</th>
@@ -138,6 +140,12 @@
                     <!-- 输入新记录表单 -->
                     <form class="form-horizontal" role="form" method="get" action="{% url 'blog:upload' %}">
                             {% csrf_token %}
+                        <div class="form-group has-success">
+                            <label for="lastname" class="col-sm-2 control-label">序号</label>
+                            <div class="col-sm-10">
+                            <input type="input" name="recordid" class="form-control" id="recordid" placeholder="请输入">
+                            </div>
+                        </div>
                         <div class="form-group has-success">
                             <label for="lastname" class="col-sm-2 control-label">类别</label>
                             <div class="col-sm-10">
@@ -312,6 +320,12 @@
                     </div>
                     -->
                     <div class="form-group has-success">
+                        <label for="lastname" class="col-sm-2 control-label">序号</label>
+                        <div class="col-sm-10">
+                        <input type="input" name="recordid" class="form-control" id="recordid" >
+                        </div>
+                    </div>
+                    <div class="form-group has-success">
                         <label for="lastname" class="col-sm-2 control-label">溶剂</label>
                         <div class="col-sm-10">
                         <input type="input" name="solvent" class="form-control" id="solvent" >
@@ -421,6 +435,7 @@
         //}
         modal.find('#alterid').val(btn.attr("data-whatever"))
         modal.find('#delid').val(btn.attr("data-whatever"))
+        modal.find('#recordid').val(btn.attr("data-recordid"))
         modal.find('#testtype').val(btn.attr("data-testtype"))
         modal.find('#solvent').val(btn.attr("data-solvent"))
         modal.find('#mass').val(btn.attr("data-mass"))
@@ -451,7 +466,6 @@
             </form>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                <button type="button" class="btn btn-primary">确认上传</button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal -->
@@ -465,6 +479,15 @@
                 <h4 class="modal-title" id="myModalLabel">批次修改</h4>
             </div>
             <div class="modal-body">
+            <form class="form-inline" role="form"  method="post" enctype="multipart/form-data" action="{% url 'blog:loadalter' %}" accept-charset="utf-8">
+                {% csrf_token %}
+                <div class="form-group">
+                    <input type="file" name="file">
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="上传文件">
+                </div>
+            </form>
             <form class="form-horizontal" role="form" method="get" action="{% url 'blog:batchalter' %}">
                 {% csrf_token %}
             <div class="form-group has-success">
