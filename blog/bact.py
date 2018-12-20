@@ -9,6 +9,7 @@ from django.db.models import Q
 from django.utils import timezone
 import os
 import csv
+from chardet import detect
 from django.core.urlresolvers import reverse  
 from django.shortcuts import redirect
 from django.db.models.aggregates import Count
@@ -122,7 +123,15 @@ def batchinput(request):
         for line in file_obj.chunks():
             file_s.write(line)
         file_s.close()
-        with open(os.path.join("./data", file_obj.name), 'r') as rf:
+
+         #识别编码格式
+        f = open(os.path.join("./data", file_obj.name),'rb')
+        r = f.read()
+        file_info = detect(r)
+        f.close()
+
+
+        with open(os.path.join("./data", file_obj.name), 'r', encoding=file_info['encoding']) as rf:
             reader = csv.reader(rf)
             line = reader.__next__()
             nnn = 0

@@ -210,6 +210,7 @@ def loadalter(request):
             return recordindex(request, err = errlist,msg = 2)
 
 def tbatchinput(request):
+    ##送测记录批量上传
     if request.method == 'POST':
         file_obj = request.FILES.get('file')
         if not file_obj:

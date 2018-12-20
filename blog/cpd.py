@@ -9,6 +9,7 @@ from django.db.models import Q
 from django.utils import timezone
 import os
 import csv
+from chardet import detect
 from django.core.urlresolvers import reverse  
 from django.shortcuts import redirect
 from django.db.models.aggregates import Count
@@ -110,6 +111,7 @@ def cpdalter(request):
             return cpdindex(request, msg = 1)
 
 def cpdbatchinput(request):
+    ##批量上传化合物信息
     if request.method == 'POST':
         file_obj = request.FILES.get('file')
         if not file_obj:
@@ -118,35 +120,41 @@ def cpdbatchinput(request):
         for line in file_obj.chunks():
             file_s.write(line)
         file_s.close()
-        with open(os.path.join("./data", file_obj.name), 'r') as rf:
+
+        ##识别编码格式
+        f = open(os.path.join("./data", file_obj.name),'rb')
+        r = f.read()
+        file_info = detect(r)
+        f.close()
+
+        with open(os.path.join("./data", file_obj.name), 'r', encoding=file_info['encoding']) as rf:
             reader = csv.reader(rf)
             line = reader.__next__()
             nnn = 0
             errlist = []
             for rows in reader:
-                try:
-                    infos = {
-                        'cpdnumber' : rows[0],
-                        'fromcru' : crudeex.objects.get(mcccnumber=rows[1]), 
-                        'frombact' : fromcru.frombact,
-                        'mass' : rows[2], 
-                        'stru' : rows[3],
-                        'recadd' : rows[4], 
-                        'nmr' : rows[5],
-                        'ms' : rows[6], 
-                        'rot' : rows[7],
-                        'red' : rows[8], 
-                        'blue' : rows[9], 
-                        'media' : rows[10],
-                        'comment' : rows[11],
-                        'prov' : request.user,
-                    }
-                    infos['frombact'] = info.get('fromcru').frombact
-                    cpd.objects.create(**infos)
-                    nnn = nnn + 1
-                except:
-                    nnn = nnn + 1
-                    errlist.append(nnn)
+                #try:
+                infos = {
+                    'cpdnumber' : rows[0],
+                    'fromcru' : crudeex.objects.get(mcccnumber=rows[1]), 
+                    'mass' : rows[2], 
+                    'stru' : rows[3],
+                    'recadd' : rows[4], 
+                    'nmr' : rows[5],
+                    'ms' : rows[6], 
+                    'rot' : rows[7],
+                    'red' : rows[8], 
+                    'blue' : rows[9], 
+                    'media' : rows[10],
+                    'comment' : rows[11],
+                    'prov' : request.user,
+                }
+                infos['frombact'] = infos.get('fromcru').frombact
+                cpd.objects.create(**infos)
+                nnn = nnn + 1
+                #except:
+                #    nnn = nnn + 1
+                #    errlist.append(nnn)
         os.remove(os.path.join("./data", file_obj.name))
         if not len(errlist):
             return cpdindex(request, msg = 0) 

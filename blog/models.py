@@ -31,15 +31,15 @@ class bact(models.Model):  #菌株
 class crudeex(models.Model): ##粗提物
     ##10/22修改，加入一列粗提物编号
     frombact = models.ForeignKey(bact) ##来源菌株  %%没有显示出来
-    crunumber = models.CharField(max_length = 50, unique = True) #粗提物编号，唯一
-    mcccnumber = models.CharField(max_length = 50) #mccc编号
-    chinesename = models.CharField(max_length = 200) #中文名
+    #crunumber = models.CharField(max_length = 50) #粗提物编号，唯一
+    mcccnumber = models.CharField(max_length = 50, unique = True) #mccc编号
+    chinesename = models.CharField(max_length = 200, blank = True) #中文名
     recadd = models.CharField(max_length = 100)#样品存储地址
     media = models.CharField(max_length = 200) #培养基
     entertime = models.DateTimeField(auto_now_add=True,editable = True) #入库时间
-    entervol = models.FloatField() #入库体积
-    entercol =  models.FloatField() #入库浓度
-    solvent = models.CharField(max_length = 100) #溶剂
+    entervol = models.FloatField(blank = True,null = True) #入库体积
+    entercol =  models.FloatField(blank = True,null = True) #入库浓度
+    solvent = models.CharField(max_length = 100, blank = True) #溶剂
     exrmethod = models.CharField(max_length = 500, blank = True) #提取方法
     provider = models.ForeignKey(User) #提供人
     comment = models.CharField(max_length = 500, blank = True)

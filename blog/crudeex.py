@@ -9,6 +9,7 @@ from django.db.models import Q
 from django.utils import timezone
 import os
 import csv
+from chardet import detect
 from django.core.urlresolvers import reverse  
 from django.shortcuts import redirect  
 from django.db.models.aggregates import Count
@@ -136,6 +137,7 @@ def cru2rec(request):
         return crudeexindex(request, msg = 0)
 
 def cbatchinput(request):
+    ##粗提物批量上传
     if request.method == 'POST':
         file_obj = request.FILES.get('file')
         if not file_obj:
@@ -144,31 +146,40 @@ def cbatchinput(request):
         for line in file_obj.chunks():
             file_s.write(line)
         file_s.close()
-        with open(os.path.join("./data", file_obj.name), 'r') as rf:
+
+        #识别编码格式
+        f = open(os.path.join("./data", file_obj.name),'rb')
+        r = f.read()
+        file_info = detect(r)
+        f.close()
+
+        with open(os.path.join("./data", file_obj.name), 'r', encoding=file_info['encoding']) as rf:
             reader = csv.reader(rf)
             line = reader.__next__()
             nnn = 0
             errlist = []
             for rows in reader:
-                try:
-                    infos = {
-                        'frombact' : bact.objects.get(bactnumber=rows[0]),
-                        'mcccnumber' : rows[1], 
-                        'chinesename' : rows[2], 
-                        'recadd' : rows[3],
-                        'media' : rows[4], 
-                        'entervol' : rows[5],
-                        'entercol' : rows[6], 
-                        'solvent' : rows[7],
-                        'exrmethod' : rows[8], 
-                        'comment' : rows[9], 
-                        'provider' : request.user,
-                    }
-                    crudeex.objects.create(**infos)
-                    nnn = nnn + 1
-                except:
-                    nnn = nnn + 1
-                    errlist.append(nnn)
+                #try:
+                infos = {
+                    'frombact' : bact.objects.get(bactnumber=rows[0]),
+                    'mcccnumber' : rows[1], 
+                    'chinesename' : rows[2], 
+                    'recadd' : rows[3],
+                    'media' : rows[4], 
+                    'solvent' : rows[7],
+                    'exrmethod' : rows[8], 
+                    'comment' : rows[9], 
+                    'provider' : request.user,
+                }
+                if rows[5]:
+                    infos['entervol'] = rows[5]
+                if rows[6]:
+                    infos['entercol'] = rows[6]
+                crudeex.objects.create(**infos)
+                nnn = nnn + 1
+            #except:
+            #    nnn = nnn + 1
+            #    errlist.append(nnn)
         os.remove(os.path.join("./data", file_obj.name))
         return crudeexindex(request, msg = 0)
         if not len(errlist):
