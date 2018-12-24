@@ -169,40 +169,40 @@ def loadalter(request):
             nnn = 0
             errlist = []
             for rows in reader:
-                #try:                    
+                try:                    
                 # 'fromcru' : crudeex.objects.get(mcccnumber=rows[1]), 
                 #  'fromcpd' : cpd.objects.get(cpdnumber=rows[2]), 
-                recordid = rows[0]
-                infos = {}
-                if rows[1]:
-                    infos['testtype'] = rows[1]
-                if rows[2]:
-                    infos['fromcru'] = crudeex.objects.get(mcccnumber=rows[1])
-                elif rows[3]:
-                    infos['fromcpd'] = cpd.objects.get(cpdnumber=rows[2])
-                else:
-                    pass
-                if rows[4]:
-                    infos['solvent'] = rows[4]
-                if rows[5]:
-                    infos['mass'] = rows[5]
-                if rows[6]:
-                    infos['volume'] = rows[6]
-                if rows[7]:
-                    infos['conc'] = rows[7]
-                if rows[8]:
-                    infos['testconc'] = rows[8]
-                if rows[9]:
-                    infos['department'] = rows[9]
-                if rows[10]:
-                    infos['batch'] = rows[10]
-                if rows[11]:
-                    infos['comment'] = rows[11]
-                testrecord.objects.select_for_update().filter(recordid = recordid).update(**infos)
-                nnn = nnn + 1
-                #except:
-                #    nnn = nnn + 1
-                #    errlist.append(nnn)
+                    recordid = rows[0]
+                    infos = {}
+                    if rows[1]:
+                        infos['testtype'] = rows[1]
+                    if rows[2]:
+                        infos['fromcru'] = crudeex.objects.get(mcccnumber=rows[2])
+                    elif rows[3]:
+                        infos['fromcpd'] = cpd.objects.get(cpdnumber=rows[3])
+                    else:
+                        pass
+                    if rows[4]:
+                        infos['solvent'] = rows[4]
+                    if rows[5]:
+                        infos['mass'] = rows[5]
+                    if rows[6]:
+                        infos['volume'] = rows[6]
+                    if rows[7]:
+                        infos['conc'] = rows[7]
+                    if rows[8]:
+                        infos['testconc'] = rows[8]
+                    if rows[9]:
+                        infos['department'] = rows[9]
+                    if rows[10]:
+                        infos['batch'] = rows[10]
+                    if rows[11]:
+                        infos['comment'] = rows[11]
+                    testrecord.objects.select_for_update().filter(recordid = recordid).update(**infos)
+                    nnn = nnn + 1
+                except:
+                    nnn = nnn + 1
+                    errlist.append(nnn)
         os.remove(os.path.join("./data", file_obj.name)) 
         if not len(errlist):
             return recordindex(request, msg = 0) 
@@ -233,37 +233,37 @@ def tbatchinput(request):
             nnn = 0
             errlist = []
             for rows in reader:
-                #try:                    
+                try:                    
                 # 'fromcru' : crudeex.objects.get(mcccnumber=rows[1]), 
                 #  'fromcpd' : cpd.objects.get(cpdnumber=rows[2]), 
-                infos = {
-                    'recordid' : rows[0],
-                    'testtype' : rows[1],
-                    'solvent' : rows[4],
-                    'mass' : rows[5],  
-                    'department' : rows[9],
-                    'comment' : rows[11],
-                    'provider' : request.user,
-                }
-                if rows[2]:
-                    infos['fromcru'] = crudeex.objects.get(mcccnumber=rows[2])
-                elif rows[3]:
-                    infos['fromcpd'] = cpd.objects.get(cpdnumber=rows[3])
-                else:
-                    pass
-                if rows[6]:
-                    infos['volume'] = rows[6]
-                if rows[7]:
-                    infos['conc'] = rows[7]
-                if rows[8]:
-                    infos['testconc'] = rows[8]
-                if rows[10]:
-                    infos['batch'] = rows[10]
-                testrecord.objects.create(**infos)
-                nnn = nnn + 1
-                #except:
-                #    nnn = nnn + 1
-                #    errlist.append(nnn)
+                    infos = {
+                        'recordid' : rows[0],
+                        'testtype' : rows[1],
+                        'solvent' : rows[4],
+                        'mass' : rows[5],  
+                        'department' : rows[9],
+                        'comment' : rows[11],
+                        'provider' : request.user,
+                    }
+                    if rows[2]:
+                        infos['fromcru'] = crudeex.objects.get(mcccnumber=rows[2])
+                    elif rows[3]:
+                        infos['fromcpd'] = cpd.objects.get(cpdnumber=rows[3])
+                    else:
+                        pass
+                    if rows[6]:
+                        infos['volume'] = rows[6]
+                    if rows[7]:
+                        infos['conc'] = rows[7]
+                    if rows[8]:
+                        infos['testconc'] = rows[8]
+                    if rows[10]:
+                        infos['batch'] = rows[10]
+                    testrecord.objects.create(**infos)
+                    nnn = nnn + 1
+                except:
+                    nnn = nnn + 1
+                    errlist.append(nnn)
         os.remove(os.path.join("./data", file_obj.name)) 
         if not len(errlist):
             return recordindex(request, msg = 0) 

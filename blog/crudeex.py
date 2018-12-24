@@ -17,6 +17,8 @@ from django.db.models.aggregates import Count
 @login_required
 def crudeexindex(request, msg = -1, err = []):  ##粗提物
     ##lists = crudeex.objects.all()
+    ##c粗提物关联至送测记录时可以参考官方文档 https://docs.djangoproject.com/en/2.0/topics/db/aggregation/
+    #q = Book.objects.annotate(Count('authors', distinct=True), Count('store', distinct=True))  直接写两个
     lists = crudeex.objects.annotate(num_cpd=Count('cpd')).order_by('-id')
     num = len(lists)
     return render(request, 'blog/crudeex.html', context = {'tests' : lists, 'msg' : msg, 'num' : num, 'err' : err} )
@@ -159,27 +161,27 @@ def cbatchinput(request):
             nnn = 0
             errlist = []
             for rows in reader:
-                #try:
-                infos = {
-                    'frombact' : bact.objects.get(bactnumber=rows[0]),
-                    'mcccnumber' : rows[1], 
-                    'chinesename' : rows[2], 
-                    'recadd' : rows[3],
-                    'media' : rows[4], 
-                    'solvent' : rows[7],
-                    'exrmethod' : rows[8], 
-                    'comment' : rows[9], 
-                    'provider' : request.user,
-                }
-                if rows[5]:
-                    infos['entervol'] = rows[5]
-                if rows[6]:
-                    infos['entercol'] = rows[6]
-                crudeex.objects.create(**infos)
-                nnn = nnn + 1
-            #except:
-            #    nnn = nnn + 1
-            #    errlist.append(nnn)
+                try:
+                    infos = {
+                        'frombact' : bact.objects.get(bactnumber=rows[0]),
+                        'mcccnumber' : rows[1], 
+                        'chinesename' : rows[2], 
+                        'recadd' : rows[3],
+                        'media' : rows[4], 
+                        'solvent' : rows[7],
+                        'exrmethod' : rows[8], 
+                        'comment' : rows[9], 
+                        'provider' : request.user,
+                    }
+                    if rows[5]:
+                        infos['entervol'] = rows[5]
+                    if rows[6]:
+                        infos['entercol'] = rows[6]
+                    crudeex.objects.create(**infos)
+                    nnn = nnn + 1
+                except:
+                    nnn = nnn + 1
+                    errlist.append(nnn)
         os.remove(os.path.join("./data", file_obj.name))
         return crudeexindex(request, msg = 0)
         if not len(errlist):

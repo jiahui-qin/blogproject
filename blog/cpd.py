@@ -133,28 +133,28 @@ def cpdbatchinput(request):
             nnn = 0
             errlist = []
             for rows in reader:
-                #try:
-                infos = {
-                    'cpdnumber' : rows[0],
-                    'fromcru' : crudeex.objects.get(mcccnumber=rows[1]), 
-                    'mass' : rows[2], 
-                    'stru' : rows[3],
-                    'recadd' : rows[4], 
-                    'nmr' : rows[5],
-                    'ms' : rows[6], 
-                    'rot' : rows[7],
-                    'red' : rows[8], 
-                    'blue' : rows[9], 
-                    'media' : rows[10],
-                    'comment' : rows[11],
-                    'prov' : request.user,
-                }
-                infos['frombact'] = infos.get('fromcru').frombact
-                cpd.objects.create(**infos)
-                nnn = nnn + 1
-                #except:
-                #    nnn = nnn + 1
-                #    errlist.append(nnn)
+                try:
+                    infos = {
+                        'cpdnumber' : rows[0],
+                        'fromcru' : crudeex.objects.get(mcccnumber=rows[1]), 
+                        'mass' : rows[2], 
+                        'stru' : rows[3],
+                        'recadd' : rows[4], 
+                        'nmr' : rows[5],
+                        'ms' : rows[6], 
+                        'rot' : rows[7],
+                        'red' : rows[8], 
+                        'blue' : rows[9], 
+                        'media' : rows[10],
+                        'comment' : rows[11],
+                        'prov' : request.user,
+                    }
+                    infos['frombact'] = infos.get('fromcru').frombact
+                    cpd.objects.create(**infos)
+                    nnn = nnn + 1
+                except:
+                    nnn = nnn + 1
+                    errlist.append(nnn)
         os.remove(os.path.join("./data", file_obj.name))
         if not len(errlist):
             return cpdindex(request, msg = 0) 
