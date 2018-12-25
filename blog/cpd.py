@@ -159,7 +159,7 @@ def cpdbatchinput(request):
         if not len(errlist):
             return cpdindex(request, msg = 0) 
         else:
-            return cpdindex(msg = 2, err = errlist)
+            return cpdindex(request, msg = 2, err = errlist)
 
 def cpd2rec(request, cpdid):
     cpds = cpd.objects.get(id = cpdid)

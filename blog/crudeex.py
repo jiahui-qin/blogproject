@@ -19,7 +19,7 @@ def crudeexindex(request, msg = -1, err = []):  ##粗提物
     ##lists = crudeex.objects.all()
     ##c粗提物关联至送测记录时可以参考官方文档 https://docs.djangoproject.com/en/2.0/topics/db/aggregation/
     #q = Book.objects.annotate(Count('authors', distinct=True), Count('store', distinct=True))  直接写两个
-    lists = crudeex.objects.annotate(num_cpd=Count('cpd')).order_by('-id')
+    lists = crudeex.objects.annotate(num_cpd=Count('cpd', distinct=True),num_rec = Count('testrecord', distinct=True)).order_by('-id')
     num = len(lists)
     return render(request, 'blog/crudeex.html', context = {'tests' : lists, 'msg' : msg, 'num' : num, 'err' : err} )
 
